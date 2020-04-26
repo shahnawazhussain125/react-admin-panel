@@ -1,0 +1,12 @@
+.container {
+  /* display: flex; */
+  /* border: 2px solid red; */
+}
+.row {
+  display: flex;
+  width: 60%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+  /* border: 2px solid green; */
+}

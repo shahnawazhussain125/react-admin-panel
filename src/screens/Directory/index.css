@@ -1,0 +1,81 @@
+.row-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+.row-modal-inputflield {
+  display: flex;
+  justify-content: center;
+  align-items: "center";
+  margin-bottom: 20px;
+}
+.text-add {
+  margin-left: 100px;
+  background-color: #819bff;
+  height: 32px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: end;
+  padding: 5px;
+  border-radius: 5px;
+}
+.text-newline {
+  margin-right: 100px;
+  background-color: #819bff;
+  height: 32px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  padding: 5px;
+  border-radius: 5px;
+}
+.row1 {
+  background-color: #f0dc00;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 50px;
+}
+.text-doc {
+  text-align: "center";
+  font-size: 16px;
+  font-weight: bold;
+}
+.row-map {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 5px;
+}
+.button-show {
+  margin: 5px;
+  background-color: #7855f8;
+  color: #fff;
+}
+.button-update {
+  margin: 10px;
+  background-color: #7855f8;
+  color: #fff;
+}
+.button-save-all {
+  margin: 10px;
+  background-color: #7855f8;
+  color: #fff;
+  margin-bottom: 50px;
+}
+
+/* //////////////////////// Previous screen CSS ////////////////////////// */
+
+.search-result-body {
+  background-color: white;
+}
+
+/* 
+  @media screen and (max-width: 480px)
+  {
+    .profile-list{
+        display: flex;
+        flex-direction: column;
+        justify-content: center
+    }
+  } */
