@@ -4,7 +4,7 @@ import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
 
-export default class Owner extends Component {
+export default class Illustration extends Component {
   constructor() {
     super();
     this.state = {
