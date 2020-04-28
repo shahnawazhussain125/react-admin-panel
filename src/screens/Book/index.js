@@ -3,13 +3,16 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
-import { Checkbox } from "antd";
+import { Checkbox, Select } from "antd";
+
+const db = firebase.firestore();
+const { Option } = Select;
 
 export default class Book extends Component {
   constructor() {
     super();
     this.state = {
-      authors: [],
+      books: [],
       currentIndex: 0,
       B_BookTitle: null,
       BAuthorName: null,
@@ -18,7 +21,7 @@ export default class Book extends Component {
       B_Web: null,
       B_isBookFree: false,
       B_isBookHidden: false,
-      L_LanguagaeName: null,
+      L_LanguageName: null,
       L0_ID_Language: null,
       L0_ID_Language_WEB: null,
       storage: null,
@@ -33,18 +36,63 @@ export default class Book extends Component {
       O0_ID_Owner_WEB: null,
       isAddNew: false,
       isLoading: true,
+      authors: [],
+      languages: [],
+      owners: [],
     };
   }
 
-  getAllLanguage = () => {
+  getAllLanguageAndAuther = () => {
     let authors = [];
+    let languages = [];
+    let owners = [];
+
+    let allPromises = [];
+
+    allPromises.push(db.collection("Authors").get());
+    allPromises.push(db.collection("Owners").get());
+    allPromises.push(db.collection("Languages").get());
+
+    Promise.all(allPromises)
+      .then((responses) => {
+        let index = 0;
+        responses.forEach((response) => {
+          response.forEach((doc) => {
+            if (index === 0) {
+              authors.push({
+                A0_ID_Author_WEB: doc.id,
+                ...doc.data(),
+              });
+            } else if (index === 1) {
+              owners.push({
+                O0_ID_Owner_WEB: doc.id,
+                ...doc.data(),
+              });
+            } else {
+              languages.push({
+                L0_ID_Language_WEB: doc.id,
+                ...doc.data(),
+              });
+            }
+          });
+          index++;
+        });
+        this.setState({ languages, owners, authors });
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error");
+      });
+  };
+
+  getAllBooks = () => {
+    let books = [];
     firebase
       .firestore()
       .collection("Books")
       .get()
       .then((response) => {
         response.forEach((doc) => {
-          authors.push({
+          books.push({
             B0_ID_Book_WEB: doc.id,
             B_BookTitle: doc.data()?.B_BookTitle,
             BAuthorName: doc.data()?.BAuthorName,
@@ -53,7 +101,7 @@ export default class Book extends Component {
             B_Web: doc.data()?.B_Web,
             B_isBookFree: doc.data()?.A_AuthorImage,
             B_isBookHidden: doc.data()?.B_isBookHidden,
-            L_LanguagaeName: doc.data()?.L_LanguagaeName,
+            L_LanguageName: doc.data()?.L_LanguageName,
             L0_ID_Language: doc.data()?.L0_ID_Language,
             L0_ID_Language_WEB: doc.data()?.L0_ID_Language_WEB,
             Storage: doc.data()?.Storage,
@@ -69,7 +117,7 @@ export default class Book extends Component {
           });
         });
         this.setState({
-          authors,
+          books,
         });
       })
       .catch((error) => {
@@ -78,7 +126,8 @@ export default class Book extends Component {
   };
 
   componentDidMount() {
-    this.getAllLanguage();
+    this.getAllBooks();
+    this.getAllLanguageAndAuther();
   }
 
   handleNext = () => {
@@ -90,32 +139,64 @@ export default class Book extends Component {
   };
 
   handleReload = () => {
-    this.getAllLanguage();
+    this.getAllBooks();
   };
 
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      B0_ID_Book: null,
       B_BookTitle: null,
-      BAuthorName: false,
-      A_AuthorImage: null,
+      BAuthorName: null,
+      B0_ID_Book: null,
+      B0_ID_Book_WEB: null,
+      B_Web: null,
+      B_isBookFree: false,
+      B_isBookHidden: false,
+      L_LanguageName: null,
+      L0_ID_Language: null,
+      L0_ID_Language_WEB: null,
+      storage: null,
+      B_BookImage: null,
+      BOOKOwner: null,
+      O_Company: null,
+      O_Web: null,
+      O_ContactName: null,
+      O_ContactEmail: null,
+      O_ContactTel: null,
+      O0_ID_Owner: null,
+      O0_ID_Owner_WEB: null,
     });
   };
 
   handleSaveData = () => {
     const {
-      B0_ID_Book,
-      A_AuthorImage,
       B_BookTitle,
       BAuthorName,
+      B0_ID_Book,
+      B0_ID_Book_WEB,
+      B_Web,
+      B_isBookFree,
+      B_isBookHidden,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      storage,
+      B_BookImage,
+      BOOKOwner,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
       file,
     } = this.state;
 
     let storageRef = firebase
       .storage()
       .ref()
-      .child(`AuthorImages/${Math.random().toString().substring(5)}`);
+      .child(`BookImages/${Math.random().toString().substring(5)}`);
 
     storageRef
       .put(file)
@@ -127,15 +208,29 @@ export default class Book extends Component {
               .firestore()
               .collection("Books")
               .add({
-                B0_ID_Book,
-                A_AuthorImage,
                 B_BookTitle,
                 BAuthorName,
+                B0_ID_Book,
+                B_Web,
+                B_isBookFree,
+                B_isBookHidden,
+                L_LanguageName,
+                L0_ID_Language,
+                L0_ID_Language_WEB,
+                B_BookImage,
+                BOOKOwner,
+                O_Company,
+                O_Web,
+                O_ContactName,
+                O_ContactEmail,
+                O_ContactTel,
+                O0_ID_Owner,
+                O0_ID_Owner_WEB,
                 Storage,
               })
               .then(() => {
                 notify.show(
-                  "Author has been successfully added",
+                  "Book has been successfully added",
                   "success",
                   2000
                 );
@@ -147,7 +242,7 @@ export default class Book extends Component {
                   BAuthorName: false,
                   isAddNew: false,
                 });
-                this.getAllLanguage();
+                this.getAllBooks();
               })
               .catch((error) => {
                 notify.show(`Error! ${error.message}`, "error", 2000);
@@ -171,12 +266,10 @@ export default class Book extends Component {
       B_Web,
       B_isBookFree,
       B_isBookHidden,
-      L_LanguagaeName,
+      L_LanguageName,
       L0_ID_Language,
       L0_ID_Language_WEB,
-      storage,
       B_BookImage,
-      BOOKOwner,
       O_Company,
       O_Web,
       O_ContactName,
@@ -185,9 +278,12 @@ export default class Book extends Component {
       O0_ID_Owner,
       O0_ID_Owner_WEB,
       isAddNew,
-      authors,
+      books,
       currentIndex,
       Storage,
+      owners,
+      authors,
+      languages,
     } = this.state;
     return (
       <div className="container">
@@ -205,7 +301,7 @@ export default class Book extends Component {
                 <p>B_BookTitle</p>
                 <input
                   key={0}
-                  value={B0_ID_Book}
+                  value={B_BookTitle}
                   onChange={(e) =>
                     this.setState({ B_BookTitle: e.target.value })
                   }
@@ -280,22 +376,26 @@ export default class Book extends Component {
               </div>
 
               <div className="row">
-                <p>BookLanguage</p>
-                <input
-                  key={1}
-                  value={L_LanguagaeName}
-                  onChange={(e) =>
-                    this.setState({ L_LanguagaeName: e.target.value })
-                  }
-                />
+                <p>BOOKOwner</p>
+                <Select
+                  style={{ width: 250 }}
+                  placeholder="Select Owner"
+                  onChange={(value) => this.setState({ ...languages[value] })}
+                >
+                  {languages.map((value, index) => (
+                    <Option key={value.L0_ID_Language} value={index}>
+                      {value.L_LanguageName}
+                    </Option>
+                  ))}
+                </Select>
               </div>
               <div className="row">
-                <p>L_LanguagaeName</p>
+                <p>L_LanguageName</p>
                 <input
                   key={1}
-                  value={L_LanguagaeName}
+                  value={L_LanguageName}
                   onChange={(e) =>
-                    this.setState({ L_LanguagaeName: e.target.value })
+                    this.setState({ L_LanguageName: e.target.value })
                   }
                 />
               </div>
@@ -337,7 +437,7 @@ export default class Book extends Component {
                   accept="image/*"
                   onChange={(e) => {
                     this.setState({
-                      A_AuthorImage: e.target.files[0].name,
+                      B_BookImage: e.target.files[0].name,
                       Storage: URL.createObjectURL(e.target.files[0]),
                       file: e.target.files[0],
                     });
@@ -359,11 +459,17 @@ export default class Book extends Component {
               </div>
               <div className="row">
                 <p>BOOKOwner</p>
-                <input
-                  key={1}
-                  // value={BOOKOwner}
-                  onChange={(e) => this.setState({ BOOKOwner: e.target.value })}
-                />
+                <Select
+                  style={{ width: 250 }}
+                  placeholder="Select Owner"
+                  onChange={(value) => this.setState({ ...owners[value] })}
+                >
+                  {owners.map((value, index) => (
+                    <Option key={value.O0_ID_Owner} value={index}>
+                      {value.O_ContactName}
+                    </Option>
+                  ))}
+                </Select>
               </div>
               <div className="row">
                 <p>O_Company</p>
@@ -454,46 +560,46 @@ export default class Book extends Component {
             <div>
               <div className="row">
                 <p>B0_ID_Book</p>
-                <input value={authors[currentIndex]?.B0_ID_Book} />
+                <input value={books[currentIndex]?.B0_ID_Book} />
               </div>
               <div className="row">
                 <p>BAuthorName</p>
-                <input value={authors[currentIndex]?.BAuthorName} />
+                <input value={books[currentIndex]?.BAuthorName} />
               </div>
               <div className="row">
                 <p>B0_ID_Book_WEB</p>
-                <input value={authors[currentIndex]?.B0_ID_Book_WEB} />
+                <input value={books[currentIndex]?.B0_ID_Book_WEB} />
               </div>
               <div className="row">
                 <p>B_Web</p>
-                <input value={authors[currentIndex]?.B_Web} />
+                <input value={books[currentIndex]?.B_Web} />
               </div>
               <div className="row">
                 <p>B_isBookFree</p>
-                <Checkbox checked={authors[currentIndex]?.B_isBookFree} />
+                <Checkbox checked={books[currentIndex]?.B_isBookFree} />
               </div>
               <div className="row">
                 <p>B_isBookHidden</p>
-                <Checkbox checked={authors[currentIndex]?.B_isBookHidden} />
+                <Checkbox checked={books[currentIndex]?.B_isBookHidden} />
               </div>
               <div className="row">
                 <h3>Book Language</h3>
               </div>
               <div className="row">
                 <p>BookLanguage</p>
-                <input value={authors[currentIndex]?.L_LanguagaeName} />
+                <input value={books[currentIndex]?.L_LanguageName} />
               </div>
               <div className="row">
-                <p>L_LanguagaeName</p>
-                <input value={authors[currentIndex]?.L_LanguagaeName} />
+                <p>L_LanguageName</p>
+                <input value={books[currentIndex]?.L_LanguageName} />
               </div>
               <div className="row">
                 <p>L0_ID_Language</p>
-                <input value={authors[currentIndex]?.L0_ID_Language} />
+                <input value={books[currentIndex]?.L0_ID_Language} />
               </div>
               <div className="row">
                 <p>L0_ID_Language_WEB</p>
-                <input value={authors[currentIndex]?.L0_ID_Language_WEB} />
+                <input value={books[currentIndex]?.L0_ID_Language_WEB} />
               </div>
             </div>
             <div>
@@ -518,38 +624,38 @@ export default class Book extends Component {
               </div>
               <div className="row">
                 <p>B_BookImage</p>
-                <input value={authors[currentIndex]?.B_BookImage} />
+                <input value={books[currentIndex]?.B_BookImage} />
               </div>
               <div className="row">
                 <h3>Book Owner</h3>
               </div>
               <div className="row">
                 <p>O_Company</p>
-                <input value={authors[currentIndex]?.O_Company} />
+                <input value={books[currentIndex]?.O_Company} />
               </div>
               <div className="row">
                 <p>O_Web</p>
-                <input value={authors[currentIndex]?.O_Web} />
+                <input value={books[currentIndex]?.O_Web} />
               </div>
               <div className="row">
                 <p>O_ContactName</p>
-                <input value={authors[currentIndex]?.O_ContactName} />
+                <input value={books[currentIndex]?.O_ContactName} />
               </div>
               <div className="row">
                 <p>O_ContactEmail</p>
-                <input value={authors[currentIndex]?.O_ContactEmail} />
+                <input value={books[currentIndex]?.O_ContactEmail} />
               </div>
               <div className="row">
                 <p>O_ContactTel</p>
-                <input value={authors[currentIndex]?.O_ContactTel} />
+                <input value={books[currentIndex]?.O_ContactTel} />
               </div>
               <div className="row">
                 <p>O0_ID_Owner</p>
-                <input value={authors[currentIndex]?.O0_ID_Owner} />
+                <input value={books[currentIndex]?.O0_ID_Owner} />
               </div>
               <div className="row">
                 <p>O0_ID_Owner_WEB</p>
-                <input value={authors[currentIndex]?.O0_ID_Owner_WEB} />
+                <input value={books[currentIndex]?.O0_ID_Owner_WEB} />
               </div>
             </div>
           </div>
