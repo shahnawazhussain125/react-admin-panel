@@ -3,44 +3,39 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
+import { Checkbox } from "antd";
 
 export default class Illustration extends Component {
   constructor() {
     super();
     this.state = {
-      owners: [],
+      illustrators: [],
       currentIndex: 0,
-      O0_ID_Owner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
+      I0_ID_Illustrator: null,
+      I_IllustratorName: null,
+      _isIllustratorHidden: null,
       isAddNew: false,
       isLoading: true,
     };
   }
 
   getAllLanguage = () => {
-    let owners = [];
+    let illustrators = [];
     firebase
       .firestore()
-      .collection("Owners")
+      .collection("Illustrators")
       .get()
       .then((response) => {
         response.forEach((doc) => {
-          owners.push({
-            O0_ID_Owner_WEB: doc.id,
-            O0_ID_Owner: doc.data()?.O0_ID_Owner,
-            O_Company: doc.data()?.O_Company,
-            O_Web: doc.data()?.O_Web,
-            O_ContactName: doc.data()?.O_ContactName,
-            O_ContactEmail: doc.data()?.O_ContactEmail,
-            O_ContactTel: doc.data()?.O_ContactTel,
+          illustrators.push({
+            I0_ID_Illustrator_WEB: doc.id,
+            I0_ID_Illustrator: doc.data()?.I0_ID_Illustrator,
+            I_IllustratorName: doc.data()?.I_IllustratorName,
+            _isIllustratorHidden: doc.data()?._isIllustratorHidden,
           });
         });
         this.setState({
-          owners,
+          illustrators,
         });
       })
       .catch((error) => {
@@ -67,44 +62,32 @@ export default class Illustration extends Component {
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      O0_ID_Owner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
+      I0_ID_Illustrator: null,
+      I_IllustratorName: null,
+      _isIllustratorHidden: null,
     });
   };
 
   handleSaveData = () => {
     const {
-      O0_ID_Owner,
-      O_Company,
-      O_Web,
-      O_ContactName,
-      O_ContactEmail,
-      O_ContactTel,
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      _isIllustratorHidden,
     } = this.state;
     firebase
       .firestore()
-      .collection("Owners")
+      .collection("Illustrators")
       .add({
-        O0_ID_Owner,
-        O_Company,
-        O_Web,
-        O_ContactName,
-        O_ContactEmail,
-        O_ContactTel,
+        I0_ID_Illustrator,
+        I_IllustratorName,
+        _isIllustratorHidden,
       })
       .then(() => {
         notify.show("Owner has been successfully added", "success", 2000);
         this.setState({
-          O0_ID_Owner: null,
-          O_Company: null,
-          O_Web: null,
-          O_ContactName: null,
-          O_ContactEmail: null,
-          O_ContactTel: null,
+          I0_ID_Illustrator: null,
+          I_IllustratorName: null,
+          _isIllustratorHidden: null,
           isAddNew: false,
         });
         this.getAllLanguage();
@@ -116,14 +99,11 @@ export default class Illustration extends Component {
 
   render() {
     const {
-      O0_ID_Owner,
-      O_Company,
-      O_Web,
-      O_ContactName,
-      O_ContactEmail,
-      O_ContactTel,
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      _isIllustratorHidden,
       isAddNew,
-      owners,
+      illustrators,
       currentIndex,
     } = this.state;
     return (
@@ -138,57 +118,36 @@ export default class Illustration extends Component {
         {isAddNew ? (
           <div>
             <div className="row">
-              <p>O0_ID_Owner</p>
+              <p>I0_ID_Illustrator</p>
               <input
                 key={1}
-                value={O0_ID_Owner}
-                onChange={(e) => this.setState({ O0_ID_Owner: e.target.value })}
+                value={I0_ID_Illustrator}
+                onChange={(e) =>
+                  this.setState({ I0_ID_Illustrator: e.target.value })
+                }
               />
             </div>
 
             <div className="row">
-              <p>O_Company</p>
+              <p>I_IllustratorName</p>
               <input
                 key={2}
-                value={O_Company}
-                onChange={(e) => this.setState({ O_Company: e.target.value })}
+                value={I_IllustratorName}
+                onChange={(e) =>
+                  this.setState({ I_IllustratorName: e.target.value })
+                }
               />
             </div>
             <div className="row">
-              <p>O_Web</p>
-              <input
+              <p>_isIllustratorHidden</p>
+              <Checkbox
                 key={3}
-                value={O_Web}
-                onChange={(e) => this.setState({ O_Web: e.target.value })}
-              />
-            </div>
-            <div className="row">
-              <p>O_ContactName</p>
-              <input
-                key={4}
-                value={O_ContactName}
-                onChange={(e) =>
-                  this.setState({ O_ContactName: e.target.value })
-                }
-              />
-            </div>
-            <div className="row">
-              <p>O_ContactEmail</p>
-              <input
-                key={5}
-                value={O_ContactEmail}
-                onChange={(e) =>
-                  this.setState({ O_ContactEmail: e.target.value })
-                }
-              />
-            </div>
-            <div className="row">
-              <p>O_ContactTel</p>
-              <input
-                key={6}
-                value={O_ContactTel}
-                onChange={(e) =>
-                  this.setState({ O_ContactTel: e.target.value })
+                checked={_isIllustratorHidden}
+                // value={_isIllustratorHidden}
+                onChange={() =>
+                  this.setState({
+                    _isIllustratorHidden: !_isIllustratorHidden,
+                  })
                 }
               />
             </div>
@@ -213,32 +172,24 @@ export default class Illustration extends Component {
         ) : (
           <div>
             <div className="row">
-              <p>O0_ID_Owner</p>
-              <input value={owners[currentIndex]?.O0_ID_Owner} />
+              <p>I0_ID_Illustrator</p>
+              <input value={illustrators[currentIndex]?.I0_ID_Illustrator} />
             </div>
             <div className="row">
-              <p>O0_ID_Owner_WEB</p>
-              <input value={owners[currentIndex]?.O0_ID_Owner_WEB} />
+              <p>I0_ID_Illustrator_WEB</p>
+              <input
+                value={illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
+              />
             </div>
             <div className="row">
-              <p>O_Company</p>
-              <input value={owners[currentIndex]?.O_Company} />
+              <p>I_IllustratorName</p>
+              <input value={illustrators[currentIndex]?.I_IllustratorName} />
             </div>
             <div className="row">
-              <p>O_Web</p>
-              <input value={owners[currentIndex]?.O_Web} />
-            </div>
-            <div className="row">
-              <p>O_ContactName</p>
-              <input value={owners[currentIndex]?.O_ContactName} />
-            </div>
-            <div className="row">
-              <p>O_ContactEmail</p>
-              <input value={owners[currentIndex]?.O_ContactEmail} />
-            </div>
-            <div className="row">
-              <p>O_ContactTel</p>
-              <input value={owners[currentIndex]?.O_ContactTel} />
+              <p>_isIllustratorHidden</p>
+              <Checkbox
+                checked={illustrators[currentIndex]?._isIllustratorHidden}
+              />
             </div>
           </div>
         )}
