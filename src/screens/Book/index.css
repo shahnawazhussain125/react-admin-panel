@@ -10,3 +10,10 @@
   margin: 20px;
   /* border: 2px solid green; */
 }
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between;
+  margin: 20px; */
+}
