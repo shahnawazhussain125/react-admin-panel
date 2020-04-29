@@ -1,5 +1,5 @@
 import React from "react";
-import Directory from "./screens/Directory";
+import Tables from "./screens/Tables";
 import Language from "./screens/Language";
 import Owner from "./screens/Owner";
 import Illustration from "./screens/Illustration";
@@ -9,7 +9,7 @@ import Book from "./screens/Book";
 function App() {
   return (
     <div className="App">
-      <Book />
+      <Tables />
     </div>
   );
 }
