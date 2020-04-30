@@ -4,6 +4,8 @@ import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
 import { Checkbox } from "antd";
+import { illustrationInputValidation } from "../../utilities/validation";
+import ValidationInput from "../../components/ValidationInput";
 
 export default class Illustration extends Component {
   constructor() {
@@ -11,19 +13,22 @@ export default class Illustration extends Component {
     this.state = {
       illustrators: [],
       currentIndex: 0,
-      I0_ID_Illustrator: null,
-      I_IllustratorName: null,
-      _isIllustratorHidden: null,
+      I0_ID_Illustrator: "",
+      I_IllustratorName: "",
+      _isIllustratorHidden: false,
       isAddNew: false,
       isLoading: true,
+      is_error: null,
+      validation_error: null,
     };
   }
 
-  getAllLanguage = () => {
+  getAllIllustrator = () => {
     let illustrators = [];
     firebase
       .firestore()
       .collection("Illustrators")
+      .orderBy("I0_ID_Illustrator", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -44,27 +49,33 @@ export default class Illustration extends Component {
   };
 
   componentDidMount() {
-    this.getAllLanguage();
+    this.getAllIllustrator();
   }
 
   handleNext = () => {
-    this.setState({ currentIndex: this.state.currentIndex + 1 });
+    const { currentIndex, illustrators } = this.state;
+    if (currentIndex < illustrators?.length - 1) {
+      this.setState({ currentIndex: currentIndex + 1 });
+    }
   };
 
   handlePrevious = () => {
-    this.setState({ currentIndex: this.state.currentIndex - 1 });
+    const { currentIndex } = this.state;
+    if (currentIndex > 0) {
+      this.setState({ currentIndex: currentIndex - 1 });
+    }
   };
 
   handleReload = () => {
-    this.getAllLanguage();
+    this.getAllIllustrator();
   };
 
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      I0_ID_Illustrator: null,
-      I_IllustratorName: null,
-      _isIllustratorHidden: null,
+      I0_ID_Illustrator: "",
+      I_IllustratorName: "",
+      _isIllustratorHidden: false,
     });
   };
 
@@ -73,28 +84,45 @@ export default class Illustration extends Component {
       I0_ID_Illustrator,
       I_IllustratorName,
       _isIllustratorHidden,
+      illustrators,
     } = this.state;
-    firebase
-      .firestore()
-      .collection("Illustrators")
-      .add({
-        I0_ID_Illustrator,
-        I_IllustratorName,
-        _isIllustratorHidden,
-      })
-      .then(() => {
-        notify.show("Owner has been successfully added", "success", 2000);
-        this.setState({
-          I0_ID_Illustrator: null,
-          I_IllustratorName: null,
-          _isIllustratorHidden: null,
-          isAddNew: false,
-        });
-        this.getAllLanguage();
-      })
-      .catch((error) => {
-        notify.show(`Error! ${error.message}`, "error", 2000);
-      });
+
+    const { is_error, validation_error } = illustrationInputValidation({
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      _isIllustratorHidden,
+      illustrators,
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        firebase
+          .firestore()
+          .collection("Illustrators")
+          .add({
+            I0_ID_Illustrator,
+            I_IllustratorName,
+            _isIllustratorHidden,
+          })
+          .then(() => {
+            notify.show("Owner has been successfully added", "success", 2000);
+            this.setState({
+              I0_ID_Illustrator: "",
+              I_IllustratorName: "",
+              _isIllustratorHidden: false,
+              isAddNew: false,
+            });
+            this.getAllIllustrator();
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      }
+    });
+  };
+
+  handleOnChange = (name, value) => {
+    this.setState({ [name]: value });
   };
 
   render() {
@@ -105,6 +133,7 @@ export default class Illustration extends Component {
       isAddNew,
       illustrators,
       currentIndex,
+      validation_error,
     } = this.state;
     return (
       <div className="container">
@@ -119,23 +148,23 @@ export default class Illustration extends Component {
           <div>
             <div className="row">
               <p>I0_ID_Illustrator</p>
-              <input
-                key={1}
+              <ValidationInput
+                key={0}
+                name="I0_ID_Illustrator"
                 value={I0_ID_Illustrator}
-                onChange={(e) =>
-                  this.setState({ I0_ID_Illustrator: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.I0_ID_Illustrator}
               />
             </div>
 
             <div className="row">
               <p>I_IllustratorName</p>
-              <input
-                key={2}
+              <ValidationInput
+                key={1}
+                name="I_IllustratorName"
                 value={I_IllustratorName}
-                onChange={(e) =>
-                  this.setState({ I_IllustratorName: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.I_IllustratorName}
               />
             </div>
             <div className="row">
@@ -143,7 +172,6 @@ export default class Illustration extends Component {
               <Checkbox
                 key={3}
                 checked={_isIllustratorHidden}
-                // value={_isIllustratorHidden}
                 onChange={() =>
                   this.setState({
                     _isIllustratorHidden: !_isIllustratorHidden,
@@ -173,17 +201,21 @@ export default class Illustration extends Component {
           <div>
             <div className="row">
               <p>I0_ID_Illustrator</p>
-              <input value={illustrators[currentIndex]?.I0_ID_Illustrator} />
+              <input
+                defaultValue={illustrators[currentIndex]?.I0_ID_Illustrator}
+              />
             </div>
             <div className="row">
               <p>I0_ID_Illustrator_WEB</p>
               <input
-                value={illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
+                defaultValue={illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
               />
             </div>
             <div className="row">
               <p>I_IllustratorName</p>
-              <input value={illustrators[currentIndex]?.I_IllustratorName} />
+              <input
+                defaultValue={illustrators[currentIndex]?.I_IllustratorName}
+              />
             </div>
             <div className="row">
               <p>_isIllustratorHidden</p>

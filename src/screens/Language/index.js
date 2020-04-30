@@ -3,6 +3,8 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
+import ValidationInput from "../../components/ValidationInput";
+import { languageInputValidation } from "../../utilities/validation";
 
 export default class Language extends Component {
   constructor() {
@@ -10,11 +12,13 @@ export default class Language extends Component {
     this.state = {
       languages: [],
       currentIndex: 0,
-      L0_ID_Language: null,
-      L0_ID_Language_WEB: null,
-      L_LanguageName: null,
+      L0_ID_Language: "",
+      L0_ID_Language_WEB: "",
+      L_LanguageName: "",
       isAddNew: false,
       isLoading: true,
+      validation_error: null,
+      is_error: null,
     };
   }
 
@@ -23,6 +27,7 @@ export default class Language extends Component {
     firebase
       .firestore()
       .collection("Languages")
+      .orderBy("L0_ID_Language", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -46,11 +51,17 @@ export default class Language extends Component {
   }
 
   handleNext = () => {
-    this.setState({ currentIndex: this.state.currentIndex + 1 });
+    const { currentIndex, languages } = this.state;
+    if (currentIndex < languages?.length - 1) {
+      this.setState({ currentIndex: currentIndex + 1 });
+    }
   };
 
   handlePrevious = () => {
-    this.setState({ currentIndex: this.state.currentIndex - 1 });
+    const { currentIndex } = this.state;
+    if (currentIndex > 0) {
+      this.setState({ currentIndex: currentIndex - 1 });
+    }
   };
 
   handleReload = () => {
@@ -60,32 +71,51 @@ export default class Language extends Component {
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      L0_ID_Language: null,
-      L_LanguageName: null,
+      L0_ID_Language: "",
+      L_LanguageName: "",
     });
   };
 
   handleSaveData = () => {
-    const { L0_ID_Language, L_LanguageName } = this.state;
-    firebase
-      .firestore()
-      .collection("Languages")
-      .add({
-        L0_ID_Language,
-        L_LanguageName,
-      })
-      .then(() => {
-        notify.show("Language has been successfully added", "success", 2000);
-        this.setState({
-          L0_ID_Language: null,
-          L_LanguageName: null,
-          isAddNew: false,
-        });
-        this.getAllLanguage();
-      })
-      .catch((error) => {
-        notify.show(`Error! ${error.message}`, "error", 2000);
-      });
+    const { L0_ID_Language, L_LanguageName, languages } = this.state;
+
+    const { is_error, validation_error } = languageInputValidation({
+      L0_ID_Language,
+      L_LanguageName,
+      languages,
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        firebase
+          .firestore()
+          .collection("Languages")
+          .add({
+            L0_ID_Language,
+            L_LanguageName,
+          })
+          .then(() => {
+            notify.show(
+              "Language has been successfully added",
+              "success",
+              2000
+            );
+            this.setState({
+              L0_ID_Language: "",
+              L_LanguageName: "",
+              isAddNew: false,
+            });
+            this.getAllLanguage();
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      }
+    });
+  };
+
+  handleOnChange = (name, value) => {
+    this.setState({ [name]: value });
   };
 
   render() {
@@ -95,37 +125,40 @@ export default class Language extends Component {
       isAddNew,
       languages,
       currentIndex,
+      validation_error,
     } = this.state;
     return (
       <div className="container">
         <Notifications />
-        <Headers
-          handleAddNew={this.handleAddNew}
-          handleNext={this.handleNext}
-          handlePrevious={this.handlePrevious}
-          handleReload={this.handleReload}
-        />
+        {!isAddNew && (
+          <Headers
+            handleAddNew={this.handleAddNew}
+            handleNext={this.handleNext}
+            handlePrevious={this.handlePrevious}
+            handleReload={this.handleReload}
+          />
+        )}
         {isAddNew ? (
           <div>
             <div className="row">
               <p>L0_ID_Language</p>
-              <input
+              <ValidationInput
                 key={0}
+                name="L0_ID_Language"
                 value={L0_ID_Language}
-                onChange={(e) =>
-                  this.setState({ L0_ID_Language: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.L0_ID_Language}
               />
             </div>
 
             <div className="row">
               <p>L_LanguageName</p>
-              <input
-                key={2}
+              <ValidationInput
+                key={1}
+                name="L_LanguageName"
                 value={L_LanguageName}
-                onChange={(e) =>
-                  this.setState({ L_LanguageName: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.L_LanguageName}
               />
             </div>
             <div>
@@ -149,15 +182,17 @@ export default class Language extends Component {
           <div>
             <div className="row">
               <p>L0_ID_Language</p>
-              <input value={languages[currentIndex]?.L0_ID_Language} />
+              <input defaultValue={languages[currentIndex]?.L0_ID_Language} />
             </div>
             <div className="row">
               <p>L0_ID_Language_WEB</p>
-              <input value={languages[currentIndex]?.L0_ID_Language_WEB} />
+              <input
+                defaultValue={languages[currentIndex]?.L0_ID_Language_WEB}
+              />
             </div>
             <div className="row">
               <p>L_LanguageName</p>
-              <input value={languages[currentIndex]?.L_LanguageName} />
+              <input defaultValue={languages[currentIndex]?.L_LanguageName} />
             </div>
           </div>
         )}

@@ -10,12 +10,12 @@ export default class Owner extends Component {
     this.state = {
       owners: [],
       currentIndex: 0,
-      O0_ID_Owner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
+      O0_ID_Owner: "",
+      O_Company: "",
+      O_Web: "",
+      O_ContactName: "",
+      O_ContactEmail: "",
+      O_ContactTel: "",
       isAddNew: false,
       isLoading: true,
     };
@@ -214,31 +214,31 @@ export default class Owner extends Component {
           <div>
             <div className="row">
               <p>O0_ID_Owner</p>
-              <input value={owners[currentIndex]?.O0_ID_Owner} />
+              <input defaultValue={owners[currentIndex]?.O0_ID_Owner} />
             </div>
             <div className="row">
               <p>O0_ID_Owner_WEB</p>
-              <input value={owners[currentIndex]?.O0_ID_Owner_WEB} />
+              <input defaultValue={owners[currentIndex]?.O0_ID_Owner_WEB} />
             </div>
             <div className="row">
               <p>O_Company</p>
-              <input value={owners[currentIndex]?.O_Company} />
+              <input defaultValue={owners[currentIndex]?.O_Company} />
             </div>
             <div className="row">
               <p>O_Web</p>
-              <input value={owners[currentIndex]?.O_Web} />
+              <input defaultValue={owners[currentIndex]?.O_Web} />
             </div>
             <div className="row">
               <p>O_ContactName</p>
-              <input value={owners[currentIndex]?.O_ContactName} />
+              <input defaultValue={owners[currentIndex]?.O_ContactName} />
             </div>
             <div className="row">
               <p>O_ContactEmail</p>
-              <input value={owners[currentIndex]?.O_ContactEmail} />
+              <input defaultValue={owners[currentIndex]?.O_ContactEmail} />
             </div>
             <div className="row">
               <p>O_ContactTel</p>
-              <input value={owners[currentIndex]?.O_ContactTel} />
+              <input defaultValue={owners[currentIndex]?.O_ContactTel} />
             </div>
           </div>
         )}

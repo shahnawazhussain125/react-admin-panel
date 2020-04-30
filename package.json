@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.1.5",
     "firebase": "^7.14.2",
+    "is-empty": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-notify-toast": "^0.5.1",
