@@ -184,3 +184,117 @@ export const autherInputValidation = (obj) => {
     validation_error,
   };
 };
+
+export const bookInputValidation = (obj) => {
+  const {
+    B_BookTitle,
+    BAuthorName,
+    B0_ID_Book,
+    B_Web,
+    L_LanguageName,
+    L0_ID_Language,
+    L0_ID_Language_WEB,
+    B_BookImage,
+    O_Company,
+    O_Web,
+    O_ContactName,
+    O_ContactEmail,
+    O_ContactTel,
+    O0_ID_Owner,
+    O0_ID_Owner_WEB,
+    Storage,
+    books,
+  } = obj;
+  validation_error = {};
+  is_error = false;
+
+  if (isEmpty(B0_ID_Book)) {
+    is_error = true;
+    validation_error.B0_ID_Book = "Please enter B0_ID_Book";
+  } else {
+    if (books?.filter((value) => B0_ID_Book == value.B0_ID_Book).length) {
+      is_error = true;
+      validation_error.B0_ID_Book = "B0_ID_Book is already exit";
+    }
+  }
+
+  if (isEmpty(B_BookTitle)) {
+    is_error = true;
+    validation_error.B_BookTitle = "Please enter B_BookTitle";
+  }
+
+  if (isEmpty(BAuthorName)) {
+    is_error = true;
+    validation_error.BAuthorName = "Please enter BAuthorName";
+  }
+
+  if (isEmpty(Storage)) {
+    is_error = true;
+    validation_error.Storage = "Please select book image";
+  }
+
+  if (isEmpty(B_Web)) {
+    is_error = true;
+    validation_error.B_Web = "Please enter B_Web";
+  }
+
+  if (isEmpty(L_LanguageName)) {
+    is_error = true;
+    validation_error.L_LanguageName = "Please enter L_LanguageName";
+  }
+
+  if (isEmpty(L0_ID_Language)) {
+    is_error = true;
+    validation_error.L0_ID_Language = "Please enter L0_ID_Language";
+  }
+
+  if (isEmpty(L0_ID_Language_WEB)) {
+    is_error = true;
+    validation_error.L0_ID_Language_WEB = "Please enter L0_ID_Language_WEB";
+  }
+
+  if (isEmpty(B_BookImage)) {
+    is_error = true;
+    validation_error.B_BookImage = "Please enter B_BookImage";
+  }
+
+  if (isEmpty(O_Company)) {
+    is_error = true;
+    validation_error.O_Company = "Please enter O_Company";
+  }
+
+  if (isEmpty(O_Web)) {
+    is_error = true;
+    validation_error.O_Web = "Please enter O_Web";
+  }
+
+  if (isEmpty(O_ContactName)) {
+    is_error = true;
+    validation_error.O_ContactName = "Please enter O_ContactName";
+  }
+
+  if (isEmpty(O_ContactEmail)) {
+    is_error = true;
+    validation_error.O_ContactEmail = "Please enter O_ContactEmail";
+  }
+
+  if (isEmpty(O_ContactTel)) {
+    is_error = true;
+    validation_error.O_ContactTel = "Please enter O_ContactTel";
+  }
+
+  if (isEmpty(O0_ID_Owner)) {
+    is_error = true;
+    validation_error.O0_ID_Owner = "Please enter O0_ID_Owner";
+  }
+
+  if (isEmpty(O0_ID_Owner_WEB)) {
+    is_error = true;
+    validation_error.O0_ID_Owner_WEB = "Please enter O0_ID_Owner_WEB";
+  }
+
+  return {
+    is_error,
+    validation_error,
+  };
+};

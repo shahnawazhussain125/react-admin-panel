@@ -9,7 +9,7 @@ import Book from "./screens/Book";
 function App() {
   return (
     <div className="App">
-      <Auther />
+      <Book />
     </div>
   );
 }
