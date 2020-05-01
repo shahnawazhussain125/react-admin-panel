@@ -4,6 +4,8 @@ import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
 import { Checkbox } from "antd";
+import ValidationInput from "../../components/ValidationInput";
+import { autherInputValidation } from "../../utilities/validation";
 
 export default class Auther extends Component {
   constructor() {
@@ -11,21 +13,23 @@ export default class Auther extends Component {
     this.state = {
       authors: [],
       currentIndex: 0,
-      A0_ID_Author: null,
-      A0_ID_Author_WEB: null,
-      A_AuthorName: null,
+      A0_ID_Author: "",
+      A0_ID_Author_WEB: "",
+      A_AuthorName: "",
       Storage: null,
       A_isAuthorHiden: false,
       isAddNew: false,
       isLoading: true,
+      validation_error: null,
     };
   }
 
-  getAllLanguage = () => {
+  getAllAuthors = () => {
     let authors = [];
     firebase
       .firestore()
       .collection("Authors")
+      .orderBy("A0_ID_Author", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -35,6 +39,7 @@ export default class Auther extends Component {
             A_AuthorName: doc.data()?.A_AuthorName,
             A_isAuthorHiden: doc.data()?.A_isAuthorHiden,
             A_AuthorImage: doc.data()?.A_AuthorImage,
+            Storage: doc.data()?.Storage,
           });
         });
         this.setState({
@@ -47,28 +52,34 @@ export default class Auther extends Component {
   };
 
   componentDidMount() {
-    this.getAllLanguage();
+    this.getAllAuthors();
   }
 
   handleNext = () => {
-    this.setState({ currentIndex: this.state.currentIndex + 1 });
+    const { currentIndex, authors } = this.state;
+    if (currentIndex < authors?.length - 1) {
+      this.setState({ currentIndex: currentIndex + 1 });
+    }
   };
 
   handlePrevious = () => {
-    this.setState({ currentIndex: this.state.currentIndex - 1 });
+    const { currentIndex } = this.state;
+    if (currentIndex > 0) {
+      this.setState({ currentIndex: currentIndex - 1 });
+    }
   };
 
   handleReload = () => {
-    this.getAllLanguage();
+    this.getAllAuthors();
   };
 
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      A0_ID_Author: null,
-      A_AuthorName: null,
+      A0_ID_Author: "",
+      A_AuthorName: "",
       A_isAuthorHiden: false,
-      A_AuthorImage: null,
+      A_AuthorImage: "",
     });
   };
 
@@ -78,45 +89,62 @@ export default class Auther extends Component {
       A_AuthorImage,
       A_AuthorName,
       A_isAuthorHiden,
+      Storage,
+      authors,
       file,
     } = this.state;
 
-    let storageRef = firebase
-      .storage()
-      .ref()
-      .child(`AuthorImages/${Math.random().toString().substring(5)}`);
+    const { is_error, validation_error } = autherInputValidation({
+      A0_ID_Author,
+      A_AuthorImage,
+      A_AuthorName,
+      Storage,
+      authors,
+      file,
+    });
 
-    storageRef
-      .put(file)
-      .then(() => {
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        let storageRef = firebase
+          .storage()
+          .ref()
+          .child(`AuthorImages/${Math.random().toString().substring(5)}`);
+
         storageRef
-          .getDownloadURL()
-          .then((Storage) => {
-            firebase
-              .firestore()
-              .collection("Authors")
-              .add({
-                A0_ID_Author,
-                A_AuthorImage,
-                A_AuthorName,
-                A_isAuthorHiden,
-                Storage,
-              })
-              .then(() => {
-                notify.show(
-                  "Author has been successfully added",
-                  "success",
-                  2000
-                );
-                this.setState({
-                  A0_ID_Author: null,
-                  A_AuthorImage: null,
-                  A_AuthorName: null,
-                  file: null,
-                  A_isAuthorHiden: false,
-                  isAddNew: false,
-                });
-                this.getAllLanguage();
+          .put(file)
+          .then(() => {
+            storageRef
+              .getDownloadURL()
+              .then((Storage) => {
+                firebase
+                  .firestore()
+                  .collection("Authors")
+                  .add({
+                    A0_ID_Author,
+                    A_AuthorImage,
+                    A_AuthorName,
+                    A_isAuthorHiden,
+                    Storage,
+                  })
+                  .then(() => {
+                    notify.show(
+                      "Author has been successfully added",
+                      "success",
+                      2000
+                    );
+                    this.setState({
+                      A0_ID_Author: "",
+                      A_AuthorImage: "",
+                      A_AuthorName: "",
+                      file: "",
+                      A_isAuthorHiden: false,
+                      isAddNew: false,
+                    });
+                    this.getAllAuthors();
+                  })
+                  .catch((error) => {
+                    notify.show(`Error! ${error.message}`, "error", 2000);
+                  });
               })
               .catch((error) => {
                 notify.show(`Error! ${error.message}`, "error", 2000);
@@ -125,10 +153,12 @@ export default class Auther extends Component {
           .catch((error) => {
             notify.show(`Error! ${error.message}`, "error", 2000);
           });
-      })
-      .catch((error) => {
-        notify.show(`Error! ${error.message}`, "error", 2000);
-      });
+      }
+    });
+  };
+
+  handleOnChange = (name, value) => {
+    this.setState({ [name]: value });
   };
 
   render() {
@@ -137,10 +167,11 @@ export default class Auther extends Component {
       A_AuthorImage,
       A_AuthorName,
       A_isAuthorHiden,
-      isAddNew,
       authors,
-      currentIndex,
       Storage,
+      isAddNew,
+      currentIndex,
+      validation_error,
     } = this.state;
     return (
       <div className="container">
@@ -155,33 +186,36 @@ export default class Auther extends Component {
           <div>
             <div className="row">
               <p>A0_ID_Author</p>
-              <input
+              <ValidationInput
                 key={0}
+                type="number"
+                name="A0_ID_Author"
                 value={A0_ID_Author}
-                onChange={(e) =>
-                  this.setState({ A0_ID_Author: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.A0_ID_Author}
               />
             </div>
             <div className="row">
               <p>A_AuthorImage</p>
-              <input
+              <ValidationInput
+                type="text"
                 key={1}
+                name="A_AuthorImage"
                 value={A_AuthorImage}
-                onChange={(e) =>
-                  this.setState({ A_AuthorImage: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.A_AuthorImage}
               />
             </div>
 
             <div className="row">
               <p>A_AuthorName</p>
-              <input
+              <ValidationInput
+                type="text"
                 key={2}
+                name="A_AuthorName"
                 value={A_AuthorName}
-                onChange={(e) =>
-                  this.setState({ A_AuthorName: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.A_AuthorName}
               />
             </div>
             <div className="row">
@@ -208,18 +242,23 @@ export default class Auther extends Component {
             </div>
             <div className="row">
               <p>Storage</p>
-              <input
+              <ValidationInput
                 type="file"
                 accept="image/*"
-                onChange={(e) => {
+                key={3}
+                name="A_AuthorImage"
+                // value={Storage}
+                handleOnChange={(e) => {
                   this.setState({
                     A_AuthorImage: e.target.files[0].name,
                     Storage: URL.createObjectURL(e.target.files[0]),
                     file: e.target.files[0],
                   });
                 }}
+                errorMessage={validation_error?.Storage}
               />
             </div>
+
             <div>
               <button
                 onClick={() => {
@@ -241,19 +280,19 @@ export default class Auther extends Component {
           <div>
             <div className="row">
               <p>A0_ID_Author</p>
-              <input value={authors[currentIndex]?.A0_ID_Author} />
+              <input defaultValue={authors[currentIndex]?.A0_ID_Author} />
             </div>
             <div className="row">
               <p>A0_ID_Author_WEB</p>
-              <input value={authors[currentIndex]?.A0_ID_Author_WEB} />
+              <input defaultValue={authors[currentIndex]?.A0_ID_Author_WEB} />
             </div>
             <div className="row">
               <p>A_AuthorImage</p>
-              <input value={authors[currentIndex]?.A_AuthorImage} />
+              <input defaultValue={authors[currentIndex]?.A_AuthorImage} />
             </div>
             <div className="row">
               <p>A_AuthorName</p>
-              <input value={authors[currentIndex]?.A_AuthorName} />
+              <input defaultValue={authors[currentIndex]?.A_AuthorName} />
             </div>
             <div className="row">
               <p>A_isAuthorHiden</p>
@@ -266,17 +305,15 @@ export default class Auther extends Component {
                   height: "200px",
                 }}
                 src={
-                  "https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg"
+                  authors[currentIndex]?.Storage
+                    ? authors[currentIndex]?.Storage
+                    : null
                 }
               />
             </div>
             <div className="row">
               <p>Upload Image</p>
-              <input
-                value={
-                  "https://i.pinimg.com/736x/50/df/34/50df34b9e93f30269853b96b09c37e3b.jpg"
-                }
-              />
+              <input defaultValue={authors[currentIndex]?.Storage} />
             </div>
           </div>
         )}

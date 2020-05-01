@@ -3,6 +3,8 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
+import ValidationInput from "../../components/ValidationInput";
+import { ownerInputValidation } from "../../utilities/validation";
 
 export default class Owner extends Component {
   constructor() {
@@ -21,11 +23,12 @@ export default class Owner extends Component {
     };
   }
 
-  getAllLanguage = () => {
+  getAllOwners = () => {
     let owners = [];
     firebase
       .firestore()
       .collection("Owners")
+      .orderBy("O0_ID_Owner", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -49,30 +52,36 @@ export default class Owner extends Component {
   };
 
   componentDidMount() {
-    this.getAllLanguage();
+    this.getAllOwners();
   }
 
   handleNext = () => {
-    this.setState({ currentIndex: this.state.currentIndex + 1 });
+    const { currentIndex, owners } = this.state;
+    if (currentIndex < owners?.length - 1) {
+      this.setState({ currentIndex: currentIndex + 1 });
+    }
   };
 
   handlePrevious = () => {
-    this.setState({ currentIndex: this.state.currentIndex - 1 });
+    const { currentIndex } = this.state;
+    if (currentIndex > 0) {
+      this.setState({ currentIndex: currentIndex - 1 });
+    }
   };
 
   handleReload = () => {
-    this.getAllLanguage();
+    this.getAllOwners();
   };
 
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      O0_ID_Owner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
+      O0_ID_Owner: "",
+      O_Company: "",
+      O_Web: "",
+      O_ContactName: "",
+      O_ContactEmail: "",
+      O_ContactTel: "",
     });
   };
 
@@ -84,34 +93,54 @@ export default class Owner extends Component {
       O_ContactName,
       O_ContactEmail,
       O_ContactTel,
+      owners,
     } = this.state;
-    firebase
-      .firestore()
-      .collection("Owners")
-      .add({
-        O0_ID_Owner,
-        O_Company,
-        O_Web,
-        O_ContactName,
-        O_ContactEmail,
-        O_ContactTel,
-      })
-      .then(() => {
-        notify.show("Owner has been successfully added", "success", 2000);
-        this.setState({
-          O0_ID_Owner: null,
-          O_Company: null,
-          O_Web: null,
-          O_ContactName: null,
-          O_ContactEmail: null,
-          O_ContactTel: null,
-          isAddNew: false,
-        });
-        this.getAllLanguage();
-      })
-      .catch((error) => {
-        notify.show(`Error! ${error.message}`, "error", 2000);
-      });
+
+    const { is_error, validation_error } = ownerInputValidation({
+      O0_ID_Owner,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      owners,
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        firebase
+          .firestore()
+          .collection("Owners")
+          .add({
+            O0_ID_Owner,
+            O_Company,
+            O_Web,
+            O_ContactName,
+            O_ContactEmail,
+            O_ContactTel,
+          })
+          .then(() => {
+            notify.show("Owner has been successfully added", "success", 2000);
+            this.setState({
+              O0_ID_Owner: "",
+              O_Company: "",
+              O_Web: "",
+              O_ContactName: "",
+              O_ContactEmail: "",
+              O_ContactTel: "",
+              isAddNew: false,
+            });
+            this.getAllOwners();
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      }
+    });
+  };
+
+  handleOnChange = (name, value) => {
+    this.setState({ [name]: value });
   };
 
   render() {
@@ -125,6 +154,7 @@ export default class Owner extends Component {
       isAddNew,
       owners,
       currentIndex,
+      validation_error,
     } = this.state;
     return (
       <div className="container">
@@ -139,57 +169,69 @@ export default class Owner extends Component {
           <div>
             <div className="row">
               <p>O0_ID_Owner</p>
-              <input
-                key={1}
+              <ValidationInput
+                type="number"
+                key={0}
+                name="O0_ID_Owner"
                 value={O0_ID_Owner}
-                onChange={(e) => this.setState({ O0_ID_Owner: e.target.value })}
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.O0_ID_Owner}
               />
             </div>
 
             <div className="row">
               <p>O_Company</p>
-              <input
-                key={2}
+              <ValidationInput
+                type="text"
+                key={1}
+                name="O_Company"
                 value={O_Company}
-                onChange={(e) => this.setState({ O_Company: e.target.value })}
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.O_Company}
               />
             </div>
             <div className="row">
               <p>O_Web</p>
-              <input
-                key={3}
+              <ValidationInput
+                type="url"
+                key={2}
+                name="O_Web"
                 value={O_Web}
-                onChange={(e) => this.setState({ O_Web: e.target.value })}
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.O_Web}
               />
             </div>
             <div className="row">
               <p>O_ContactName</p>
-              <input
-                key={4}
+              <ValidationInput
+                type="text"
+                key={3}
+                name="O_ContactName"
                 value={O_ContactName}
-                onChange={(e) =>
-                  this.setState({ O_ContactName: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.O_ContactName}
               />
             </div>
             <div className="row">
               <p>O_ContactEmail</p>
-              <input
-                key={5}
+              <ValidationInput
+                type="email"
+                key={4}
+                name="O_ContactEmail"
                 value={O_ContactEmail}
-                onChange={(e) =>
-                  this.setState({ O_ContactEmail: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.O_ContactEmail}
               />
             </div>
             <div className="row">
               <p>O_ContactTel</p>
-              <input
-                key={6}
+              <ValidationInput
+                type="tel"
+                key={5}
+                name="O_ContactTel"
                 value={O_ContactTel}
-                onChange={(e) =>
-                  this.setState({ O_ContactTel: e.target.value })
-                }
+                handleOnChange={this.handleOnChange}
+                errorMessage={validation_error?.O_ContactTel}
               />
             </div>
 

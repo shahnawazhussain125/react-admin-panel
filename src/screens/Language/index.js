@@ -143,6 +143,7 @@ export default class Language extends Component {
             <div className="row">
               <p>L0_ID_Language</p>
               <ValidationInput
+                type="number"
                 key={0}
                 name="L0_ID_Language"
                 value={L0_ID_Language}
@@ -154,6 +155,7 @@ export default class Language extends Component {
             <div className="row">
               <p>L_LanguageName</p>
               <ValidationInput
+                type="text"
                 key={1}
                 name="L_LanguageName"
                 value={L_LanguageName}

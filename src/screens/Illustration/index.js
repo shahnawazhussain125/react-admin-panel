@@ -149,6 +149,7 @@ export default class Illustration extends Component {
             <div className="row">
               <p>I0_ID_Illustrator</p>
               <ValidationInput
+                type="number"
                 key={0}
                 name="I0_ID_Illustrator"
                 value={I0_ID_Illustrator}
@@ -160,6 +161,7 @@ export default class Illustration extends Component {
             <div className="row">
               <p>I_IllustratorName</p>
               <ValidationInput
+                type="text"
                 key={1}
                 name="I_IllustratorName"
                 value={I_IllustratorName}
