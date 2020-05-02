@@ -10,11 +10,11 @@ import { bookInputValidation } from "../../utilities/validation";
 const db = firebase.firestore();
 const { Option } = Select;
 
-export default class Book extends Component {
+export default class Tales extends Component {
   constructor() {
     super();
     this.state = {
-      books: [],
+      tales: [],
       currentIndex: 0,
       B_BookTitle: null,
       BAuthorName: null,
@@ -48,12 +48,14 @@ export default class Book extends Component {
     let authors = [];
     let languages = [];
     let owners = [];
+    let books = [];
 
     let allPromises = [];
 
     allPromises.push(db.collection("Authors").get());
     allPromises.push(db.collection("Owners").get());
     allPromises.push(db.collection("Languages").get());
+    allPromises.push(db.collection("Books").get());
 
     Promise.all(allPromises)
       .then((responses) => {
@@ -64,63 +66,84 @@ export default class Book extends Component {
               authors.push({
                 A0_ID_Author_WEB: doc.id,
                 ...doc.data(),
+                A_Storage: doc.data().Storage,
               });
             } else if (index === 1) {
               owners.push({
                 O0_ID_Owner_WEB: doc.id,
                 ...doc.data(),
               });
-            } else {
+            } else if (index === 2) {
               languages.push({
                 L0_ID_Language_WEB: doc.id,
+                ...doc.data(),
+              });
+            } else if (index === 3) {
+              books.push({
+                B0_ID_Book_WEB: doc.id,
                 ...doc.data(),
               });
             }
           });
           index++;
         });
-        this.setState({ languages, owners, authors });
+        this.setState({ languages, owners, authors, books });
       })
       .catch((error) => {
         notify.show(`Error! ${error.message}`, "error");
       });
   };
 
-  getAllBooks = () => {
-    let books = [];
+  getAllTales = () => {
+    let tales = [];
     firebase
       .firestore()
-      .collection("Books")
-      .orderBy("B0_ID_Book", "asc")
+      .collection("zTales")
+      .orderBy("00_ID_Tale", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
-          books.push({
-            B0_ID_Book_WEB: doc.id,
-            B_BookTitle: doc.data()?.B_BookTitle,
-            BAuthorName: doc.data()?.BAuthorName,
+          tales.push({
+            A0_ID_Author: doc.data()?.A0_ID_Author,
+            A0_ID_Author_WEB: doc.data()?.A0_ID_Author_WEB,
+            A_AuthorImage: doc.data()?.A_AuthorImage,
+            A_AuthorName: doc.data()?.A_AuthorName,
+            A_isAuthorHidden: doc.data()?.A_isAuthorHidden,
+            A_Storage: doc.data().A_Storage,
             B0_ID_Book: doc.data()?.B0_ID_Book,
-            B_Web: doc.data()?.B_Web,
-            A_AuthorImage: doc.data().A_AuthorImage,
-            B_isBookFree: doc.data()?.B_isBookFree,
-            B_isBookHidden: doc.data()?.B_isBookHidden,
-            L_LanguageName: doc.data()?.L_LanguageName,
-            L0_ID_Language: doc.data()?.L0_ID_Language,
-            L0_ID_Language_WEB: doc.data()?.L0_ID_Language_WEB,
-            Storage: doc.data()?.Storage,
+            B0_ID_Book_WEB: doc.data()?.B0_ID_Book_WEB,
+            B_BAuthorName: doc.data()?.B_BAuthorName,
+
             B_BookImage: doc.data()?.B_BookImage,
-            BOOKOwner: doc.data()?.BOOKOwner,
-            O_Company: doc.data()?.O_Company,
-            O_Web: doc.data()?.O_Web,
-            O_ContactName: doc.data()?.O_ContactName,
-            O_ContactEmail: doc.data()?.O_ContactEmail,
-            O_ContactTel: doc.data()?.O_ContactTel,
-            O0_ID_Owner: doc.data()?.O0_ID_Owner,
+            B_BookTitle: doc.data()?.B_BookTitle,
+            B_Storage: doc.data().B_Storage,
+            B_Web: doc.data()?.B_Web,
+
+            B_isBookFree: doc.data()?.B_isBookFree,
+            B_isBookHidden: doc.data().B_isBookHidden,
+            I0_ID_Illustrator: doc.data().I0_ID_Illustrator,
+            I_IllustratorName: doc.data().I_IllustratorName,
+            I_isIllustratorHidden: doc.data().I_isIllustratorHidden,
+            L0_ID_Language: doc.data().L0_ID_Language,
+            L0_ID_Language_WEB: doc.data().L0_ID_Language_WEB,
+            L_LanguageName: doc.data().L_LanguageName,
+
+            O0_ID_Owner: doc.data().O0_ID_Owner,
             O0_ID_Owner_WEB: doc.data()?.O0_ID_Owner_WEB,
+            O_Company: doc.data().O_Company,
+            O_ContactEmail: doc.data()?.O_ContactEmail,
+            O_ContactName: doc.data()?.O_ContactName,
+            O_ContactTel: doc.data()?.O_ContactTel,
+            O_Web: doc.data()?.O_Web,
+            T_TaleContent: doc.data().T_TaleContent,
+            T_TaleImage: doc.data().T_TaleImage,
+
+            T_TaleTitle: doc.data().T_TaleTitle,
+            T_ID_Tale: doc.id,
           });
         });
         this.setState({
-          books,
+          tales,
         });
       })
       .catch((error) => {
@@ -129,13 +152,13 @@ export default class Book extends Component {
   };
 
   componentDidMount() {
-    this.getAllBooks();
+    this.getAllTales();
     this.getAllLanguageAndAuther();
   }
 
   handleNext = () => {
-    const { currentIndex, books } = this.state;
-    if (currentIndex < books?.length - 1) {
+    const { currentIndex, tales } = this.state;
+    if (currentIndex < tales?.length - 1) {
       this.setState({ currentIndex: currentIndex + 1 });
     }
   };
@@ -148,7 +171,7 @@ export default class Book extends Component {
   };
 
   handleReload = () => {
-    this.getAllBooks();
+    this.getAllTales();
   };
 
   handleAddNew = () => {
@@ -158,7 +181,7 @@ export default class Book extends Component {
       BAuthorName: null,
       B0_ID_Book: null,
       B_Web: null,
-      B_isBookFree: false,
+      A_AuthorName: false,
       B_isBookHidden: false,
       L_LanguageName: null,
       L0_ID_Language: null,
@@ -198,7 +221,7 @@ export default class Book extends Component {
       O0_ID_Owner_WEB,
       file,
       Storage,
-      books,
+      tales,
     } = this.state;
 
     const { is_error, validation_error } = bookInputValidation({
@@ -218,7 +241,7 @@ export default class Book extends Component {
       O0_ID_Owner,
       O0_ID_Owner_WEB,
       Storage,
-      books,
+      tales,
     });
 
     this.setState({ is_error, validation_error }, () => {
@@ -236,7 +259,7 @@ export default class Book extends Component {
               .then((Storage) => {
                 firebase
                   .firestore()
-                  .collection("Books")
+                  .collection("tales")
                   .add({
                     B_BookTitle,
                     BAuthorName,
@@ -272,7 +295,7 @@ export default class Book extends Component {
                       BAuthorName: false,
                       isAddNew: false,
                     });
-                    this.getAllBooks();
+                    this.getAllTales();
                   })
                   .catch((error) => {
                     notify.show(`Error! ${error.message}`, "error", 2000);
@@ -313,7 +336,7 @@ export default class Book extends Component {
       O0_ID_Owner,
       O0_ID_Owner_WEB,
       isAddNew,
-      books,
+      tales,
       currentIndex,
       Storage,
       owners,
@@ -406,7 +429,7 @@ export default class Book extends Component {
                 />
               </div>
               <div className="row">
-                <h3>Book Language</h3>
+                <h2 className="title-header">Book Language</h2>
               </div>
 
               <div className="row">
@@ -497,7 +520,7 @@ export default class Book extends Component {
                 />
               </div>
               <div className="row">
-                <h3>Book Owner</h3>
+                <h2 className="title-header">Book Owner</h2>
               </div>
               <div className="row">
                 <p>BOOKOwner</p>
@@ -609,100 +632,220 @@ export default class Book extends Component {
             </div>
           </div>
         ) : (
-          <div className="row-container">
-            <div>
-              <div className="row">
-                <p>B0_ID_Book</p>
-                <input defaultValue={books[currentIndex]?.B0_ID_Book} />
+          <div>
+            <div className="row-container">
+              <div>
+                <div className="row">
+                  <p>Book</p>
+                  <input defaultValue={tales[currentIndex]?.B_BookTitle} />
+                </div>
+                <div className="row">
+                  <p>Author</p>
+                  <input defaultValue={tales[currentIndex]?.B_BAuthorName} />
+                </div>
+                <div className="row">
+                  <p>Illustrator</p>
+                  <input
+                    defaultValue={tales[currentIndex]?.I_IllustratorName}
+                  />
+                </div>
+                <div className="row">
+                  <p>Title</p>
+                  <input defaultValue={tales[currentIndex]?.Title_Tale} />
+                </div>
+                <div className="row">
+                  <p>Content</p>
+                  <textarea
+                    defaultValue={tales[currentIndex]?.Content}
+                    rows={10}
+                    cols={100}
+                  ></textarea>
+                </div>
               </div>
-              <div className="row">
-                <p>BAuthorName</p>
-                <input defaultValue={books[currentIndex]?.BAuthorName} />
-              </div>
-              <div className="row">
-                <p>B0_ID_Book_WEB</p>
-                <input defaultValue={books[currentIndex]?.B0_ID_Book_WEB} />
-              </div>
-              <div className="row">
-                <p>B_Web</p>
-                <input defaultValue={books[currentIndex]?.B_Web} />
-              </div>
-              <div className="row">
-                <p>B_isBookFree</p>
-                <Checkbox checked={books[currentIndex]?.B_isBookFree} />
-              </div>
-              <div className="row">
-                <p>B_isBookHidden</p>
-                <Checkbox checked={books[currentIndex]?.B_isBookHidden} />
-              </div>
-              <div className="row">
-                <h3>Book Language</h3>
-              </div>
-              <div className="row">
-                <p>BookLanguage</p>
-                <input defaultValue={books[currentIndex]?.L_LanguageName} />
-              </div>
-              <div className="row">
-                <p>L_LanguageName</p>
-                <input defaultValue={books[currentIndex]?.L_LanguageName} />
-              </div>
-              <div className="row">
-                <p>L0_ID_Language</p>
-                <input defaultValue={books[currentIndex]?.L0_ID_Language} />
-              </div>
-              <div className="row">
-                <p>L0_ID_Language_WEB</p>
-                <input defaultValue={books[currentIndex]?.L0_ID_Language_WEB} />
+              <div>
+                <div className="row">
+                  <p>Book</p>
+                  <input defaultValue={tales[currentIndex]?.B0_ID_Book} />
+                </div>
+                <div className="row">
+                  <p>BAuthorName</p>
+                  <input defaultValue={tales[currentIndex]?.BAuthorName} />
+                </div>
+                <div className="row">
+                  <p>B0_ID_Book_WEB</p>
+                  <input defaultValue={tales[currentIndex]?.B0_ID_Book_WEB} />
+                </div>
               </div>
             </div>
-            <div>
-              <div className="row">
-                <img
-                  style={{
-                    width: "200px",
-                    height: "200px",
-                  }}
-                  src={books[currentIndex]?.Storage}
-                />
+            <div className="row-container">
+              <div>
+                <div className="row">
+                  <h2 className="title-header">Book</h2>
+                </div>
+                <div className="row">
+                  <p>B0_ID_Book</p>
+                  <input defaultValue={tales[currentIndex]?.B0_ID_Book} />
+                </div>
+                <div className="row">
+                  <p>BAuthorName</p>
+                  <input defaultValue={tales[currentIndex]?.B_BAuthorName} />
+                </div>
+                <div className="row">
+                  <p>B0_ID_Book_WEB</p>
+                  <input defaultValue={tales[currentIndex]?.B0_ID_Book_WEB} />
+                </div>
+                <div className="row">
+                  <p>B_Web</p>
+                  <input defaultValue={tales[currentIndex]?.B_Web} />
+                </div>
+                <div className="row">
+                  <p>B_isBookFree</p>
+                  <Checkbox checked={tales[currentIndex]?.B_isBookFree} />
+                </div>
+                <div className="row">
+                  <p>B_isBookHidden</p>
+                  <Checkbox checked={tales[currentIndex]?.B_isBookHidden} />
+                </div>
+                <div className="row">
+                  <img
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                    }}
+                    src={
+                      tales[currentIndex]?.B_Storage
+                        ? tales[currentIndex]?.B_Storage
+                        : null
+                    }
+                  />
+                </div>
               </div>
-              <div className="row">
-                <p>Storage</p>
-                <input defaultValue={books[currentIndex]?.Storage} />
+              <div>
+                <div>
+                  <div className="row">
+                    <h2 className="title-header">Book Language</h2>
+                  </div>
+                  <div className="row">
+                    <p>L_LanguageName</p>
+                    <input defaultValue={tales[currentIndex]?.L_LanguageName} />
+                  </div>
+                  <div className="row">
+                    <p>L0_ID_Language</p>
+                    <input defaultValue={tales[currentIndex]?.L0_ID_Language} />
+                  </div>
+                  <div className="row">
+                    <p>L0_ID_Language_WEB</p>
+                    <input
+                      defaultValue={tales[currentIndex]?.L0_ID_Language_WEB}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="row">
+                    <h2 className="title-header">Book Owner</h2>
+                  </div>
+                  <div className="row">
+                    <p>O0_ID_Owner</p>
+                    <input defaultValue={tales[currentIndex]?.O0_ID_Owner} />
+                  </div>
+                  <div className="row">
+                    <p>O0_ID_Owner_WEB</p>
+                    <input
+                      defaultValue={tales[currentIndex]?.O0_ID_Owner_WEB}
+                    />
+                  </div>
+                  <div className="row">
+                    <p>O_Company</p>
+                    <input defaultValue={tales[currentIndex]?.O_Company} />
+                  </div>
+                  <div className="row">
+                    <p>O_Web</p>
+                    <input defaultValue={tales[currentIndex]?.O_Web} />
+                  </div>
+                  <div className="row">
+                    <p>O_ContactName</p>
+                    <input defaultValue={tales[currentIndex]?.O_ContactName} />
+                  </div>
+                  <div className="row">
+                    <p>O_ContactEmail</p>
+                    <input defaultValue={tales[currentIndex]?.O_ContactEmail} />
+                  </div>
+                  <div className="row">
+                    <p>O_ContactTel</p>
+                    <input defaultValue={tales[currentIndex]?.O_ContactTel} />
+                  </div>
+                </div>
               </div>
-              <div className="row">
-                <p>B_BookImage</p>
-                <input defaultValue={books[currentIndex]?.B_BookImage} />
-              </div>
-              <div className="row">
-                <h3>Book Owner</h3>
-              </div>
-              <div className="row">
-                <p>O_Company</p>
-                <input defaultValue={books[currentIndex]?.O_Company} />
-              </div>
-              <div className="row">
-                <p>O_Web</p>
-                <input defaultValue={books[currentIndex]?.O_Web} />
-              </div>
-              <div className="row">
-                <p>O_ContactName</p>
-                <input defaultValue={books[currentIndex]?.O_ContactName} />
-              </div>
-              <div className="row">
-                <p>O_ContactEmail</p>
-                <input defaultValue={books[currentIndex]?.O_ContactEmail} />
-              </div>
-              <div className="row">
-                <p>O_ContactTel</p>
-                <input defaultValue={books[currentIndex]?.O_ContactTel} />
-              </div>
-              <div className="row">
-                <p>O0_ID_Owner</p>
-                <input defaultValue={books[currentIndex]?.O0_ID_Owner} />
-              </div>
-              <div className="row">
-                <p>O0_ID_Owner_WEB</p>
-                <input defaultValue={books[currentIndex]?.O0_ID_Owner_WEB} />
+              <div>
+                <div>
+                  <div className="row">
+                    <h2 className="title-header">Author</h2>
+                  </div>
+                  <div className="row">
+                    <p>A0_ID_Author</p>
+                    <input defaultValue={tales[currentIndex]?.A0_ID_Author} />
+                  </div>
+                  <div className="row">
+                    <p>A0_ID_Author_WEB</p>
+                    <input
+                      defaultValue={tales[currentIndex]?.A0_ID_Author_WEB}
+                    />
+                  </div>
+                  <div className="row">
+                    <p>A_AuthorImage</p>
+                    <input defaultValue={tales[currentIndex]?.A_AuthorImage} />
+                  </div>
+                  <div className="row">
+                    <p>A_AuthorName</p>
+                    <input defaultValue={tales[currentIndex]?.A_AuthorName} />
+                  </div>
+                  <div className="row">
+                    <p>A_isAuthorHiden</p>
+                    <Checkbox checked={tales[currentIndex]?.A_isAuthorHiden} />
+                  </div>
+                  <div className="row">
+                    <img
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                      }}
+                      src={
+                        tales[currentIndex]?.A_Storage
+                          ? tales[currentIndex]?.A_Storage
+                          : null
+                      }
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <h2 className="title-header">Illustrator</h2>
+                  </div>
+                  <div className="row">
+                    <p>I0_ID_Illustrator</p>
+                    <input
+                      defaultValue={tales[currentIndex]?.I0_ID_Illustrator}
+                    />
+                  </div>
+                  <div className="row">
+                    <p>I0_ID_Illustrator_WEB</p>
+                    <input
+                      defaultValue={tales[currentIndex]?.I0_ID_Illustrator_WEB}
+                    />
+                  </div>
+                  <div className="row">
+                    <p>I_IllustratorName</p>
+                    <input
+                      defaultValue={tales[currentIndex]?.I_IllustratorName}
+                    />
+                  </div>
+                  <div className="row">
+                    <p>_isIllustratorHidden</p>
+                    <Checkbox
+                      checked={tales[currentIndex]?._isIllustratorHidden}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

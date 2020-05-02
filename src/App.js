@@ -5,11 +5,12 @@ import Owner from "./screens/Owner";
 import Illustration from "./screens/Illustration";
 import Auther from "./screens/Authers";
 import Book from "./screens/Book";
+import Tales from "./screens/Tales";
 
 function App() {
   return (
     <div className="App">
-      <Book />
+      <Tales />
     </div>
   );
 }
