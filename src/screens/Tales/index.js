@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Checkbox, Select } from "antd";
+import { Checkbox, Select, Row, Col } from "antd";
 import firebase from "../../config/firebase";
 import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
 import ValidationInput from "../../components/ValidationInput";
 import "./index.css";
-import { bookInputValidation } from "../../utilities/validation";
+import { talesInputValidation } from "../../utilities/validation";
 import HTMLReactParser from "html-react-parser";
 
 const db = firebase.firestore();
@@ -110,7 +110,6 @@ export default class Tales extends Component {
     firebase
       .firestore()
       .collection("zTales")
-      .orderBy("00_ID_Tale", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -120,6 +119,7 @@ export default class Tales extends Component {
             A_AuthorImage: doc.data()?.A_AuthorImage,
             A_AuthorName: doc.data()?.A_AuthorName,
             A_isAuthorHidden: doc.data()?.A_isAuthorHidden,
+
             A_Storage: doc.data().A_Storage,
             B0_ID_Book: doc.data()?.B0_ID_Book,
             B0_ID_Book_WEB: doc.data()?.B0_ID_Book_WEB,
@@ -135,6 +135,7 @@ export default class Tales extends Component {
             I0_ID_Illustrator: doc.data().I0_ID_Illustrator,
             I_IllustratorName: doc.data().I_IllustratorName,
             I_isIllustratorHidden: doc.data().I_isIllustratorHidden,
+            I0_ID_Illustrator_WEB: doc.data().I0_ID_Illustrator_WEB,
             L0_ID_Language: doc.data().L0_ID_Language,
             L0_ID_Language_WEB: doc.data().L0_ID_Language_WEB,
             L_LanguageName: doc.data().L_LanguageName,
@@ -148,7 +149,6 @@ export default class Tales extends Component {
             O_Web: doc.data()?.O_Web,
             T_TaleContent: doc.data().T_TaleContent,
             T_TaleImage: doc.data().T_TaleImage,
-
             T_TaleTitle: doc.data().T_TaleTitle,
             T_ID_Tale: doc.id,
           });
@@ -188,62 +188,102 @@ export default class Tales extends Component {
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
-      B_BookTitle: null,
-      BAuthorName: null,
-      B0_ID_Book: null,
-      B_Web: null,
-      A_AuthorName: false,
+      A0_ID_Author: "",
+      A0_ID_Author_WEB: "",
+      A_AuthorImage: "",
+      A_AuthorName: "",
+      A_isAuthorHiden: false,
+      A_Storage: "",
+      B_BookTitle: "",
+      BAuthorName: "",
+      T_TaleTitle: "",
+      T_TaleImage: "",
+      T_Storage: "",
+      T_isTaleHidden: false,
+      T_TaleContent: "",
+      B0_ID_Book: "",
+      B0_ID_Book_WEB: "",
+      B_Web: "",
+      B_isBookFree: false,
       B_isBookHidden: false,
-      L_LanguageName: null,
-      L0_ID_Language: null,
-      L0_ID_Language_WEB: null,
-      storage: null,
-      B_BookImage: null,
-      BOOKOwner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
-      O0_ID_Owner: null,
-      O0_ID_Owner_WEB: null,
+      B_Storage: "",
+      L_LanguageName: "",
+      L0_ID_Language: "",
+      L0_ID_Language_WEB: "",
+      B_BookImage: "",
+      O_Company: "",
+      O_Web: "",
+      O_ContactName: "",
+      O_ContactEmail: "",
+      O_ContactTel: "",
+      O0_ID_Owner: "",
+      O0_ID_Owner_WEB: "",
+      I0_ID_Illustrator_WEB: "",
+      I0_ID_Illustrator: "",
+      I_IllustratorName: "",
+      _isIllustratorHidden: false,
     });
   };
 
   handleSaveData = () => {
     const {
+      A0_ID_Author,
+      A0_ID_Author_WEB,
+      A_AuthorImage,
+      A_AuthorName,
+      A_Storage,
       B_BookTitle,
       BAuthorName,
+      T_TaleTitle,
+      T_TaleImage,
+      T_Storage,
+      T_TaleContent,
       B0_ID_Book,
+      B0_ID_Book_WEB,
       B_Web,
+      B_Storage,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      B_BookImage,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      I0_ID_Illustrator_WEB,
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      A_isAuthorHiden,
+      T_isTaleHidden,
       B_isBookFree,
       B_isBookHidden,
-      L_LanguageName,
-      L0_ID_Language,
-      L0_ID_Language_WEB,
-      B_BookImage,
-      BOOKOwner,
-      O_Company,
-      O_Web,
-      O_ContactName,
-      O_ContactEmail,
-      O_ContactTel,
-      O0_ID_Owner,
-      O0_ID_Owner_WEB,
+      _isIllustratorHidden,
       file,
-      Storage,
-      tales,
     } = this.state;
 
-    const { is_error, validation_error } = bookInputValidation({
+    const { is_error, validation_error } = talesInputValidation({
+      A0_ID_Author,
+      A0_ID_Author_WEB,
+      A_AuthorImage,
+      A_AuthorName,
+      A_Storage,
       B_BookTitle,
       BAuthorName,
-      B0_ID_Book,
       B_Web,
+      B0_ID_Book,
+      B_BookImage,
+      B_Storage,
+      B0_ID_Book_WEB,
+      T_TaleTitle,
+      T_TaleImage,
+      T_Storage,
+      T_TaleContent,
       L_LanguageName,
       L0_ID_Language,
       L0_ID_Language_WEB,
-      B_BookImage,
       O_Company,
       O_Web,
       O_ContactName,
@@ -251,8 +291,9 @@ export default class Tales extends Component {
       O_ContactTel,
       O0_ID_Owner,
       O0_ID_Owner_WEB,
-      Storage,
-      tales,
+      I0_ID_Illustrator_WEB,
+      I0_ID_Illustrator,
+      I_IllustratorName,
     });
 
     this.setState({ is_error, validation_error }, () => {
@@ -260,7 +301,7 @@ export default class Tales extends Component {
         let storageRef = firebase
           .storage()
           .ref()
-          .child(`BookImages/${Math.random().toString().substring(5)}`);
+          .child(`TaleImages/${Math.random().toString().substring(5)}`);
 
         storageRef
           .put(file)
@@ -270,19 +311,27 @@ export default class Tales extends Component {
               .then((Storage) => {
                 firebase
                   .firestore()
-                  .collection("tales")
+                  .collection("zTales")
                   .add({
+                    A0_ID_Author,
+                    A0_ID_Author_WEB,
+                    A_AuthorImage,
+                    A_AuthorName,
+                    A_Storage,
                     B_BookTitle,
                     BAuthorName,
-                    B0_ID_Book,
                     B_Web,
-                    B_isBookFree,
-                    B_isBookHidden,
+                    B0_ID_Book,
+                    B_BookImage,
+                    B_Storage,
+                    B0_ID_Book_WEB,
+                    T_TaleTitle,
+                    T_TaleImage,
+                    T_Storage: Storage,
+                    T_TaleContent,
                     L_LanguageName,
                     L0_ID_Language,
                     L0_ID_Language_WEB,
-                    B_BookImage,
-                    BOOKOwner,
                     O_Company,
                     O_Web,
                     O_ContactName,
@@ -290,21 +339,58 @@ export default class Tales extends Component {
                     O_ContactTel,
                     O0_ID_Owner,
                     O0_ID_Owner_WEB,
-                    Storage,
+                    I0_ID_Illustrator_WEB,
+                    I0_ID_Illustrator,
+                    I_IllustratorName,
+                    A_isAuthorHiden,
+                    T_isTaleHidden,
+                    B_isBookFree,
+                    B_isBookHidden,
+                    _isIllustratorHidden,
                   })
                   .then(() => {
                     notify.show(
-                      "Book has been successfully added",
+                      "Tale has been successfully added",
                       "success",
                       2000
                     );
                     this.setState({
-                      B0_ID_Book: null,
-                      A_AuthorImage: null,
-                      B_BookTitle: null,
-                      file: null,
-                      BAuthorName: false,
                       isAddNew: false,
+                      A0_ID_Author: "",
+                      A0_ID_Author_WEB: "",
+                      A_AuthorImage: "",
+                      A_AuthorName: "",
+                      A_isAuthorHiden: false,
+                      A_Storage: "",
+                      B_BookTitle: "",
+                      BAuthorName: "",
+                      T_TaleTitle: "",
+                      T_TaleImage: "",
+                      T_Storage: "",
+                      T_isTaleHidden: false,
+                      T_TaleContent: "",
+                      B0_ID_Book: "",
+                      B0_ID_Book_WEB: "",
+                      B_Web: "",
+                      B_isBookFree: false,
+                      B_isBookHidden: false,
+                      B_Storage: "",
+                      L_LanguageName: "",
+                      L0_ID_Language: "",
+                      L0_ID_Language_WEB: "",
+                      B_BookImage: "",
+                      O_Company: "",
+                      O_Web: "",
+                      O_ContactName: "",
+                      O_ContactEmail: "",
+                      O_ContactTel: "",
+                      O0_ID_Owner: "",
+                      O0_ID_Owner_WEB: "",
+                      I0_ID_Illustrator_WEB: "",
+                      I0_ID_Illustrator: "",
+                      I_IllustratorName: "",
+                      _isIllustratorHidden: false,
+                      file: null,
                     });
                     this.getAllTales();
                   })
@@ -337,11 +423,11 @@ export default class Tales extends Component {
       A_Storage,
       B_BookTitle,
       BAuthorName,
-      Title_Tale,
+      T_TaleTitle,
       T_TaleImage,
       T_Storage,
       T_isTaleHidden,
-      Content,
+      T_TaleContent,
       B0_ID_Book,
       B0_ID_Book_WEB,
       B_Web,
@@ -366,13 +452,19 @@ export default class Tales extends Component {
       isAddNew,
       tales,
       currentIndex,
-      owners,
       books,
       authors,
+      owners,
       languages,
       illustrators,
       validation_error,
     } = this.state;
+
+    let noOfCharacter = T_TaleContent
+      ? new DOMParser().parseFromString(T_TaleContent, "text/html").body
+          .textContent?.length
+      : 0;
+    console.log("noOfCharacter", noOfCharacter);
     return (
       <div className="container">
         <Notifications />
@@ -383,10 +475,10 @@ export default class Tales extends Component {
           handleReload={this.handleReload}
         />
         {isAddNew ? (
-          <div>
-            <div className="row-container">
-              <div>
-                <div className="row">
+          <span>
+            <Row>
+              <Col span={12}>
+                <Row>
                   <p>Book</p>
                   <Select
                     style={{ width: 250 }}
@@ -405,8 +497,8 @@ export default class Tales extends Component {
                       </Option>
                     ))}
                   </Select>
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>Author</p>
                   <Select
                     style={{ width: 250 }}
@@ -426,8 +518,9 @@ export default class Tales extends Component {
                       </Option>
                     ))}
                   </Select>
-                </div>
-                <div className="row">
+                </Row>
+
+                <Row>
                   <p>Illustrator</p>
                   <Select
                     style={{ width: 250 }}
@@ -445,33 +538,35 @@ export default class Tales extends Component {
                       </Option>
                     ))}
                   </Select>
-                </div>
-                <div className="row">
+                </Row>
+
+                <Row>
                   <p>Title</p>
                   <ValidationInput
                     type="text"
                     key={1}
-                    name="Title_Tale"
-                    value={Title_Tale}
+                    name="T_TaleTitle"
+                    value={T_TaleTitle}
                     handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.Title_Tale}
+                    errorMessage={validation_error?.T_TaleTitle}
                   />
-                </div>
-                <div className="row">
-                  <p>Content</p>
+                </Row>
+                <Row>
+                  <p>T_TaleContent</p>
                   <textarea
-                    defaultValue={Content}
+                    defaultValue={T_TaleContent}
                     rows={10}
                     cols={100}
-                    onChange={(e) => this.setState({ Content: e.target.value })}
+                    onChange={(e) =>
+                      this.setState({ T_TaleContent: e.target.value })
+                    }
                   ></textarea>
-                </div>
-              </div>
-
-              <div>
-                <div className="row-container">
-                  <div>
-                    <div className="row">
+                </Row>
+              </Col>
+              <Col span={12}>
+                <Row>
+                  <Col span={12}>
+                    <Row>
                       <img
                         style={{
                           width: "200px",
@@ -479,8 +574,8 @@ export default class Tales extends Component {
                         }}
                         src={T_Storage ? T_Storage : null}
                       />
-                    </div>
-                    <div>
+                    </Row>
+                    <Row>
                       <p>T_Storage</p>
                       <ValidationInput
                         type="file"
@@ -497,8 +592,8 @@ export default class Tales extends Component {
                         }}
                         errorMessage={validation_error?.T_Storage}
                       />
-                    </div>
-                    <div className="row">
+                    </Row>
+                    <Row>
                       <p>T_TaleImage</p>
                       <ValidationInput
                         type="text"
@@ -508,8 +603,8 @@ export default class Tales extends Component {
                         handleOnChange={this.handleOnChange}
                         errorMessage={validation_error?.T_TaleImage}
                       />
-                    </div>
-                    <div className="row">
+                    </Row>
+                    <Row>
                       <p>T_isTaleHidden</p>
                       <Checkbox
                         key={45}
@@ -521,52 +616,38 @@ export default class Tales extends Component {
                           })
                         }
                       />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="row">
+                    </Row>
+                  </Col>
+                  <Col span={12}>
+                    <Row>
                       <p>Len</p>
-                      <input
-                        readOnly
-                        value={
-                          new DOMParser().parseFromString(
-                            Content ? Content : "",
-                            "text/html"
-                          ).body.textContent.length
-                        }
-                      />
-                    </div>
-                    <div className="row">
+                      <input readOnly value={noOfCharacter} />
+                    </Row>
+                    <Row>
                       <p>Time</p>
-                      <input
-                        readOnly
-                        value={
-                          new DOMParser().parseFromString(
-                            Content ? Content : "",
-                            "text/html"
-                          ).body.textContent.length / 238
-                        }
-                      />
-                    </div>
+                      <input readOnly value={noOfCharacter / 238} />
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <div
+                    style={{
+                      border: "2px solid black",
+                      width: 400,
+                      height: 300,
+                    }}
+                  >
+                    {HTMLReactParser(T_TaleContent ? T_TaleContent : "")}
                   </div>
-                </div>
-                <div
-                  style={{
-                    border: "2px solid black",
-                    width: 400,
-                    height: 300,
-                  }}
-                >
-                  {HTMLReactParser(Content ? Content : "")}
-                </div>
-              </div>
-            </div>
-            <div className="row-container">
-              <div>
-                <div className="row">
+                </Row>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8}>
+                <Row>
                   <h2 className="title-header">Book</h2>
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B0_ID_Book</p>
                   <ValidationInput
                     type="number"
@@ -576,8 +657,8 @@ export default class Tales extends Component {
                     handleOnChange={this.handleOnChange}
                     errorMessage={validation_error?.B0_ID_Book}
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>BAuthorName</p>
                   <ValidationInput
                     type="text"
@@ -587,8 +668,8 @@ export default class Tales extends Component {
                     handleOnChange={this.handleOnChange}
                     errorMessage={validation_error?.B0_ID_Book_WEB}
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B0_ID_Book_WEB</p>
                   <ValidationInput
                     type="text"
@@ -598,8 +679,8 @@ export default class Tales extends Component {
                     handleOnChange={this.handleOnChange}
                     errorMessage={validation_error?.B0_ID_Book_WEB}
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B_Web</p>
                   <ValidationInput
                     type="url"
@@ -609,8 +690,8 @@ export default class Tales extends Component {
                     handleOnChange={this.handleOnChange}
                     errorMessage={validation_error?.B_Web}
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B_isBookFree</p>
                   <Checkbox
                     key={9}
@@ -622,8 +703,8 @@ export default class Tales extends Component {
                       })
                     }
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B_isBookHidden</p>
                   <Checkbox
                     key={10}
@@ -635,8 +716,8 @@ export default class Tales extends Component {
                       })
                     }
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <img
                     style={{
                       width: "200px",
@@ -644,8 +725,8 @@ export default class Tales extends Component {
                     }}
                     src={B_Storage ? B_Storage : null}
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B_BookImage</p>
                   <ValidationInput
                     type="text"
@@ -655,8 +736,8 @@ export default class Tales extends Component {
                     handleOnChange={this.handleOnChange}
                     errorMessage={validation_error?.B_BookImage}
                   />
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                   <p>B_Storage</p>
                   <ValidationInput
                     type="text"
@@ -666,14 +747,14 @@ export default class Tales extends Component {
                     handleOnChange={this.handleOnChange}
                     errorMessage={validation_error?.B_Storage}
                   />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <div className="row">
+                </Row>
+              </Col>
+              <Col span={8}>
+                <Col>
+                  <Row>
                     <h2 className="title-header">Book Language</h2>
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>L_LanguageName</p>
                     <ValidationInput
                       type="text"
@@ -683,8 +764,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.L_LanguageName}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>L0_ID_Language</p>
                     <ValidationInput
                       type="number"
@@ -694,8 +775,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.L0_ID_Language}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>L0_ID_Language_WEB</p>
                     <ValidationInput
                       type="text"
@@ -705,13 +786,13 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.L0_ID_Language_WEB}
                     />
-                  </div>
-                </div>
-                <div>
-                  <div className="row">
+                  </Row>
+                </Col>
+                <Col>
+                  <Row>
                     <h2 className="title-header">Book Owner</h2>
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O0_ID_Owner</p>
                     <ValidationInput
                       type="number"
@@ -721,8 +802,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O0_ID_Owner}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O0_ID_Owner_WEB</p>
                     <ValidationInput
                       type="text"
@@ -732,8 +813,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O0_ID_Owner_WEB}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O_Company</p>
                     <ValidationInput
                       type="text"
@@ -743,8 +824,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O_Company}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O_Web</p>
                     <ValidationInput
                       type="url"
@@ -754,8 +835,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O_Web}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O_ContactName</p>
                     <ValidationInput
                       type="text"
@@ -765,8 +846,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O_ContactName}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O_ContactEmail</p>
                     <ValidationInput
                       type="email"
@@ -776,8 +857,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O_ContactEmail}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>O_ContactTel</p>
                     <ValidationInput
                       type="tel"
@@ -787,15 +868,15 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.O_ContactTel}
                     />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <div className="row">
+                  </Row>
+                </Col>
+              </Col>
+              <Col span={8}>
+                <Col>
+                  <Row>
                     <h2 className="title-header">Author</h2>
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>A0_ID_Author</p>
                     <ValidationInput
                       type="number"
@@ -805,8 +886,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.A0_ID_Author}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>A0_ID_Author_WEB</p>
                     <ValidationInput
                       type="text"
@@ -816,8 +897,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.A0_ID_Author_WEB}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>A_AuthorImage</p>
                     <ValidationInput
                       type="text"
@@ -827,8 +908,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.A_AuthorImage}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>A_AuthorName</p>
                     <ValidationInput
                       type="text"
@@ -838,8 +919,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.A_AuthorName}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>A_isAuthorHiden</p>
                     <Checkbox
                       key={10}
@@ -851,8 +932,8 @@ export default class Tales extends Component {
                         })
                       }
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <img
                       style={{
                         width: "200px",
@@ -860,13 +941,13 @@ export default class Tales extends Component {
                       }}
                       src={A_Storage ? A_Storage : null}
                     />
-                  </div>
-                </div>
-                <div>
-                  <div>
+                  </Row>
+                </Col>
+                <Col>
+                  <Row>
                     <h2 className="title-header">Illustrator</h2>
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>I0_ID_Illustrator</p>
                     <ValidationInput
                       type="number"
@@ -876,8 +957,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.I0_ID_Illustrator}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>I0_ID_Illustrator_WEB</p>
                     <ValidationInput
                       type="text"
@@ -887,9 +968,9 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.I0_ID_Illustrator_WEB}
                     />
-                  </div>
+                  </Row>
 
-                  <div className="row">
+                  <Row>
                     <p>I_IllustratorName</p>
                     <ValidationInput
                       type="text"
@@ -899,8 +980,8 @@ export default class Tales extends Component {
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.I_IllustratorName}
                     />
-                  </div>
-                  <div className="row">
+                  </Row>
+                  <Row>
                     <p>_isIllustratorHidden</p>
                     <Checkbox
                       key={25}
@@ -912,11 +993,27 @@ export default class Tales extends Component {
                         })
                       }
                     />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  </Row>
+                </Col>
+              </Col>
+            </Row>
+            <Row>
+              <button
+                onClick={() => {
+                  this.setState({ isAddNew: false });
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  this.handleSaveData();
+                }}
+              >
+                Save
+              </button>
+            </Row>
+          </span>
         ) : (
           <div>
             <div className="row-container">
@@ -927,7 +1024,7 @@ export default class Tales extends Component {
                 </div>
                 <div className="row">
                   <p>Author</p>
-                  <input defaultValue={tales[currentIndex]?.B_BAuthorName} />
+                  <input defaultValue={tales[currentIndex]?.A_AuthorName} />
                 </div>
                 <div className="row">
                   <p>Illustrator</p>
@@ -937,12 +1034,12 @@ export default class Tales extends Component {
                 </div>
                 <div className="row">
                   <p>Title</p>
-                  <input defaultValue={tales[currentIndex]?.Title_Tale} />
+                  <input defaultValue={tales[currentIndex]?.T_TaleTitle} />
                 </div>
                 <div className="row">
-                  <p>Content</p>
+                  <p>T_TaleContent</p>
                   <textarea
-                    defaultValue={tales[currentIndex]?.Content}
+                    defaultValue={tales[currentIndex]?.T_TaleContent}
                     rows={10}
                     cols={100}
                   ></textarea>
@@ -977,10 +1074,11 @@ export default class Tales extends Component {
                     <div className="row">
                       <p>Len</p>
                       <input
-                        defaultValue={
+                        readOnly
+                        value={
                           new DOMParser().parseFromString(
-                            tales[currentIndex]?.Content
-                              ? tales[currentIndex]?.Content
+                            tales[currentIndex]?.T_TaleContent
+                              ? tales[currentIndex]?.T_TaleContent
                               : "",
                             "text/html"
                           ).body.textContent.length
@@ -990,10 +1088,11 @@ export default class Tales extends Component {
                     <div className="row">
                       <p>Time</p>
                       <input
-                        defaultValue={
+                        readOnly
+                        value={
                           new DOMParser().parseFromString(
-                            tales[currentIndex]?.Content
-                              ? tales[currentIndex]?.Content
+                            tales[currentIndex]?.T_TaleContent
+                              ? tales[currentIndex]?.T_TaleContent
                               : "",
                             "text/html"
                           ).body.textContent.length / 238
@@ -1010,8 +1109,8 @@ export default class Tales extends Component {
                   }}
                 >
                   {HTMLReactParser(
-                    tales[currentIndex]?.Content
-                      ? tales[currentIndex]?.Content
+                    tales[currentIndex]?.T_TaleContent
+                      ? tales[currentIndex]?.T_TaleContent
                       : ""
                   )}
                 </div>
@@ -1089,7 +1188,7 @@ export default class Tales extends Component {
                   </div>
                 </div>
                 <div>
-                  <div className="tales[currentIndex]?.Contentrow">
+                  <div className="row">
                     <h2 className="title-header">Book Owner</h2>
                   </div>
                   <div className="row">

@@ -298,3 +298,190 @@ export const bookInputValidation = (obj) => {
     validation_error,
   };
 };
+
+export const talesInputValidation = (obj) => {
+  const {
+    A0_ID_Author,
+    A0_ID_Author_WEB,
+    A_AuthorImage,
+    A_AuthorName,
+    A_Storage,
+    B_BookTitle,
+    BAuthorName,
+    B_Web,
+    B0_ID_Book,
+    B_BookImage,
+    B_Storage,
+    B0_ID_Book_WEB,
+    Title_Tale,
+    T_TaleImage,
+    T_Storage,
+    Content,
+    L_LanguageName,
+    L0_ID_Language,
+    L0_ID_Language_WEB,
+    O_Company,
+    O_Web,
+    O_ContactName,
+    O_ContactEmail,
+    O_ContactTel,
+    O0_ID_Owner,
+    O0_ID_Owner_WEB,
+    I0_ID_Illustrator_WEB,
+    I0_ID_Illustrator,
+    I_IllustratorName,
+  } = obj;
+  validation_error = {};
+  is_error = false;
+
+  if (isEmpty(A0_ID_Author)) {
+    is_error = true;
+    validation_error.A0_ID_Author = "Please enter A0_ID_Author";
+  }
+
+  if (isEmpty(A0_ID_Author_WEB)) {
+    is_error = true;
+    validation_error.A0_ID_Author_WEB = "Please enter A0_ID_Author_WEB";
+  }
+
+  if (isEmpty(A_AuthorImage)) {
+    is_error = true;
+    validation_error.A_AuthorImage = "Please enter A_AuthorImage";
+  }
+
+  if (isEmpty(A_AuthorName)) {
+    is_error = true;
+    validation_error.A_AuthorName = "Please enter A_AuthorName";
+  }
+
+  if (isEmpty(A_Storage)) {
+    is_error = true;
+    validation_error.A_Storage = "Please enter A_Storage";
+  }
+
+  if (isEmpty(B_Storage)) {
+    is_error = true;
+    validation_error.B_Storage = "Please enter B_Storage";
+  }
+
+  if (isEmpty(B0_ID_Book_WEB)) {
+    is_error = true;
+    validation_error.B0_ID_Book_WEB = "Please enter B0_ID_Book_WEB";
+  }
+
+  if (isEmpty(Title_Tale)) {
+    is_error = true;
+    validation_error.Title_Tale = "Please enter Title_Tale";
+  }
+
+  if (isEmpty(T_TaleImage)) {
+    is_error = true;
+    validation_error.T_TaleImage = "Please enter T_TaleImage";
+  }
+
+  if (isEmpty(T_Storage)) {
+    is_error = true;
+    validation_error.T_Storage = "Please enter T_Storage";
+  }
+
+  if (isEmpty(Content)) {
+    is_error = true;
+    validation_error.Content = "Please enter Content";
+  }
+
+  if (isEmpty(I0_ID_Illustrator_WEB)) {
+    is_error = true;
+    validation_error.I0_ID_Illustrator_WEB =
+      "Please enter I0_ID_Illustrator_WEB";
+  }
+
+  if (isEmpty(I0_ID_Illustrator)) {
+    is_error = true;
+    validation_error.I0_ID_Illustrator = "Please enter I0_ID_Illustrator";
+  }
+
+  if (isEmpty(I_IllustratorName)) {
+    is_error = true;
+    validation_error.I_IllustratorName = "Please enter I_IllustratorName";
+  }
+
+  if (isEmpty(B0_ID_Book)) {
+    is_error = true;
+    validation_error.B0_ID_Book = "Please enter B0_ID_Book";
+  }
+
+  if (isEmpty(B_BookTitle)) {
+    is_error = true;
+    validation_error.B_BookTitle = "Please enter B_BookTitle";
+  }
+
+  if (isEmpty(BAuthorName)) {
+    is_error = true;
+    validation_error.BAuthorName = "Please enter BAuthorName";
+  }
+
+  if (isEmpty(B_Web)) {
+    is_error = true;
+    validation_error.B_Web = "Please enter B_Web";
+  }
+
+  if (isEmpty(L_LanguageName)) {
+    is_error = true;
+    validation_error.L_LanguageName = "Please enter L_LanguageName";
+  }
+
+  if (isEmpty(L0_ID_Language)) {
+    is_error = true;
+    validation_error.L0_ID_Language = "Please enter L0_ID_Language";
+  }
+
+  if (isEmpty(L0_ID_Language_WEB)) {
+    is_error = true;
+    validation_error.L0_ID_Language_WEB = "Please enter L0_ID_Language_WEB";
+  }
+
+  if (isEmpty(B_BookImage)) {
+    is_error = true;
+    validation_error.B_BookImage = "Please enter B_BookImage";
+  }
+
+  if (isEmpty(O_Company)) {
+    is_error = true;
+    validation_error.O_Company = "Please enter O_Company";
+  }
+
+  if (isEmpty(O_Web)) {
+    is_error = true;
+    validation_error.O_Web = "Please enter O_Web";
+  }
+
+  if (isEmpty(O_ContactName)) {
+    is_error = true;
+    validation_error.O_ContactName = "Please enter O_ContactName";
+  }
+
+  if (isEmpty(O_ContactEmail)) {
+    is_error = true;
+    validation_error.O_ContactEmail = "Please enter O_ContactEmail";
+  }
+
+  if (isEmpty(O_ContactTel)) {
+    is_error = true;
+    validation_error.O_ContactTel = "Please enter O_ContactTel";
+  }
+
+  if (isEmpty(O0_ID_Owner)) {
+    is_error = true;
+    validation_error.O0_ID_Owner = "Please enter O0_ID_Owner";
+  }
+
+  if (isEmpty(O0_ID_Owner_WEB)) {
+    is_error = true;
+    validation_error.O0_ID_Owner_WEB = "Please enter O0_ID_Owner_WEB";
+  }
+
+  return {
+    is_error,
+    validation_error,
+  };
+};
