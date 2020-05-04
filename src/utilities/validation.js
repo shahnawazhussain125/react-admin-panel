@@ -307,16 +307,16 @@ export const talesInputValidation = (obj) => {
     A_AuthorName,
     A_Storage,
     B_BookTitle,
-    BAuthorName,
+    B_BAuthorName,
     B_Web,
     B0_ID_Book,
     B_BookImage,
     B_Storage,
     B0_ID_Book_WEB,
-    Title_Tale,
+    T_TaleTitle,
     T_TaleImage,
     T_Storage,
-    Content,
+    T_TaleContent,
     L_LanguageName,
     L0_ID_Language,
     L0_ID_Language_WEB,
@@ -369,9 +369,9 @@ export const talesInputValidation = (obj) => {
     validation_error.B0_ID_Book_WEB = "Please enter B0_ID_Book_WEB";
   }
 
-  if (isEmpty(Title_Tale)) {
+  if (isEmpty(T_TaleTitle)) {
     is_error = true;
-    validation_error.Title_Tale = "Please enter Title_Tale";
+    validation_error.T_TaleTitle = "Please enter T_TaleTitle";
   }
 
   if (isEmpty(T_TaleImage)) {
@@ -384,9 +384,9 @@ export const talesInputValidation = (obj) => {
     validation_error.T_Storage = "Please enter T_Storage";
   }
 
-  if (isEmpty(Content)) {
+  if (isEmpty(T_TaleContent)) {
     is_error = true;
-    validation_error.Content = "Please enter Content";
+    validation_error.T_TaleContent = "Please enter T_TaleContent";
   }
 
   if (isEmpty(I0_ID_Illustrator_WEB)) {
@@ -415,9 +415,9 @@ export const talesInputValidation = (obj) => {
     validation_error.B_BookTitle = "Please enter B_BookTitle";
   }
 
-  if (isEmpty(BAuthorName)) {
+  if (isEmpty(B_BAuthorName)) {
     is_error = true;
-    validation_error.BAuthorName = "Please enter BAuthorName";
+    validation_error.B_BAuthorName = "Please enter B_BAuthorName";
   }
 
   if (isEmpty(B_Web)) {

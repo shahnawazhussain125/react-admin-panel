@@ -59,6 +59,8 @@ class Tables extends Component {
       noOfLine: 0,
       types: [],
       dataSet: [],
+      visible: false,
+      selectedRow: null,
     };
   }
 
@@ -127,6 +129,17 @@ class Tables extends Component {
     this.setState({ dataSet });
   };
 
+  handleModalVisible = (visible, selectedRow = false) => {
+    if (selectedRow) {
+      this.setState({
+        selectedRow,
+        visible,
+      });
+    } else {
+      this.setState({ visible });
+    }
+  };
+
   render() {
     const {
       collectionNames,
@@ -136,6 +149,8 @@ class Tables extends Component {
       noOfLine,
       dataSet,
       types,
+      visible,
+      selectedRow,
     } = this.state;
 
     return (
@@ -197,22 +212,22 @@ class Tables extends Component {
                   noOfLine={noOfLine}
                   dataSet={dataSet}
                   types={types}
+                  selectedCollection={selectedCollection}
+                  handleModalVisible={this.handleModalVisible}
                 />
               </Row>
               {/* Table conatiner */}
             </Col>
-            <Col span={1}>
-              <Button className="button-update">Update</Button>
-            </Col>
-          </Row>
-
-          {/* Row save all new button */}
-          <Row style={{ display: "flex", justifyContent: "center" }}>
-            <Button className="button-save-all">Save all new</Button>
           </Row>
         </div>
         {/* Modal */}
-        <Modal />
+        <Modal
+          visible={visible}
+          handleModalVisible={this.handleModalVisible}
+          selectedRow={selectedRow}
+          collectionKeys={collectionKeys}
+          selectedCollection={selectedCollection}
+        />
       </div>
     );
   }

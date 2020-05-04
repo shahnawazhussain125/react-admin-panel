@@ -10,7 +10,7 @@ import Tales from "./screens/Tales";
 function App() {
   return (
     <div className="App">
-      <Tales />
+      <Tables />
     </div>
   );
 }

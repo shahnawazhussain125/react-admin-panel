@@ -18,7 +18,7 @@ export default class Tales extends Component {
       tales: [],
       currentIndex: 0,
       B_BookTitle: null,
-      BAuthorName: null,
+      B_BAuthorName: null,
       B0_ID_Book: null,
       B_Web: null,
       B_isBookFree: false,
@@ -150,6 +150,7 @@ export default class Tales extends Component {
             T_TaleContent: doc.data().T_TaleContent,
             T_TaleImage: doc.data().T_TaleImage,
             T_TaleTitle: doc.data().T_TaleTitle,
+            T_Storage: doc.data().T_Storage,
             T_ID_Tale: doc.id,
           });
         });
@@ -195,7 +196,7 @@ export default class Tales extends Component {
       A_isAuthorHiden: false,
       A_Storage: "",
       B_BookTitle: "",
-      BAuthorName: "",
+      B_BAuthorName: "",
       T_TaleTitle: "",
       T_TaleImage: "",
       T_Storage: "",
@@ -231,16 +232,20 @@ export default class Tales extends Component {
       A0_ID_Author_WEB,
       A_AuthorImage,
       A_AuthorName,
+      A_isAuthorHiden,
       A_Storage,
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       T_TaleTitle,
       T_TaleImage,
       T_Storage,
+      T_isTaleHidden,
       T_TaleContent,
       B0_ID_Book,
       B0_ID_Book_WEB,
       B_Web,
+      B_isBookFree,
+      B_isBookHidden,
       B_Storage,
       L_LanguageName,
       L0_ID_Language,
@@ -256,10 +261,6 @@ export default class Tales extends Component {
       I0_ID_Illustrator_WEB,
       I0_ID_Illustrator,
       I_IllustratorName,
-      A_isAuthorHiden,
-      T_isTaleHidden,
-      B_isBookFree,
-      B_isBookHidden,
       _isIllustratorHidden,
       file,
     } = this.state;
@@ -271,7 +272,7 @@ export default class Tales extends Component {
       A_AuthorName,
       A_Storage,
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       B_Web,
       B0_ID_Book,
       B_BookImage,
@@ -317,21 +318,25 @@ export default class Tales extends Component {
                     A0_ID_Author_WEB,
                     A_AuthorImage,
                     A_AuthorName,
+                    A_isAuthorHiden,
                     A_Storage,
                     B_BookTitle,
-                    BAuthorName,
-                    B_Web,
-                    B0_ID_Book,
-                    B_BookImage,
-                    B_Storage,
-                    B0_ID_Book_WEB,
+                    B_BAuthorName,
                     T_TaleTitle,
                     T_TaleImage,
-                    T_Storage: Storage,
+                    T_Storage,
+                    T_isTaleHidden,
                     T_TaleContent,
+                    B0_ID_Book,
+                    B0_ID_Book_WEB,
+                    B_Web,
+                    B_isBookFree,
+                    B_isBookHidden,
+                    B_Storage,
                     L_LanguageName,
                     L0_ID_Language,
                     L0_ID_Language_WEB,
+                    B_BookImage,
                     O_Company,
                     O_Web,
                     O_ContactName,
@@ -342,11 +347,8 @@ export default class Tales extends Component {
                     I0_ID_Illustrator_WEB,
                     I0_ID_Illustrator,
                     I_IllustratorName,
-                    A_isAuthorHiden,
-                    T_isTaleHidden,
-                    B_isBookFree,
-                    B_isBookHidden,
                     _isIllustratorHidden,
+                    T_Storage: Storage,
                   })
                   .then(() => {
                     notify.show(
@@ -363,7 +365,7 @@ export default class Tales extends Component {
                       A_isAuthorHiden: false,
                       A_Storage: "",
                       B_BookTitle: "",
-                      BAuthorName: "",
+                      B_BAuthorName: "",
                       T_TaleTitle: "",
                       T_TaleImage: "",
                       T_Storage: "",
@@ -422,7 +424,7 @@ export default class Tales extends Component {
       A_isAuthorHiden,
       A_Storage,
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       T_TaleTitle,
       T_TaleImage,
       T_Storage,
@@ -503,12 +505,12 @@ export default class Tales extends Component {
                   <Select
                     style={{ width: 250 }}
                     placeholder="Select Author"
-                    value={BAuthorName}
+                    value={B_BAuthorName}
                     onChange={(value) =>
                       this.setState({
                         ...authors[value],
                         A_Storage: authors[value].A_Storage,
-                        BAuthorName: authors[value].A_AuthorName,
+                        B_BAuthorName: authors[value].A_AuthorName,
                       })
                     }
                   >
@@ -659,7 +661,7 @@ export default class Tales extends Component {
                   />
                 </Row>
                 <Row>
-                  <p>BAuthorName</p>
+                  <p>B_BAuthorName</p>
                   <ValidationInput
                     type="text"
                     key={6}
@@ -1066,6 +1068,10 @@ export default class Tales extends Component {
                       <input defaultValue={tales[currentIndex]?.T_TaleImage} />
                     </div>
                     <div className="row">
+                      <p>T_Storage</p>
+                      <input defaultValue={tales[currentIndex]?.T_Storage} />
+                    </div>
+                    <div className="row">
                       <p>T_isTaleHidden</p>
                       <Checkbox checked={tales[currentIndex]?.T_isTaleHidden} />
                     </div>
@@ -1126,8 +1132,8 @@ export default class Tales extends Component {
                   <input defaultValue={tales[currentIndex]?.B0_ID_Book} />
                 </div>
                 <div className="row">
-                  <p>BAuthorName</p>
-                  <input defaultValue={tales[currentIndex]?.B_BAuthorName} />
+                  <p>B_BAuthorName</p>
+                  <input defaultValue={tales[currentIndex]?.B_B_BAuthorName} />
                 </div>
                 <div className="row">
                   <p>B0_ID_Book_WEB</p>

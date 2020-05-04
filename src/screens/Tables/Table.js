@@ -7,7 +7,12 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, Checkbox } from "antd";
+import { Button, Checkbox, Row } from "antd";
+import {
+  languageInputValidation,
+  illustrationInputValidation,
+} from "../../utilities/validation";
+import TableInput from "../../components/TableInput";
 
 const styles = (theme) => ({
   table: {
@@ -25,6 +30,7 @@ class CustomTable extends React.Component {
     this.state = {
       pastDataSet: null,
       dataSet: [],
+      validation_errors: [],
     };
   }
 
@@ -64,7 +70,7 @@ class CustomTable extends React.Component {
 
   createNewLine = () => {
     let { types, collectionKeys } = this.props;
-    const { dataSet } = this.state;
+    const { dataSet, validation_errors } = this.state;
 
     const newLine = [];
 
@@ -78,12 +84,29 @@ class CustomTable extends React.Component {
             if (value === "string" || value === "number") {
               return (
                 <TableCell>
-                  <input
+                  <TableInput
+                    key={Math.random()}
+                    type={value === "number" ? value : "text"}
+                    name={collectionKeys[col]}
+                    value={dataSet[row][collectionKeys[col]]}
+                    handleOnChange={(e) =>
+                      this.handleOnChange(e.target.value, row, col)
+                    }
+                    errorMessage={
+                      validation_errors[row]
+                        ? validation_errors[row][collectionKeys[col]]
+                        : null
+                    }
+                  />
+                  {/* <input
+                    className="ant-input"
                     type={value}
                     onPaste={(e) => this.handleOnPast(e, row, col)}
                     value={dataSet[row][collectionKeys[col]]}
-                    onChange={(e) => this.handleOnChange(e, row, col)}
-                  />
+                    onChange={(e) =>
+                      this.handleOnChange(e.target.value, row, col)
+                    }
+                  /> */}
                 </TableCell>
               );
             } else if (value === "boolean") {
@@ -92,28 +115,86 @@ class CustomTable extends React.Component {
                   <Checkbox
                     key={3}
                     checked={dataSet[row][types[col]]}
-                    // value={B_isBookHidden}
-                    // onChange={() =>
-                    //   this.setState({
-                    //     B_isBookHidden: !B_isBookHidden,
-                    //   })
-                    // }
+                    onChange={(e) =>
+                      this.handleOnChange(!dataSet[row][types[col]], row, col)
+                    }
                   />
                 </TableCell>
               );
             }
           })}
+          <TableCell></TableCell>
         </TableRow>
       );
     }
     return newLine;
   };
 
-  handleOnChange = (e, row, col) => {
+  handleOnChange = (value, row, col) => {
     const { collectionKeys } = this.props;
     const { dataSet } = this.state;
 
-    dataSet[row][collectionKeys[col]] = e.target.value;
+    dataSet[row][collectionKeys[col]] = value;
+  };
+
+  validateInputFields = () => {
+    const { selectedCollection, collectionData } = this.props;
+    const { dataSet } = this.state;
+    let is_error = false;
+    let validation_errors = [];
+
+    if (selectedCollection === "Languages") {
+      let languages = [...collectionData];
+
+      dataSet.forEach((data) => {
+        const inputValidation = languageInputValidation({
+          ...data,
+          languages,
+        });
+
+        is_error = is_error || inputValidation.is_error;
+        validation_errors.push({
+          ...inputValidation.validation_error,
+        });
+        languages.push(data);
+      });
+    } else if (selectedCollection === "Illustrators") {
+      let illustrators = [...collectionData];
+
+      dataSet.forEach((data) => {
+        const inputValidation = illustrationInputValidation({
+          ...data,
+          illustrators,
+        });
+
+        is_error = is_error || inputValidation.is_error;
+        validation_errors.push({
+          ...inputValidation.validation_error,
+        });
+        illustrators.push(data);
+      });
+    }
+    return {
+      is_error,
+      validation_errors,
+    };
+  };
+
+  saveOnlyData = () => {
+    const { selectedCollection } = this.props;
+    const { is_error, validation_errors } = this.validateInputFields();
+    this.setState({ is_error, validation_errors });
+  };
+
+  saveImageAndData = () => {};
+
+  handleSaveAllNew = () => {
+    const { selectedCollection } = this.props;
+    if (["Languages", "Illustrators", "Owners"].includes(selectedCollection)) {
+      this.saveOnlyData();
+    } else {
+      this.saveImageAndData();
+    }
   };
 
   render() {
@@ -154,7 +235,12 @@ class CustomTable extends React.Component {
                     }
                   })}
                   <TableCell>
-                    <Button className="button-show">Show</Button>
+                    <Button
+                      className="button-show"
+                      onClick={() => this.props.handleModalVisible(true, row)}
+                    >
+                      Show
+                    </Button>
                   </TableCell>
                 </TableRow>
               );
@@ -162,9 +248,14 @@ class CustomTable extends React.Component {
             {this.createNewLine()}
           </TableBody>
         </Table>
+        <Row style={{ display: "flex", justifyContent: "center" }}>
+          <Button className="button-save-all" onClick={this.handleSaveAllNew}>
+            Save all new
+          </Button>
+        </Row>
       </TableContainer>
     );
   }
 }
 
-export default withStyles(styles)(React.memo(CustomTable));
+export default withStyles(styles)(CustomTable);

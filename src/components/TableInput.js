@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ValidationInput(props) {
+export default function TableInput(props) {
   const {
     key = 0,
     type = "text",
@@ -17,11 +17,7 @@ export default function ValidationInput(props) {
         type={type}
         value={value}
         accept={accept}
-        onChange={(e) =>
-          type === "image" || type === "file"
-            ? handleOnChange(e)
-            : handleOnChange(name, e.target.value)
-        }
+        onChange={(e) => handleOnChange(e)}
       />
       {errorMessage && (
         <p style={{ color: "red", fontSize: 10 }}>{errorMessage}</p>
