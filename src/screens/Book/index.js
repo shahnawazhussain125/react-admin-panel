@@ -773,7 +773,7 @@ export default class Book extends Component {
             <div
               style={{
                 backgroundColor: "#EBEAFF",
-                width: "25%",
+                width: "30%",
                 margin: 20,
                 padding: 20,
               }}
