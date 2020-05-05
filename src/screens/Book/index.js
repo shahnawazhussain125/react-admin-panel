@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Checkbox, Select } from "antd";
+import { Row, Col, Button } from "antd";
 import firebase from "../../config/firebase";
 import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
@@ -332,8 +333,21 @@ export default class Book extends Component {
         />
         {isAddNew ? (
           <div className="row-container">
-            <div>
-              <div className="row">
+            <div
+              style={{
+                backgroundColor: "#EBEAFF",
+                width: "30%",
+                margin: 20,
+                padding: 20,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_BookTitle</p>
                 <ValidationInput
                   key={0}
@@ -344,7 +358,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.B_BookTitle}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>BAuthorName</p>
                 <ValidationInput
                   key={1}
@@ -355,7 +375,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.BAuthorName}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B0_ID_Book</p>
                 <ValidationInput
                   key={2}
@@ -367,7 +393,13 @@ export default class Book extends Component {
                 />
               </div>
 
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_Web</p>
                 <ValidationInput
                   key={4}
@@ -378,7 +410,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.B_Web}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_isBookFree</p>
                 <Checkbox
                   key={3}
@@ -391,9 +429,14 @@ export default class Book extends Component {
                   }
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_isBookHidden</p>
-
                 <Checkbox
                   key={3}
                   checked={B_isBookHidden}
@@ -405,11 +448,25 @@ export default class Book extends Component {
                   }
                 />
               </div>
-              <div className="row">
-                <h3>Book Language</h3>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
+                <h3 style={{ backgroundColor: "#885AF8", padding: 5 }}>
+                  Book Language
+                </h3>
               </div>
 
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>BOOKOwner</p>
                 <Select
                   style={{ width: 250 }}
@@ -423,7 +480,13 @@ export default class Book extends Component {
                   ))}
                 </Select>
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>L_LanguageName</p>
                 <ValidationInput
                   key={5}
@@ -434,7 +497,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.L_LanguageName}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>L0_ID_Language</p>
                 <ValidationInput
                   key={6}
@@ -445,7 +514,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.L0_ID_Language}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>L0_ID_Language_WEB</p>
                 <ValidationInput
                   key={7}
@@ -457,17 +532,36 @@ export default class Book extends Component {
                 />
               </div>
             </div>
-            <div>
-              <div className="row">
+            <div
+              style={{
+                backgroundColor: "#EBEAFF",
+                width: "30%",
+                margin: 20,
+                padding: 20,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <img
                   style={{
-                    width: "200px",
-                    height: "200px",
+                    width: 130,
+                    height: 130,
                   }}
                   src={Storage}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>Storage</p>
                 <ValidationInput
                   key={8}
@@ -485,7 +579,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.Storage}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_BookImage</p>
                 <ValidationInput
                   key={9}
@@ -496,10 +596,24 @@ export default class Book extends Component {
                   errorMessage={validation_error?.B_BookImage}
                 />
               </div>
-              <div className="row">
-                <h3>Book Owner</h3>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
+                <h3 style={{ backgroundColor: "#885AF8", padding: 5 }}>
+                  Book Owner
+                </h3>
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>BOOKOwner</p>
                 <Select
                   style={{ width: 250 }}
@@ -513,7 +627,13 @@ export default class Book extends Component {
                   ))}
                 </Select>
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_Company</p>
                 <ValidationInput
                   key={12}
@@ -524,7 +644,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.O_Company}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_Web</p>
                 <ValidationInput
                   key={13}
@@ -535,7 +661,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.O_Web}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_ContactName</p>
                 <ValidationInput
                   key={14}
@@ -546,7 +678,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.O_ContactName}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_ContactEmail</p>
                 <ValidationInput
                   key={15}
@@ -557,7 +695,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.O_ContactEmail}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_ContactTel</p>
                 <ValidationInput
                   key={16}
@@ -568,7 +712,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.O_ContactTel}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O0_ID_Owner</p>
                 <ValidationInput
                   key={17}
@@ -579,7 +729,13 @@ export default class Book extends Component {
                   errorMessage={validation_error?.O0_ID_Owner}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O0_ID_Owner_WEB</p>
                 <ValidationInput
                   key={18}
@@ -591,116 +747,270 @@ export default class Book extends Component {
                 />
               </div>
               <div>
-                <button
+                <Button
+                  style={{ marginLeft: 10 }}
+                  type="primary"
                   onClick={() => {
                     this.setState({ isAddNew: false });
                   }}
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
+                  style={{ marginLeft: 10 }}
+                  type="primary"
                   onClick={() => {
                     this.handleSaveData();
                   }}
                 >
                   Save
-                </button>
+                </Button>
               </div>
             </div>
           </div>
         ) : (
           <div className="row-container">
-            <div>
-              <div className="row">
+            <div
+              style={{
+                backgroundColor: "#EBEAFF",
+                width: "25%",
+                margin: 20,
+                padding: 20,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B0_ID_Book</p>
                 <input defaultValue={books[currentIndex]?.B0_ID_Book} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>BAuthorName</p>
                 <input defaultValue={books[currentIndex]?.BAuthorName} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B0_ID_Book_WEB</p>
                 <input defaultValue={books[currentIndex]?.B0_ID_Book_WEB} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_Web</p>
                 <input defaultValue={books[currentIndex]?.B_Web} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_isBookFree</p>
                 <Checkbox checked={books[currentIndex]?.B_isBookFree} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_isBookHidden</p>
                 <Checkbox checked={books[currentIndex]?.B_isBookHidden} />
               </div>
-              <div className="row">
-                <h3>Book Language</h3>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
+                <h3 style={{ backgroundColor: "#885AF8", padding: 5 }}>
+                  Book Language
+                </h3>
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>BookLanguage</p>
                 <input defaultValue={books[currentIndex]?.L_LanguageName} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>L_LanguageName</p>
                 <input defaultValue={books[currentIndex]?.L_LanguageName} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>L0_ID_Language</p>
                 <input defaultValue={books[currentIndex]?.L0_ID_Language} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>L0_ID_Language_WEB</p>
                 <input defaultValue={books[currentIndex]?.L0_ID_Language_WEB} />
               </div>
             </div>
-            <div>
-              <div className="row">
+            <div
+              style={{
+                backgroundColor: "#EBEAFF",
+                width: "30%",
+                margin: 20,
+                padding: 20,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <img
                   style={{
-                    width: "200px",
-                    height: "200px",
+                    width: 130,
+                    height: 130,
                   }}
                   src={books[currentIndex]?.Storage}
                 />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>Storage</p>
                 <input defaultValue={books[currentIndex]?.Storage} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>B_BookImage</p>
                 <input defaultValue={books[currentIndex]?.B_BookImage} />
               </div>
-              <div className="row">
-                <h3>Book Owner</h3>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
+                <h3 style={{ backgroundColor: "#885AF8", padding: 5 }}>
+                  Book Owner
+                </h3>
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_Company</p>
                 <input defaultValue={books[currentIndex]?.O_Company} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_Web</p>
                 <input defaultValue={books[currentIndex]?.O_Web} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_ContactName</p>
                 <input defaultValue={books[currentIndex]?.O_ContactName} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_ContactEmail</p>
                 <input defaultValue={books[currentIndex]?.O_ContactEmail} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O_ContactTel</p>
                 <input defaultValue={books[currentIndex]?.O_ContactTel} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O0_ID_Owner</p>
                 <input defaultValue={books[currentIndex]?.O0_ID_Owner} />
               </div>
-              <div className="row">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
                 <p>O0_ID_Owner_WEB</p>
                 <input defaultValue={books[currentIndex]?.O0_ID_Owner_WEB} />
               </div>
