@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../../config/firebase";
+import { Typography, Button, Row, Col } from "antd";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
@@ -139,8 +140,21 @@ export default class Language extends Component {
           />
         )}
         {isAddNew ? (
-          <div>
-            <div className="row">
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>L0_ID_Language</p>
               <ValidationInput
                 type="number"
@@ -152,7 +166,13 @@ export default class Language extends Component {
               />
             </div>
 
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>L_LanguageName</p>
               <ValidationInput
                 type="text"
@@ -163,37 +183,68 @@ export default class Language extends Component {
                 errorMessage={validation_error?.L_LanguageName}
               />
             </div>
-            <div>
-              <button
+            <div style={{ display: "flex" }}>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.setState({ isAddNew: false });
                 }}
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.handleSaveData();
                 }}
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
-          <div>
-            <div className="row">
-              <p>L0_ID_Language</p>
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
+              <Typography>L0_ID_Language</Typography>
               <input defaultValue={languages[currentIndex]?.L0_ID_Language} />
             </div>
-            <div className="row">
-              <p>L0_ID_Language_WEB</p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
+              <Typography>L0_ID_Language_WEB</Typography>
               <input
                 defaultValue={languages[currentIndex]?.L0_ID_Language_WEB}
               />
             </div>
-            <div className="row">
-              <p>L_LanguageName</p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
+              <Typography style={{ fontWeight: "bold" }}>
+                L_LanguageName
+              </Typography>
               <input defaultValue={languages[currentIndex]?.L_LanguageName} />
             </div>
           </div>

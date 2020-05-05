@@ -3,7 +3,7 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
-import { Checkbox, Row, Col } from "antd";
+import { Checkbox, Row, Col, Button } from "antd";
 import ValidationInput from "../../components/ValidationInput";
 import { autherInputValidation } from "../../utilities/validation";
 
@@ -225,8 +225,21 @@ export default class Auther extends Component {
           height={100}
         /> */}
         {isAddNew ? (
-          <div>
-            <div className="row">
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>A0_ID_Author</p>
               <ValidationInput
                 key={0}
@@ -237,7 +250,13 @@ export default class Auther extends Component {
                 errorMessage={validation_error?.A0_ID_Author}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>A_AuthorImage</p>
               <ValidationInput
                 type="text"
@@ -249,7 +268,13 @@ export default class Auther extends Component {
               />
             </div>
 
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>A_AuthorName</p>
               <ValidationInput
                 type="text"
@@ -260,9 +285,16 @@ export default class Auther extends Component {
                 errorMessage={validation_error?.A_AuthorName}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>_isIllustratorHidden</p>
               <Checkbox
+                style={{ marginRight: 155 }}
                 key={3}
                 checked={A_isAuthorHiden}
                 value={A_isAuthorHiden}
@@ -273,16 +305,30 @@ export default class Auther extends Component {
                 }
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginBottom: 20,
+                backgroundColor: "#E0DFFF",
+                padding: 10,
+              }}
+            >
               <img
                 style={{
-                  width: "200px",
-                  height: "200px",
+                  width: 120,
+                  height: 120,
                 }}
                 src={Storage}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>Storage</p>
               <ValidationInput
                 type="file"
@@ -303,101 +349,118 @@ export default class Auther extends Component {
             </div>
 
             <div>
-              <button
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.setState({ isAddNew: false });
                 }}
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.handleSaveData();
                 }}
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
           <>
-            <Row>
-              <Col span={3}>
-                <p>A0_ID_Author</p>
-              </Col>
-              <Col span={6}>
-                <input
-                  className="ant-input"
-                  defaultValue={authors[currentIndex]?.A0_ID_Author}
-                />
-              </Col>
-            </Row>
+            <div
+              style={{
+                backgroundColor: "#EBEAFF",
+                width: "35%",
+                margin: 20,
+                padding: 20,
+              }}
+            >
+              <Row>
+                <Col span={12}>
+                  <p>A0_ID_Author</p>
+                </Col>
+                <Col span={12}>
+                  <input
+                    className="ant-input"
+                    defaultValue={authors[currentIndex]?.A0_ID_Author}
+                  />
+                </Col>
+              </Row>
 
-            <Row>
-              <Col span={3}>
-                <p>A0_ID_Author_WEB</p>
-              </Col>
-              <Col span={6}>
-                <input
-                  className="ant-input"
-                  defaultValue={authors[currentIndex]?.A0_ID_Author_WEB}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={3}>
-                <p>A_AuthorImage</p>
-              </Col>
-              <Col span={6}>
-                <input
-                  className="ant-input"
-                  defaultValue={authors[currentIndex]?.A_AuthorImage}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={3}>
-                <p>A_AuthorName</p>
-              </Col>
-              <Col span={6}>
-                <input
-                  className="ant-input"
-                  defaultValue={authors[currentIndex]?.A_AuthorName}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={3}>
-                <p>A_isAuthorHiden</p>
-              </Col>
-              <Col span={6}>
-                <Checkbox checked={authors[currentIndex]?.A_isAuthorHiden} />
-              </Col>
-            </Row>
-            <Row>
-              <img
-                style={{
-                  width: "200px",
-                  height: "200px",
-                }}
-                src={
-                  authors[currentIndex]?.Storage
-                    ? authors[currentIndex]?.Storage
-                    : null
-                }
-              />
-            </Row>
-            <Row>
-              <Col span={3}>
-                <p>Upload Image</p>
-              </Col>
-              <Col span={6}>
-                <input
-                  className="ant-input"
-                  defaultValue={authors[currentIndex]?.Storage}
-                />
-              </Col>
-            </Row>
+              <Row>
+                <Col span={12}>
+                  <p>A0_ID_Author_WEB</p>
+                </Col>
+                <Col span={12}>
+                  <input
+                    className="ant-input"
+                    defaultValue={authors[currentIndex]?.A0_ID_Author_WEB}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12}>
+                  <p>A_AuthorImage</p>
+                </Col>
+                <Col span={12}>
+                  <input
+                    className="ant-input"
+                    defaultValue={authors[currentIndex]?.A_AuthorImage}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12}>
+                  <p>A_AuthorName</p>
+                </Col>
+                <Col span={12}>
+                  <input
+                    className="ant-input"
+                    defaultValue={authors[currentIndex]?.A_AuthorName}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12}>
+                  <p>A_isAuthorHiden</p>
+                </Col>
+                <Col span={12}>
+                  <Checkbox checked={authors[currentIndex]?.A_isAuthorHiden} />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12}></Col>
+                <Col span={12}>
+                  <img
+                    style={{
+                      width: 120,
+                      height: 120,
+                      marginBottom: 20,
+                    }}
+                    src={
+                      authors[currentIndex]?.Storage
+                        ? authors[currentIndex]?.Storage
+                        : null
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12}>
+                  <p>Upload Image</p>
+                </Col>
+                <Col span={12}>
+                  <input
+                    className="ant-input"
+                    defaultValue={authors[currentIndex]?.Storage}
+                  />
+                </Col>
+              </Row>
+            </div>
           </>
         )}
       </div>

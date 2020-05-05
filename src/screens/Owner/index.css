@@ -3,6 +3,9 @@
   /* border: 2px solid red; */
 }
 .row {
+  /* display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px; */
   display: flex;
   width: 60%;
   flex-direction: row;

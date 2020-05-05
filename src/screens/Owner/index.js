@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
+import { Typography, Button, Row, Col } from "antd";
 import "./index.css";
 import Headers from "../../components/header";
 import ValidationInput from "../../components/ValidationInput";
@@ -166,8 +167,21 @@ export default class Owner extends Component {
           handleReload={this.handleReload}
         />
         {isAddNew ? (
-          <div>
-            <div className="row">
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O0_ID_Owner</p>
               <ValidationInput
                 type="number"
@@ -179,7 +193,13 @@ export default class Owner extends Component {
               />
             </div>
 
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_Company</p>
               <ValidationInput
                 type="text"
@@ -190,7 +210,13 @@ export default class Owner extends Component {
                 errorMessage={validation_error?.O_Company}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_Web</p>
               <ValidationInput
                 type="url"
@@ -201,7 +227,13 @@ export default class Owner extends Component {
                 errorMessage={validation_error?.O_Web}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_ContactName</p>
               <ValidationInput
                 type="text"
@@ -212,7 +244,13 @@ export default class Owner extends Component {
                 errorMessage={validation_error?.O_ContactName}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_ContactEmail</p>
               <ValidationInput
                 type="email"
@@ -223,7 +261,13 @@ export default class Owner extends Component {
                 errorMessage={validation_error?.O_ContactEmail}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_ContactTel</p>
               <ValidationInput
                 type="tel"
@@ -236,49 +280,102 @@ export default class Owner extends Component {
             </div>
 
             <div>
-              <button
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.setState({ isAddNew: false });
                 }}
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.handleSaveData();
                 }}
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
-          <div>
-            <div className="row">
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O0_ID_Owner</p>
               <input defaultValue={owners[currentIndex]?.O0_ID_Owner} />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O0_ID_Owner_WEB</p>
               <input defaultValue={owners[currentIndex]?.O0_ID_Owner_WEB} />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_Company</p>
               <input defaultValue={owners[currentIndex]?.O_Company} />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_Web</p>
               <input defaultValue={owners[currentIndex]?.O_Web} />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_ContactName</p>
               <input defaultValue={owners[currentIndex]?.O_ContactName} />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_ContactEmail</p>
               <input defaultValue={owners[currentIndex]?.O_ContactEmail} />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>O_ContactTel</p>
               <input defaultValue={owners[currentIndex]?.O_ContactTel} />
             </div>

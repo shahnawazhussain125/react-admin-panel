@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
+import { Typography, Button, Row, Col } from "antd";
 import "./index.css";
 import Headers from "../../components/header";
 import { Checkbox } from "antd";
@@ -145,8 +146,21 @@ export default class Illustration extends Component {
           handleReload={this.handleReload}
         />
         {isAddNew ? (
-          <div>
-            <div className="row">
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>I0_ID_Illustrator</p>
               <ValidationInput
                 type="number"
@@ -158,7 +172,13 @@ export default class Illustration extends Component {
               />
             </div>
 
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>I_IllustratorName</p>
               <ValidationInput
                 type="text"
@@ -169,7 +189,13 @@ export default class Illustration extends Component {
                 errorMessage={validation_error?.I_IllustratorName}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>_isIllustratorHidden</p>
               <Checkbox
                 key={3}
@@ -183,43 +209,78 @@ export default class Illustration extends Component {
             </div>
 
             <div>
-              <button
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.setState({ isAddNew: false });
                 }}
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.handleSaveData();
                 }}
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
-          <div>
-            <div className="row">
+          <div
+            style={{
+              backgroundColor: "#EBEAFF",
+              width: "30%",
+              margin: 20,
+              padding: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>I0_ID_Illustrator</p>
               <input
                 defaultValue={illustrators[currentIndex]?.I0_ID_Illustrator}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>I0_ID_Illustrator_WEB</p>
               <input
                 defaultValue={illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>I_IllustratorName</p>
               <input
                 defaultValue={illustrators[currentIndex]?.I_IllustratorName}
               />
             </div>
-            <div className="row">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
               <p>_isIllustratorHidden</p>
               <Checkbox
                 checked={illustrators[currentIndex]?._isIllustratorHidden}
