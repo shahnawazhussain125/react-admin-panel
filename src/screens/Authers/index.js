@@ -3,7 +3,7 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
-import { Checkbox } from "antd";
+import { Checkbox, Row, Col } from "antd";
 import ValidationInput from "../../components/ValidationInput";
 import { autherInputValidation } from "../../utilities/validation";
 
@@ -83,79 +83,116 @@ export default class Auther extends Component {
     });
   };
 
-  handleSaveData = () => {
-    const {
-      A0_ID_Author,
-      A_AuthorImage,
-      A_AuthorName,
-      A_isAuthorHiden,
-      Storage,
-      authors,
-      file,
-    } = this.state;
-
-    const { is_error, validation_error } = autherInputValidation({
-      A0_ID_Author,
-      A_AuthorImage,
-      A_AuthorName,
-      Storage,
-      authors,
-      file,
-    });
-
-    this.setState({ is_error, validation_error }, () => {
-      if (!is_error) {
-        let storageRef = firebase
-          .storage()
-          .ref()
-          .child(`AuthorImages/${Math.random().toString().substring(5)}`);
-
-        storageRef
-          .put(file)
-          .then(() => {
-            storageRef
-              .getDownloadURL()
-              .then((Storage) => {
-                firebase
-                  .firestore()
-                  .collection("Authors")
-                  .add({
-                    A0_ID_Author,
-                    A_AuthorImage,
-                    A_AuthorName,
-                    A_isAuthorHiden,
-                    Storage,
-                  })
-                  .then(() => {
-                    notify.show(
-                      "Author has been successfully added",
-                      "success",
-                      2000
-                    );
-                    this.setState({
-                      A0_ID_Author: "",
-                      A_AuthorImage: "",
-                      A_AuthorName: "",
-                      file: "",
-                      A_isAuthorHiden: false,
-                      isAddNew: false,
-                    });
-                    this.getAllAuthors();
-                  })
-                  .catch((error) => {
-                    notify.show(`Error! ${error.message}`, "error", 2000);
-                  });
-              })
-              .catch((error) => {
-                notify.show(`Error! ${error.message}`, "error", 2000);
-              });
-          })
-          .catch((error) => {
-            notify.show(`Error! ${error.message}`, "error", 2000);
-          });
-      }
-    });
+  readJSON = (path) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "file:///home/shahnawaz/Downloads/test.png", true);
+    xhr.responseType = "blob";
+    xhr.onload = function (e) {
+      console.log(this.response);
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var res = event.target.result;
+        console.log(res);
+      };
+      var file = this.response;
+      reader.readAsDataURL(file);
+    };
+    xhr.send();
   };
+
+  convertImgToBase64 = () => {};
+
+  handleSaveData = () => {
+    let file = "home/shahnawaz/Downloads/test.png";
+
+    this.readJSON(file);
+
+    // rawFile.send(null);
+    // let storageRef = firebase
+    //   .storage()
+    //   .ref()
+    //   .child(`test/${Math.random().toString().substring(5)}`);
+
+    // storageRef.put(file).then(() => {
+    //   storageRef.getDownloadURL().then((Storage) => {
+    //     console.log("Storage", Storage);
+    //   });
+    // });
+  };
+
+  // handleSaveData = () => {
+  //   const {
+  //     A0_ID_Author,
+  //     A_AuthorImage,
+  //     A_AuthorName,
+  //     A_isAuthorHiden,
+  //     Storage,
+  //     authors,
+  //     file,
+  //   } = this.state;
+
+  //   const { is_error, validation_error } = autherInputValidation({
+  //     A0_ID_Author,
+  //     A_AuthorImage,
+  //     A_AuthorName,
+  //     Storage,
+  //     authors,
+  //     file,
+  //   });
+
+  //   this.setState({ is_error, validation_error }, () => {
+  //     if (!is_error) {
+  //       let storageRef = firebase
+  //         .storage()
+  //         .ref()
+  //         .child(`AuthorImages/${Math.random().toString().substring(5)}`);
+
+  //       storageRef
+  //         .put(file)
+  //         .then(() => {
+  //           storageRef
+  //             .getDownloadURL()
+  //             .then((Storage) => {
+  //               firebase
+  //                 .firestore()
+  //                 .collection("Authors")
+  //                 .add({
+  //                   A0_ID_Author,
+  //                   A_AuthorImage,
+  //                   A_AuthorName,
+  //                   A_isAuthorHiden,
+  //                   Storage,
+  //                 })
+  //                 .then(() => {
+  //                   notify.show(
+  //                     "Author has been successfully added",
+  //                     "success",
+  //                     2000
+  //                   );
+  //                   this.setState({
+  //                     A0_ID_Author: "",
+  //                     A_AuthorImage: "",
+  //                     A_AuthorName: "",
+  //                     file: "",
+  //                     A_isAuthorHiden: false,
+  //                     isAddNew: false,
+  //                   });
+  //                   this.getAllAuthors();
+  //                 })
+  //                 .catch((error) => {
+  //                   notify.show(`Error! ${error.message}`, "error", 2000);
+  //                 });
+  //             })
+  //             .catch((error) => {
+  //               notify.show(`Error! ${error.message}`, "error", 2000);
+  //             });
+  //         })
+  //         .catch((error) => {
+  //           notify.show(`Error! ${error.message}`, "error", 2000);
+  //         });
+  //     }
+  //   });
+  // };
 
   handleOnChange = (name, value) => {
     this.setState({ [name]: value });
@@ -182,6 +219,11 @@ export default class Auther extends Component {
           handlePrevious={this.handlePrevious}
           handleReload={this.handleReload}
         />
+        {/* <img
+          src={require("../../../../../../../shahnawaz/Downloads/test.png")}
+          width={200}
+          height={100}
+        /> */}
         {isAddNew ? (
           <div>
             <div className="row">
@@ -249,6 +291,7 @@ export default class Auther extends Component {
                 name="A_AuthorImage"
                 // value={Storage}
                 handleOnChange={(e) => {
+                  console.log(" e.target.files[0]", e.target.files[0]);
                   this.setState({
                     A_AuthorImage: e.target.files[0].name,
                     Storage: URL.createObjectURL(e.target.files[0]),
@@ -277,28 +320,61 @@ export default class Auther extends Component {
             </div>
           </div>
         ) : (
-          <div>
-            <div className="row">
-              <p>A0_ID_Author</p>
-              <input defaultValue={authors[currentIndex]?.A0_ID_Author} />
-            </div>
-            <div className="row">
-              <p>A0_ID_Author_WEB</p>
-              <input defaultValue={authors[currentIndex]?.A0_ID_Author_WEB} />
-            </div>
-            <div className="row">
-              <p>A_AuthorImage</p>
-              <input defaultValue={authors[currentIndex]?.A_AuthorImage} />
-            </div>
-            <div className="row">
-              <p>A_AuthorName</p>
-              <input defaultValue={authors[currentIndex]?.A_AuthorName} />
-            </div>
-            <div className="row">
-              <p>A_isAuthorHiden</p>
-              <Checkbox checked={authors[currentIndex]?.A_isAuthorHiden} />
-            </div>
-            <div className="row">
+          <>
+            <Row>
+              <Col span={3}>
+                <p>A0_ID_Author</p>
+              </Col>
+              <Col span={6}>
+                <input
+                  className="ant-input"
+                  defaultValue={authors[currentIndex]?.A0_ID_Author}
+                />
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={3}>
+                <p>A0_ID_Author_WEB</p>
+              </Col>
+              <Col span={6}>
+                <input
+                  className="ant-input"
+                  defaultValue={authors[currentIndex]?.A0_ID_Author_WEB}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={3}>
+                <p>A_AuthorImage</p>
+              </Col>
+              <Col span={6}>
+                <input
+                  className="ant-input"
+                  defaultValue={authors[currentIndex]?.A_AuthorImage}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={3}>
+                <p>A_AuthorName</p>
+              </Col>
+              <Col span={6}>
+                <input
+                  className="ant-input"
+                  defaultValue={authors[currentIndex]?.A_AuthorName}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={3}>
+                <p>A_isAuthorHiden</p>
+              </Col>
+              <Col span={6}>
+                <Checkbox checked={authors[currentIndex]?.A_isAuthorHiden} />
+              </Col>
+            </Row>
+            <Row>
               <img
                 style={{
                   width: "200px",
@@ -310,12 +386,19 @@ export default class Auther extends Component {
                     : null
                 }
               />
-            </div>
-            <div className="row">
-              <p>Upload Image</p>
-              <input defaultValue={authors[currentIndex]?.Storage} />
-            </div>
-          </div>
+            </Row>
+            <Row>
+              <Col span={3}>
+                <p>Upload Image</p>
+              </Col>
+              <Col span={6}>
+                <input
+                  className="ant-input"
+                  defaultValue={authors[currentIndex]?.Storage}
+                />
+              </Col>
+            </Row>
+          </>
         )}
       </div>
     );

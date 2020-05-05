@@ -214,6 +214,7 @@ class Tables extends Component {
                   types={types}
                   selectedCollection={selectedCollection}
                   handleModalVisible={this.handleModalVisible}
+                  getSelectedCollectionData={this.getSelectedCollectionData}
                 />
               </Row>
               {/* Table conatiner */}

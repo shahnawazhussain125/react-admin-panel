@@ -5,7 +5,7 @@ export default function TableInput(props) {
     key = 0,
     type = "text",
     accept,
-    value,
+    defaultValue,
     handleOnChange,
     name,
     errorMessage,
@@ -15,7 +15,8 @@ export default function TableInput(props) {
       <input
         className="ant-input"
         type={type}
-        value={value}
+        defaultValue={defaultValue}
+        // value={value}
         accept={accept}
         onChange={(e) => handleOnChange(e)}
       />

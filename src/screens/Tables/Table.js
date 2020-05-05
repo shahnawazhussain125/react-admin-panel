@@ -13,6 +13,9 @@ import {
   illustrationInputValidation,
 } from "../../utilities/validation";
 import TableInput from "../../components/TableInput";
+import firebase from "../../config/firebase";
+import { notify } from "react-notify-toast";
+import swal from "sweetalert";
 
 const styles = (theme) => ({
   table: {
@@ -72,6 +75,8 @@ class CustomTable extends React.Component {
     let { types, collectionKeys } = this.props;
     const { dataSet, validation_errors } = this.state;
 
+    console.log("dataSet", dataSet);
+
     const newLine = [];
 
     for (let row = 0; row < dataSet.length; row++) {
@@ -88,7 +93,7 @@ class CustomTable extends React.Component {
                     key={Math.random()}
                     type={value === "number" ? value : "text"}
                     name={collectionKeys[col]}
-                    value={dataSet[row][collectionKeys[col]]}
+                    defaultValue={dataSet[row][collectionKeys[col]]}
                     handleOnChange={(e) =>
                       this.handleOnChange(e.target.value, row, col)
                     }
@@ -98,15 +103,6 @@ class CustomTable extends React.Component {
                         : null
                     }
                   />
-                  {/* <input
-                    className="ant-input"
-                    type={value}
-                    onPaste={(e) => this.handleOnPast(e, row, col)}
-                    value={dataSet[row][collectionKeys[col]]}
-                    onChange={(e) =>
-                      this.handleOnChange(e.target.value, row, col)
-                    }
-                  /> */}
                 </TableCell>
               );
             } else if (value === "boolean") {
@@ -181,9 +177,30 @@ class CustomTable extends React.Component {
   };
 
   saveOnlyData = () => {
-    const { selectedCollection } = this.props;
+    const { selectedCollection, dataSet } = this.props;
     const { is_error, validation_errors } = this.validateInputFields();
-    this.setState({ is_error, validation_errors });
+
+    this.setState({ is_error, validation_errors }, () => {
+      if (!is_error) {
+        let firebasePromises = [];
+
+        dataSet.forEach((data) => {
+          delete data.ID_WEB;
+          firebasePromises.push(
+            firebase.firestore().collection(selectedCollection).add(data)
+          );
+        });
+
+        Promise.all(firebasePromises)
+          .then(() => {
+            notify.show("All data has been successfully added", "success");
+            this.handleGetSelectedCollectionData();
+          })
+          .catch((error) => {
+            notify.show("Error! " + error.message, "error");
+          });
+      }
+    });
   };
 
   saveImageAndData = () => {};
@@ -195,6 +212,37 @@ class CustomTable extends React.Component {
     } else {
       this.saveImageAndData();
     }
+  };
+
+  handleDeleteData = (docId) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      firebase
+        .firestore()
+        .collection(this.props.selectedCollection)
+        .doc(docId)
+        .delete()
+        .then(() => {
+          swal("Success! Document has been successfully deleted!", {
+            icon: "success",
+          });
+
+          this.handleGetSelectedCollectionData();
+        })
+        .catch((error) => {
+          swal("Could not delete. An error occured" + error.message);
+        });
+    });
+  };
+  handleGetSelectedCollectionData = () => {
+    this.setState({ pastDataSet: [], dataSet: [] }, () => {
+      this.props.getSelectedCollectionData();
+    });
   };
 
   render() {
@@ -236,10 +284,17 @@ class CustomTable extends React.Component {
                   })}
                   <TableCell>
                     <Button
-                      className="button-show"
+                      type="primary"
                       onClick={() => this.props.handleModalVisible(true, row)}
                     >
                       Show
+                    </Button>
+                    <Button
+                      danger
+                      type="primary"
+                      onClick={() => this.handleDeleteData(row.ID_WEB)}
+                    >
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>
