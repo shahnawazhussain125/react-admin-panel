@@ -1449,8 +1449,6 @@ export default class Tales extends Component {
                   backgroundColor: "#EBEAFF",
                   margin: 20,
                   paddingTop: 20,
-
-                  border: "2px solid red",
                 }}
               >
                 <Row>

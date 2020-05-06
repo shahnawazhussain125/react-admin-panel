@@ -767,7 +767,7 @@ export default class Book extends Component {
                 </Col>
               </Row>
             ) : (
-              <Row span={32} style={{ margin: 20, border: "2px solid red" }}>
+              <Row span={32} style={{ margin: 20 }}>
                 <Col
                   span={12}
                   style={{
