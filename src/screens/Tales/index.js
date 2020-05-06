@@ -496,7 +496,7 @@ export default class Tales extends Component {
                   fontSize: 20,
                 }}
               >
-                Add new Language
+                Add New
               </p>
             </Row>
           )}
