@@ -6,6 +6,7 @@ import "./index.css";
 import Headers from "../../components/header";
 import ValidationInput from "../../components/ValidationInput";
 import { languageInputValidation } from "../../utilities/validation";
+import SideMenu from "../../components/sideMenu";
 
 export default class Language extends Component {
   constructor() {
@@ -131,6 +132,7 @@ export default class Language extends Component {
     return (
       <div className="container">
         <Notifications />
+        <SideMenu />
         {!isAddNew && (
           <Headers
             handleAddNew={this.handleAddNew}

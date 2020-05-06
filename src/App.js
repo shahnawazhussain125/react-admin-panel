@@ -14,9 +14,10 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Tables} />
+        <Route exact path="/tables" component={Tables} />
         <Route path="/language" component={Language} />
         <Route path="/owner" component={Owner} />
-        <Route path="/illustration" component={Illustration} />
+        <Route path="/illustrator" component={Illustration} />
         <Route path="/auther" component={Auther} />
         <Route path="/book" component={Book} />
         <Route path="/tales" component={Tales} />
