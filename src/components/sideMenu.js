@@ -39,6 +39,9 @@ export default function SideMenu() {
             <Link to="tables">Tables</Link>
           </li>
           <li>
+            <Link to="tales">Tales</Link>
+          </li>
+          <li>
             <Link to="auther">Authers</Link>
           </li>
           <li>

@@ -7,6 +7,7 @@ import Headers from "../../components/header";
 import { Checkbox } from "antd";
 import { illustrationInputValidation } from "../../utilities/validation";
 import ValidationInput from "../../components/ValidationInput";
+import SideMenu from "../../components/sideMenu";
 
 export default class Illustration extends Component {
   constructor() {
@@ -137,158 +138,192 @@ export default class Illustration extends Component {
       validation_error,
     } = this.state;
     return (
-      <div className="container">
+      <Row>
         <Notifications />
-        <Headers
-          handleAddNew={this.handleAddNew}
-          handleNext={this.handleNext}
-          handlePrevious={this.handlePrevious}
-          handleReload={this.handleReload}
-        />
-        {isAddNew ? (
-          <div
-            style={{
-              backgroundColor: "#EBEAFF",
-              width: "30%",
-              margin: 20,
-              padding: 20,
-            }}
-          >
-            <div
+        <Col className="gutter-row" span={4}>
+          <SideMenu />
+        </Col>
+        <Col className="gutter-row" span={20}>
+          {!isAddNew ? (
+            <Headers
+              handleAddNew={this.handleAddNew}
+              handleNext={this.handleNext}
+              handlePrevious={this.handlePrevious}
+              handleReload={this.handleReload}
+            />
+          ) : (
+            <Row
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
+                background: "#f5f6f8",
+                height: 60,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <p>I0_ID_Illustrator</p>
-              <ValidationInput
-                type="number"
-                key={0}
-                name="I0_ID_Illustrator"
-                value={I0_ID_Illustrator}
-                handleOnChange={this.handleOnChange}
-                errorMessage={validation_error?.I0_ID_Illustrator}
-              />
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <p>I_IllustratorName</p>
-              <ValidationInput
-                type="text"
-                key={1}
-                name="I_IllustratorName"
-                value={I_IllustratorName}
-                handleOnChange={this.handleOnChange}
-                errorMessage={validation_error?.I_IllustratorName}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <p>_isIllustratorHidden</p>
-              <Checkbox
-                key={3}
-                checked={_isIllustratorHidden}
-                onChange={() =>
-                  this.setState({
-                    _isIllustratorHidden: !_isIllustratorHidden,
-                  })
-                }
-              />
-            </div>
-
-            <div>
-              <Button
-                style={{ marginLeft: 10 }}
-                type="primary"
-                onClick={() => {
-                  this.setState({ isAddNew: false });
+              <Typography
+                style={{
+                  fontSize: 20,
                 }}
               >
-                Cancel
-              </Button>
-              <Button
-                style={{ marginLeft: 10 }}
-                type="primary"
-                onClick={() => {
-                  this.handleSaveData();
+                Add new Language
+              </Typography>
+            </Row>
+          )}
+          <Row>
+            {isAddNew ? (
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: 500,
+                  margin: 20,
+                  padding: 20,
                 }}
               >
-                Save
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div
-            style={{
-              backgroundColor: "#EBEAFF",
-              width: "30%",
-              margin: 20,
-              padding: 20,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <p>I0_ID_Illustrator</p>
-              <input
-                defaultValue={illustrators[currentIndex]?.I0_ID_Illustrator}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <p>I0_ID_Illustrator_WEB</p>
-              <input
-                defaultValue={illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <p>I_IllustratorName</p>
-              <input
-                defaultValue={illustrators[currentIndex]?.I_IllustratorName}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <p>_isIllustratorHidden</p>
-              <Checkbox
-                checked={illustrators[currentIndex]?._isIllustratorHidden}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>L0_ID_Language</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="number"
+                      key={0}
+                      name="I0_ID_Illustrator"
+                      value={I0_ID_Illustrator}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.I0_ID_Illustrator}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I_IllustratorName</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="text"
+                      key={1}
+                      name="I_IllustratorName"
+                      value={I_IllustratorName}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.I_IllustratorName}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>_isIllustratorHidden</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="text"
+                      key={1}
+                      name="I_IllustratorName"
+                      value={I_IllustratorName}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.I_IllustratorName}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>_isIllustratorHidden</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Checkbox
+                      key={3}
+                      checked={_isIllustratorHidden}
+                      onChange={() =>
+                        this.setState({
+                          _isIllustratorHidden: !_isIllustratorHidden,
+                        })
+                      }
+                    />
+                  </Col>
+                </Row>
+                <Row className="bottom-butns">
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.setState({ isAddNew: false });
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.handleSaveData();
+                    }}
+                  >
+                    Save
+                  </Button>
+                </Row>
+              </div>
+            ) : (
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: 500,
+                  margin: 20,
+                  padding: 20,
+                }}
+              >
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I0_ID_Illustrator</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <input
+                      className="ant-input"
+                      defaultValue={
+                        illustrators[currentIndex]?.I0_ID_Illustrator
+                      }
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I0_ID_Illustrator_WEB</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <input
+                      className="ant-input"
+                      defaultValue={
+                        illustrators[currentIndex]?.I0_ID_Illustrator_WEB
+                      }
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I_IllustratorName</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <input
+                      className="ant-input"
+                      defaultValue={
+                        illustrators[currentIndex]?.I_IllustratorName
+                      }
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>_isIllustratorHidden</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Checkbox
+                      checked={illustrators[currentIndex]?._isIllustratorHidden}
+                    />
+                  </Col>
+                </Row>
+              </div>
+            )}
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }
