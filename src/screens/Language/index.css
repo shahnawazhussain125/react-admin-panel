@@ -1,6 +1,7 @@
-.container {
-  /* display: flex; */
+.language_container {
+  display: flex;
   /* border: 2px solid red; */
+  flex-direction: "row";
 }
 .row {
   display: flex;

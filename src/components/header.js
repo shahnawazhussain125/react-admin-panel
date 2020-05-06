@@ -14,7 +14,7 @@ export default class Headers extends Component {
         className="header"
         style={{
           display: "flex",
-          background: "#183761",
+          background: "#f5f6f8",
           height: 60,
           justifyContent: "center",
           alignItems: "center",
