@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Checkbox, Select, Row, Col, Button } from "antd";
+import { Checkbox, Select, Row, Col, Button, Typography } from "antd";
 import firebase from "../../config/firebase";
 import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
@@ -7,6 +7,7 @@ import ValidationInput from "../../components/ValidationInput";
 import "./index.css";
 import { talesInputValidation } from "../../utilities/validation";
 import HTMLReactParser from "html-react-parser";
+import SideMenu from "../../components/sideMenu";
 
 const db = firebase.firestore();
 const { Option } = Select;
@@ -466,930 +467,1131 @@ export default class Tales extends Component {
       ? new DOMParser().parseFromString(T_TaleContent, "text/html").body
           .textContent?.length
       : 0;
-    console.log("noOfCharacter", noOfCharacter);
+    // console.log("noOfCharacter", noOfCharacter);
     return (
-      <div className="container">
+      <Row>
         <Notifications />
-        <Headers
-          handleAddNew={this.handleAddNew}
-          handleNext={this.handleNext}
-          handlePrevious={this.handlePrevious}
-          handleReload={this.handleReload}
-        />
-        {isAddNew ? (
-          <span>
-            <Row>
-              <Col
-                span={11}
-                style={{ backgroundColor: "#EBEAFF", padding: 20, margin: 20 }}
+        <Col className="gutter-row" span={4}>
+          <SideMenu />
+        </Col>
+        <Col className="gutter-row" span={20}>
+          {!isAddNew ? (
+            <Headers
+              handleAddNew={this.handleAddNew}
+              handleNext={this.handleNext}
+              handlePrevious={this.handlePrevious}
+              handleReload={this.handleReload}
+            />
+          ) : (
+            <Row
+              style={{
+                background: "#f5f6f8",
+                height: 60,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 20,
+                }}
               >
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "50%",
-                  }}
-                >
-                  <p>Book</p>
-                  <Select
-                    style={{ width: 250 }}
-                    placeholder="Select Book"
-                    value={B_BookTitle}
-                    onChange={(value) =>
-                      this.setState({
-                        ...books[value],
-                        B_Storage: books[value].B_Storage,
-                      })
-                    }
-                  >
-                    {books.map((value, index) => (
-                      <Option key={value.O0_ID_Owner} value={index}>
-                        {value.B_BookTitle}
-                      </Option>
-                    ))}
-                  </Select>
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "50%",
-                  }}
-                >
-                  <p>Author</p>
-                  <Select
-                    style={{ width: 250 }}
-                    placeholder="Select Author"
-                    value={B_BAuthorName}
-                    onChange={(value) =>
-                      this.setState({
-                        ...authors[value],
-                        A_Storage: authors[value].A_Storage,
-                        B_BAuthorName: authors[value].A_AuthorName,
-                      })
-                    }
-                  >
-                    {authors.map((value, index) => (
-                      <Option key={value.A0_ID_Author} value={index}>
-                        {value.A_AuthorName}
-                      </Option>
-                    ))}
-                  </Select>
-                </Row>
-
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "50%",
-                  }}
-                >
-                  <p>Illustrator</p>
-                  <Select
-                    style={{ width: 250 }}
-                    placeholder="Select Illustrator"
-                    value={I_IllustratorName}
-                    onChange={(value) =>
-                      this.setState({
-                        ...illustrators[value],
-                      })
-                    }
-                  >
-                    {illustrators.map((value, index) => (
-                      <Option key={value.I_IllustratorName} value={index}>
-                        {value.I_IllustratorName}
-                      </Option>
-                    ))}
-                  </Select>
-                </Row>
-
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "50%",
-                  }}
-                >
-                  <p>Title</p>
-                  <ValidationInput
-                    type="text"
-                    key={1}
-                    name="T_TaleTitle"
-                    value={T_TaleTitle}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.T_TaleTitle}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                  }}
-                >
-                  <p>T_TaleContent</p>
-                  <textarea
-                    defaultValue={T_TaleContent}
-                    rows={10}
-                    cols={90}
-                    onChange={(e) =>
-                      this.setState({ T_TaleContent: e.target.value })
-                    }
-                  ></textarea>
-                </Row>
-              </Col>
-              <Col
-                span={11}
-                style={{ backgroundColor: "#EBEAFF", padding: 20, margin: 20 }}
-              >
+                Add new Language
+              </p>
+            </Row>
+          )}
+          <Row>
+            {isAddNew ? (
+              <span>
                 <Row>
-                  <Col span={12}>
-                    <Row
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: "100%",
-                        marginBottom: 12,
-                      }}
-                    >
-                      <img
+                  <Col
+                    span={11}
+                    style={{
+                      backgroundColor: "#EBEAFF",
+                      padding: 20,
+                      margin: 20,
+                    }}
+                  >
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Book</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Select
+                          style={{ width: 250 }}
+                          placeholder="Select Book"
+                          value={B_BookTitle}
+                          onChange={(value) =>
+                            this.setState({
+                              ...books[value],
+                              B_Storage: books[value].B_Storage,
+                            })
+                          }
+                        >
+                          {books.map((value, index) => (
+                            <Option key={value.O0_ID_Owner} value={index}>
+                              {value.B_BookTitle}
+                            </Option>
+                          ))}
+                        </Select>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Author</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Select
+                          style={{ width: 250 }}
+                          placeholder="Select Author"
+                          value={B_BAuthorName}
+                          onChange={(value) =>
+                            this.setState({
+                              ...authors[value],
+                              A_Storage: authors[value].A_Storage,
+                              B_BAuthorName: authors[value].A_AuthorName,
+                            })
+                          }
+                        >
+                          {authors.map((value, index) => (
+                            <Option key={value.A0_ID_Author} value={index}>
+                              {value.A_AuthorName}
+                            </Option>
+                          ))}
+                        </Select>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Illustrator</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Select
+                          style={{ width: 250 }}
+                          placeholder="Select Illustrator"
+                          value={I_IllustratorName}
+                          onChange={(value) =>
+                            this.setState({
+                              ...illustrators[value],
+                            })
+                          }
+                        >
+                          {illustrators.map((value, index) => (
+                            <Option key={value.I_IllustratorName} value={index}>
+                              {value.I_IllustratorName}
+                            </Option>
+                          ))}
+                        </Select>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Title</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <ValidationInput
+                          type="text"
+                          key={1}
+                          name="T_TaleTitle"
+                          value={T_TaleTitle}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.T_TaleTitle}
+                        />
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>T_TaleContent</Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 10 }}>
+                      <textarea
+                        defaultValue={T_TaleContent}
+                        rows={10}
+                        cols={90}
+                        onChange={(e) =>
+                          this.setState({ T_TaleContent: e.target.value })
+                        }
+                      ></textarea>
+                    </Row>
+                  </Col>
+                  <Col
+                    span={11}
+                    style={{
+                      backgroundColor: "#EBEAFF",
+                      padding: 20,
+                      margin: 20,
+                    }}
+                  >
+                    <Row>
+                      <Col span={12}>
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            marginBottom: 12,
+                          }}
+                        >
+                          <img
+                            style={{
+                              width: 150,
+                              height: 150,
+                            }}
+                            src={T_Storage ? T_Storage : null}
+                          />
+                        </Row>
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                          }}
+                        >
+                          <p>T_Storage</p>
+                          <ValidationInput
+                            type="file"
+                            accept="image/*"
+                            key={3}
+                            name="T_TaleImage"
+                            // value={Storage}
+                            handleOnChange={(e) => {
+                              this.setState({
+                                T_TaleImage: e.target.files[0].name,
+                                T_Storage: URL.createObjectURL(
+                                  e.target.files[0]
+                                ),
+                                file: e.target.files[0],
+                              });
+                            }}
+                            errorMessage={validation_error?.T_Storage}
+                          />
+                        </Row>
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            marginBottom: 12,
+                          }}
+                        >
+                          <p>T_TaleImage</p>
+                          <ValidationInput
+                            type="text"
+                            key={121}
+                            name="T_TaleImage"
+                            value={T_TaleImage}
+                            handleOnChange={this.handleOnChange}
+                            errorMessage={validation_error?.T_TaleImage}
+                          />
+                        </Row>
+                        <Row
+                          style={{
+                            display: "flex",
+                            width: "100%",
+                            marginBottom: 12,
+                          }}
+                        >
+                          <p style={{ marginRight: 40 }}>T_isTaleHidden</p>
+                          <Checkbox
+                            key={45}
+                            checked={T_isTaleHidden}
+                            value={T_isTaleHidden}
+                            onChange={() =>
+                              this.setState({
+                                T_isTaleHidden: !T_isTaleHidden,
+                              })
+                            }
+                          />
+                        </Row>
+                      </Col>
+                      <Col span={12}>
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "70%",
+                            marginBottom: 12,
+                          }}
+                        >
+                          <p>Len</p>
+                          <input readOnly value={noOfCharacter} />
+                        </Row>
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "70%",
+                            marginBottom: 12,
+                          }}
+                        >
+                          <p>Time</p>
+                          <input readOnly value={noOfCharacter / 238} />
+                        </Row>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <div
                         style={{
-                          width: 150,
-                          height: 150,
+                          border: "2px solid black",
+                          width: 400,
+                          height: 300,
                         }}
-                        src={T_Storage ? T_Storage : null}
-                      />
+                      >
+                        {HTMLReactParser(T_TaleContent ? T_TaleContent : "")}
+                      </div>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row gutter={24}>
+                  <Col
+                    span={7}
+                    style={{
+                      margin: 20,
+                      padding: 20,
+                      backgroundColor: "#EBEAFF",
+                    }}
+                  >
+                    <Row>
+                      <h2 className="title-header">Book</h2>
                     </Row>
                     <Row
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "100%",
-                      }}
-                    >
-                      <p>T_Storage</p>
-                      <ValidationInput
-                        type="file"
-                        accept="image/*"
-                        key={3}
-                        name="T_TaleImage"
-                        // value={Storage}
-                        handleOnChange={(e) => {
-                          this.setState({
-                            T_TaleImage: e.target.files[0].name,
-                            T_Storage: URL.createObjectURL(e.target.files[0]),
-                            file: e.target.files[0],
-                          });
-                        }}
-                        errorMessage={validation_error?.T_Storage}
-                      />
-                    </Row>
-                    <Row
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: "100%",
+                        width: "80%",
                         marginBottom: 12,
                       }}
                     >
-                      <p>T_TaleImage</p>
+                      <p>B0_ID_Book</p>
+                      <ValidationInput
+                        type="number"
+                        key={5}
+                        name="B0_ID_Book"
+                        value={B0_ID_Book}
+                        handleOnChange={this.handleOnChange}
+                        errorMessage={validation_error?.B0_ID_Book}
+                      />
+                    </Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "80%",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p>B_BAuthorName</p>
                       <ValidationInput
                         type="text"
-                        key={121}
-                        name="T_TaleImage"
-                        value={T_TaleImage}
+                        key={6}
+                        name="B0_ID_Book_WEB"
+                        value={B0_ID_Book_WEB}
                         handleOnChange={this.handleOnChange}
-                        errorMessage={validation_error?.T_TaleImage}
+                        errorMessage={validation_error?.B0_ID_Book_WEB}
                       />
                     </Row>
                     <Row
                       style={{
                         display: "flex",
-                        width: "100%",
+                        justifyContent: "space-between",
+                        width: "80%",
                         marginBottom: 12,
                       }}
                     >
-                      <p style={{ marginRight: 40 }}>T_isTaleHidden</p>
+                      <p>B0_ID_Book_WEB</p>
+                      <ValidationInput
+                        type="text"
+                        key={7}
+                        name="B0_ID_Book_WEB"
+                        value={B0_ID_Book_WEB}
+                        handleOnChange={this.handleOnChange}
+                        errorMessage={validation_error?.B0_ID_Book_WEB}
+                      />
+                    </Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "80%",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p>B_Web</p>
+                      <ValidationInput
+                        type="url"
+                        key={8}
+                        name="B_Web"
+                        value={B_Web}
+                        handleOnChange={this.handleOnChange}
+                        errorMessage={validation_error?.B_Web}
+                      />
+                    </Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "80%",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p>B_isBookFree</p>
                       <Checkbox
-                        key={45}
-                        checked={T_isTaleHidden}
-                        value={T_isTaleHidden}
+                        key={9}
+                        checked={B_isBookFree}
+                        value={B_isBookFree}
                         onChange={() =>
                           this.setState({
-                            T_isTaleHidden: !T_isTaleHidden,
+                            B_isBookFree: !B_isBookFree,
                           })
                         }
                       />
                     </Row>
-                  </Col>
-                  <Col span={12}>
                     <Row
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "70%",
+                        width: "80%",
                         marginBottom: 12,
                       }}
                     >
-                      <p>Len</p>
-                      <input readOnly value={noOfCharacter} />
+                      <p>B_isBookHidden</p>
+                      <Checkbox
+                        key={10}
+                        checked={B_isBookHidden}
+                        value={B_isBookHidden}
+                        onChange={() =>
+                          this.setState({
+                            B_isBookHidden: !B_isBookHidden,
+                          })
+                        }
+                      />
                     </Row>
-                    <Row
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: "70%",
-                        marginBottom: 12,
-                      }}
-                    >
-                      <p>Time</p>
-                      <input readOnly value={noOfCharacter / 238} />
-                    </Row>
-                  </Col>
-                </Row>
-                <Row>
-                  <div
-                    style={{
-                      border: "2px solid black",
-                      width: 400,
-                      height: 300,
-                    }}
-                  >
-                    {HTMLReactParser(T_TaleContent ? T_TaleContent : "")}
-                  </div>
-                </Row>
-              </Col>
-            </Row>
-            <Row gutter={24}>
-              <Col
-                span={7}
-                style={{ margin: 20, padding: 20, backgroundColor: "#EBEAFF" }}
-              >
-                <Row>
-                  <h2 className="title-header">Book</h2>
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B0_ID_Book</p>
-                  <ValidationInput
-                    type="number"
-                    key={5}
-                    name="B0_ID_Book"
-                    value={B0_ID_Book}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.B0_ID_Book}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B_BAuthorName</p>
-                  <ValidationInput
-                    type="text"
-                    key={6}
-                    name="B0_ID_Book_WEB"
-                    value={B0_ID_Book_WEB}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.B0_ID_Book_WEB}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B0_ID_Book_WEB</p>
-                  <ValidationInput
-                    type="text"
-                    key={7}
-                    name="B0_ID_Book_WEB"
-                    value={B0_ID_Book_WEB}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.B0_ID_Book_WEB}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B_Web</p>
-                  <ValidationInput
-                    type="url"
-                    key={8}
-                    name="B_Web"
-                    value={B_Web}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.B_Web}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B_isBookFree</p>
-                  <Checkbox
-                    key={9}
-                    checked={B_isBookFree}
-                    value={B_isBookFree}
-                    onChange={() =>
-                      this.setState({
-                        B_isBookFree: !B_isBookFree,
-                      })
-                    }
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B_isBookHidden</p>
-                  <Checkbox
-                    key={10}
-                    checked={B_isBookHidden}
-                    value={B_isBookHidden}
-                    onChange={() =>
-                      this.setState({
-                        B_isBookHidden: !B_isBookHidden,
-                      })
-                    }
-                  />
-                </Row>
-                <Row style={{ marginBottom: 12 }}>
-                  <img
-                    style={{
-                      width: 150,
-                      height: 150,
-                    }}
-                    src={B_Storage ? B_Storage : null}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B_BookImage</p>
-                  <ValidationInput
-                    type="text"
-                    key={8}
-                    name="B_BookImage"
-                    value={B_BookImage}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.B_BookImage}
-                  />
-                </Row>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "80%",
-                    marginBottom: 12,
-                  }}
-                >
-                  <p>B_Storage</p>
-                  <ValidationInput
-                    type="text"
-                    key={8}
-                    name="B_Storage"
-                    value={B_Storage}
-                    handleOnChange={this.handleOnChange}
-                    errorMessage={validation_error?.B_Storage}
-                  />
-                </Row>
-              </Col>
-              <Col
-                span={7}
-                style={{ padding: 20, margin: 20, backgroundColor: "#EBEAFF" }}
-              >
-                <Col>
-                  <Row>
-                    <h2 className="title-header">Book Language</h2>
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>L_LanguageName</p>
-                    <ValidationInput
-                      type="text"
-                      key={10}
-                      name="L_LanguageName"
-                      value={L_LanguageName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.L_LanguageName}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>L0_ID_Language</p>
-                    <ValidationInput
-                      type="number"
-                      key={11}
-                      name="L0_ID_Language"
-                      value={L0_ID_Language}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.L0_ID_Language}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>L0_ID_Language_WEB</p>
-                    <ValidationInput
-                      type="text"
-                      key={11}
-                      name="L0_ID_Language_WEB"
-                      value={L0_ID_Language_WEB}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.L0_ID_Language_WEB}
-                    />
-                  </Row>
-                </Col>
-                <Col>
-                  <Row>
-                    <h2 className="title-header">Book Owner</h2>
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O0_ID_Owner</p>
-                    <ValidationInput
-                      type="number"
-                      key={12}
-                      name="O0_ID_Owner"
-                      value={O0_ID_Owner}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O0_ID_Owner}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O0_ID_Owner_WEB</p>
-                    <ValidationInput
-                      type="text"
-                      key={13}
-                      name="O0_ID_Owner_WEB"
-                      value={O0_ID_Owner_WEB}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O0_ID_Owner_WEB}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O_Company</p>
-                    <ValidationInput
-                      type="text"
-                      key={13}
-                      name="O_Company"
-                      value={O_Company}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O_Company}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O_Web</p>
-                    <ValidationInput
-                      type="url"
-                      key={14}
-                      name="O_Web"
-                      value={O_Web}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O_Web}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O_ContactName</p>
-                    <ValidationInput
-                      type="text"
-                      key={15}
-                      name="O_ContactName"
-                      value={O_ContactName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O_ContactName}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O_ContactEmail</p>
-                    <ValidationInput
-                      type="email"
-                      key={16}
-                      name="O_ContactEmail"
-                      value={O_ContactEmail}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O_ContactEmail}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>O_ContactTel</p>
-                    <ValidationInput
-                      type="tel"
-                      key={17}
-                      name="O_ContactTel"
-                      value={O_ContactTel}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O_ContactTel}
-                    />
-                  </Row>
-                </Col>
-              </Col>
-              <Col
-                span={7}
-                style={{ margin: 20, padding: 20, backgroundColor: "#EBEAFF" }}
-              >
-                <Col>
-                  <Row>
-                    <h2 className="title-header">Author</h2>
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>A0_ID_Author</p>
-                    <ValidationInput
-                      type="number"
-                      key={18}
-                      name="A0_ID_Author"
-                      value={A0_ID_Author}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A0_ID_Author}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>A0_ID_Author_WEB</p>
-                    <ValidationInput
-                      type="text"
-                      key={19}
-                      name="A0_ID_Author_WEB"
-                      value={A0_ID_Author_WEB}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A0_ID_Author_WEB}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>A_AuthorImage</p>
-                    <ValidationInput
-                      type="text"
-                      key={20}
-                      name="A_AuthorImage"
-                      value={A_AuthorImage}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A_AuthorImage}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>A_AuthorName</p>
-                    <ValidationInput
-                      type="text"
-                      key={21}
-                      name="A_AuthorName"
-                      value={A_AuthorName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A_AuthorName}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>A_isAuthorHiden</p>
-                    <Checkbox
-                      key={10}
-                      checked={A_isAuthorHiden}
-                      value={A_isAuthorHiden}
-                      onChange={() =>
-                        this.setState({
-                          A_isAuthorHiden: !A_isAuthorHiden,
-                        })
-                      }
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <img
-                      style={{
-                        width: 150,
-                        height: 150,
-                      }}
-                      src={A_Storage ? A_Storage : null}
-                    />
-                  </Row>
-                </Col>
-                <Col>
-                  <Row>
-                    <h2 className="title-header">Illustrator</h2>
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>I0_ID_Illustrator</p>
-                    <ValidationInput
-                      type="number"
-                      key={22}
-                      name="I0_ID_Illustrator"
-                      value={I0_ID_Illustrator}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I0_ID_Illustrator}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>I0_ID_Illustrator_WEB</p>
-                    <ValidationInput
-                      type="text"
-                      key={23}
-                      name="I0_ID_Illustrator_WEB"
-                      value={I0_ID_Illustrator_WEB}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I0_ID_Illustrator_WEB}
-                    />
-                  </Row>
-
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>I_IllustratorName</p>
-                    <ValidationInput
-                      type="text"
-                      key={24}
-                      name="I_IllustratorName"
-                      value={I_IllustratorName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I_IllustratorName}
-                    />
-                  </Row>
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      marginBottom: 12,
-                    }}
-                  >
-                    <p>_isIllustratorHidden</p>
-                    <Checkbox
-                      key={25}
-                      checked={_isIllustratorHidden}
-                      value={_isIllustratorHidden}
-                      onChange={() =>
-                        this.setState({
-                          _isIllustratorHidden: !_isIllustratorHidden,
-                        })
-                      }
-                    />
-                  </Row>
-                </Col>
-              </Col>
-            </Row>
-            <Row>
-              <Button
-                style={{ marginLeft: 10 }}
-                type="primary"
-                onClick={() => {
-                  this.setState({ isAddNew: false });
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                style={{ marginLeft: 10 }}
-                type="primary"
-                onClick={() => {
-                  this.handleSaveData();
-                }}
-              >
-                Save
-              </Button>
-            </Row>
-          </span>
-        ) : (
-          <div>
-            <div className="row-container">
-              <div
-                style={{
-                  backgroundColor: "#EBEAFF",
-                  width: "25%",
-                  margin: 20,
-                  padding: 20,
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>Book</p>
-                  <input defaultValue={tales[currentIndex]?.B_BookTitle} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>Author</p>
-                  <input defaultValue={tales[currentIndex]?.A_AuthorName} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>Illustrator</p>
-                  <input
-                    defaultValue={tales[currentIndex]?.I_IllustratorName}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>Title</p>
-                  <input defaultValue={tales[currentIndex]?.T_TaleTitle} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>T_TaleContent</p>
-                  <textarea
-                    defaultValue={tales[currentIndex]?.T_TaleContent}
-                    rows={10}
-                    cols={100}
-                  ></textarea>
-                </div>
-              </div>
-              <div
-                style={{
-                  backgroundColor: "#EBEAFF",
-                  width: "40%",
-                  margin: 20,
-                  padding: 20,
-                }}
-              >
-                <div className="row-container">
-                  <div style={{ width: "45%" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: 20,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <img
                         style={{
                           width: 150,
                           height: 150,
+                        }}
+                        src={B_Storage ? B_Storage : null}
+                      />
+                    </Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "80%",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p>B_BookImage</p>
+                      <ValidationInput
+                        type="text"
+                        key={8}
+                        name="B_BookImage"
+                        value={B_BookImage}
+                        handleOnChange={this.handleOnChange}
+                        errorMessage={validation_error?.B_BookImage}
+                      />
+                    </Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "80%",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p>B_Storage</p>
+                      <ValidationInput
+                        type="text"
+                        key={8}
+                        name="B_Storage"
+                        value={B_Storage}
+                        handleOnChange={this.handleOnChange}
+                        errorMessage={validation_error?.B_Storage}
+                      />
+                    </Row>
+                  </Col>
+                  <Col
+                    span={7}
+                    style={{
+                      padding: 20,
+                      margin: 20,
+                      backgroundColor: "#EBEAFF",
+                    }}
+                  >
+                    <Col>
+                      <Row>
+                        <h2 className="title-header">Book Language</h2>
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>L_LanguageName</p>
+                        <ValidationInput
+                          type="text"
+                          key={10}
+                          name="L_LanguageName"
+                          value={L_LanguageName}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.L_LanguageName}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>L0_ID_Language</p>
+                        <ValidationInput
+                          type="number"
+                          key={11}
+                          name="L0_ID_Language"
+                          value={L0_ID_Language}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.L0_ID_Language}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>L0_ID_Language_WEB</p>
+                        <ValidationInput
+                          type="text"
+                          key={11}
+                          name="L0_ID_Language_WEB"
+                          value={L0_ID_Language_WEB}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.L0_ID_Language_WEB}
+                        />
+                      </Row>
+                    </Col>
+                    <Col>
+                      <Row>
+                        <h2 className="title-header">Book Owner</h2>
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O0_ID_Owner</p>
+                        <ValidationInput
+                          type="number"
+                          key={12}
+                          name="O0_ID_Owner"
+                          value={O0_ID_Owner}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O0_ID_Owner}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O0_ID_Owner_WEB</p>
+                        <ValidationInput
+                          type="text"
+                          key={13}
+                          name="O0_ID_Owner_WEB"
+                          value={O0_ID_Owner_WEB}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O0_ID_Owner_WEB}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O_Company</p>
+                        <ValidationInput
+                          type="text"
+                          key={13}
+                          name="O_Company"
+                          value={O_Company}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O_Company}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O_Web</p>
+                        <ValidationInput
+                          type="url"
+                          key={14}
+                          name="O_Web"
+                          value={O_Web}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O_Web}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O_ContactName</p>
+                        <ValidationInput
+                          type="text"
+                          key={15}
+                          name="O_ContactName"
+                          value={O_ContactName}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O_ContactName}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O_ContactEmail</p>
+                        <ValidationInput
+                          type="email"
+                          key={16}
+                          name="O_ContactEmail"
+                          value={O_ContactEmail}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O_ContactEmail}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>O_ContactTel</p>
+                        <ValidationInput
+                          type="tel"
+                          key={17}
+                          name="O_ContactTel"
+                          value={O_ContactTel}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.O_ContactTel}
+                        />
+                      </Row>
+                    </Col>
+                  </Col>
+                  <Col
+                    span={7}
+                    style={{
+                      margin: 20,
+                      padding: 20,
+                      backgroundColor: "#EBEAFF",
+                    }}
+                  >
+                    <Col>
+                      <Row>
+                        <h2 className="title-header">Author</h2>
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>A0_ID_Author</p>
+                        <ValidationInput
+                          type="number"
+                          key={18}
+                          name="A0_ID_Author"
+                          value={A0_ID_Author}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.A0_ID_Author}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>A0_ID_Author_WEB</p>
+                        <ValidationInput
+                          type="text"
+                          key={19}
+                          name="A0_ID_Author_WEB"
+                          value={A0_ID_Author_WEB}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.A0_ID_Author_WEB}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>A_AuthorImage</p>
+                        <ValidationInput
+                          type="text"
+                          key={20}
+                          name="A_AuthorImage"
+                          value={A_AuthorImage}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.A_AuthorImage}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>A_AuthorName</p>
+                        <ValidationInput
+                          type="text"
+                          key={21}
+                          name="A_AuthorName"
+                          value={A_AuthorName}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.A_AuthorName}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>A_isAuthorHiden</p>
+                        <Checkbox
+                          key={10}
+                          checked={A_isAuthorHiden}
+                          value={A_isAuthorHiden}
+                          onChange={() =>
+                            this.setState({
+                              A_isAuthorHiden: !A_isAuthorHiden,
+                            })
+                          }
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: 150,
+                            height: 150,
+                          }}
+                          src={A_Storage ? A_Storage : null}
+                        />
+                      </Row>
+                    </Col>
+                    <Col>
+                      <Row>
+                        <h2 className="title-header">Illustrator</h2>
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>I0_ID_Illustrator</p>
+                        <ValidationInput
+                          type="number"
+                          key={22}
+                          name="I0_ID_Illustrator"
+                          value={I0_ID_Illustrator}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.I0_ID_Illustrator}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>I0_ID_Illustrator_WEB</p>
+                        <ValidationInput
+                          type="text"
+                          key={23}
+                          name="I0_ID_Illustrator_WEB"
+                          value={I0_ID_Illustrator_WEB}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.I0_ID_Illustrator_WEB}
+                        />
+                      </Row>
+
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>I_IllustratorName</p>
+                        <ValidationInput
+                          type="text"
+                          key={24}
+                          name="I_IllustratorName"
+                          value={I_IllustratorName}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.I_IllustratorName}
+                        />
+                      </Row>
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p>_isIllustratorHidden</p>
+                        <Checkbox
+                          key={25}
+                          checked={_isIllustratorHidden}
+                          value={_isIllustratorHidden}
+                          onChange={() =>
+                            this.setState({
+                              _isIllustratorHidden: !_isIllustratorHidden,
+                            })
+                          }
+                        />
+                      </Row>
+                    </Col>
+                  </Col>
+                </Row>
+                <Row>
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.setState({ isAddNew: false });
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.handleSaveData();
+                    }}
+                  >
+                    Save
+                  </Button>
+                </Row>
+              </span>
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  backgroundColor: "#EBEAFF",
+                  margin: 20,
+                  padding: 20,
+                  border: "2px solid red",
+                }}
+              >
+                <Row>
+                  <Col span={12}>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Book</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B_BookTitle}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Author</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.A_AuthorName}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Illustrator</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.I_IllustratorName}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>Title</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.T_TaleTitle}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>T_TaleContent</Typography>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <textarea
+                        className="ant-input"
+                        defaultValue={tales[currentIndex]?.T_TaleContent}
+                        rows={10}
+                        // cols={100}
+                      ></textarea>
+                    </Row>
+                  </Col>
+                  <Col span={12}>
+                    <Row>
+                      <Col span={12}>
+                        <Row>
+                          <img
+                            style={{
+                              width: 150,
+                              height: 150,
+                            }}
+                            src={
+                              tales[currentIndex]?.T_Storage
+                                ? tales[currentIndex]?.T_Storage
+                                : null
+                            }
+                          />
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography>T_TaleImage</Typography>
+                          </Col>
+                          <Col span={14}>
+                            <input
+                              className="ant-input"
+                              defaultValue={tales[currentIndex]?.T_TaleImage}
+                            />
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography>T_Storage</Typography>
+                          </Col>
+                          <Col span={14}>
+                            <input
+                              className="ant-input"
+                              defaultValue={tales[currentIndex]?.T_Storage}
+                            />
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography>T_isTaleHidden</Typography>
+                          </Col>
+                          <Col span={14}>
+                            <Checkbox
+                              checked={tales[currentIndex]?.T_isTaleHidden}
+                            />
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col span={12}>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography>Len</Typography>
+                          </Col>
+                          <Col span={14}>
+                            <input
+                              className="ant-input"
+                              readOnly
+                              value={
+                                new DOMParser().parseFromString(
+                                  tales[currentIndex]?.T_TaleContent
+                                    ? tales[currentIndex]?.T_TaleContent
+                                    : "",
+                                  "text/html"
+                                ).body.textContent.length
+                              }
+                            />
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography>Time</Typography>
+                          </Col>
+                          <Col span={14}>
+                            <input
+                              className="ant-input"
+                              readOnly
+                              value={
+                                new DOMParser().parseFromString(
+                                  tales[currentIndex]?.T_TaleContent
+                                    ? tales[currentIndex]?.T_TaleContent
+                                    : "",
+                                  "text/html"
+                                ).body.textContent.length / 238
+                              }
+                            />
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={14}>
+                        <div
+                          style={{
+                            border: "2px solid black",
+                            width: 400,
+                            height: 300,
+                          }}
+                        >
+                          {HTMLReactParser(
+                            tales[currentIndex]?.T_TaleContent
+                              ? tales[currentIndex]?.T_TaleContent
+                              : ""
+                          )}
+                        </div>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={8}>
+                    <Row>
+                      <Typography className="title-header">Book</Typography>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B0_ID_Book</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B0_ID_Book}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B_BAuthorName</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B_BAuthorName}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B0_ID_Book_WEB</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B0_ID_Book_WEB}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B_Web</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B_Web}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B_isBookFree</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Checkbox checked={tales[currentIndex]?.B_isBookFree} />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B_isBookHidden</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Checkbox
+                          checked={tales[currentIndex]?.B_isBookHidden}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <img
+                        style={{
+                          width: "200px",
+                          height: "200px",
                         }}
                         src={
                           tales[currentIndex]?.B_Storage
@@ -1397,513 +1599,305 @@ export default class Tales extends Component {
                             : null
                         }
                       />
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B_BookImage</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B_BookImage}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography>B_Storage</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B_Storage}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col span={8}>
+                    <div>
+                      <Row>
+                        <Typography className="title-header">
+                          Book Language
+                        </Typography>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>L_LanguageName</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.L_LanguageName}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>L0_ID_Language</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.L0_ID_Language}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>L0_ID_Language_WEB</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={
+                              tales[currentIndex]?.L0_ID_Language_WEB
+                            }
+                          />
+                        </Col>
+                      </Row>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <p>T_TaleImage</p>
-                      <input defaultValue={tales[currentIndex]?.T_TaleImage} />
+                    <div>
+                      <Row>
+                        <Typography className="title-header">
+                          Book Owner
+                        </Typography>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O0_ID_Owner</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O0_ID_Owner}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O0_ID_Owner_WEB</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O0_ID_Owner_WEB}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O_Company</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O_Company}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O_Web</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O_Web}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O_ContactName</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O_ContactName}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O_ContactEmail</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O_ContactEmail}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>O_ContactTel</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O_ContactTel}
+                          />
+                        </Col>
+                      </Row>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <p>T_Storage</p>
-                      <input defaultValue={tales[currentIndex]?.T_Storage} />
+                  </Col>
+                  <Col span={8}>
+                    <div>
+                      <Row>
+                        <Typography className="title-header">Author</Typography>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>A0_ID_Author</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A0_ID_Author}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>A0_ID_Author_WEB</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A0_ID_Author_WEB}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>A_AuthorImage</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A_AuthorImage}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>A_AuthorName</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A_AuthorName}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>A_isAuthorHiden</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <Checkbox
+                            checked={tales[currentIndex]?.A_isAuthorHiden}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <img
+                          style={{
+                            width: 150,
+                            height: 150,
+                          }}
+                          src={
+                            tales[currentIndex]?.A_Storage
+                              ? tales[currentIndex]?.A_Storage
+                              : null
+                          }
+                        />
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>A_Storage</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A_Storage}
+                          />
+                        </Col>
+                      </Row>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <p>T_isTaleHidden</p>
-                      <Checkbox checked={tales[currentIndex]?.T_isTaleHidden} />
+                    <div>
+                      <Row>
+                        <Typography className="title-header">
+                          Illustrator
+                        </Typography>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>I0_ID_Illustrator</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={
+                              tales[currentIndex]?.I0_ID_Illustrator
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>I0_ID_Illustrator_WEB</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={
+                              tales[currentIndex]?.I0_ID_Illustrator_WEB
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>I_IllustratorName</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={
+                              tales[currentIndex]?.I_IllustratorName
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography>_isIllustratorHidden</Typography>
+                        </Col>
+                        <Col span={14}>
+                          <Checkbox
+                            checked={tales[currentIndex]?._isIllustratorHidden}
+                          />
+                        </Col>
+                      </Row>
                     </div>
-                  </div>
-                  <div style={{ width: "35%" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <p>Len</p>
-                      <input
-                        readOnly
-                        value={
-                          new DOMParser().parseFromString(
-                            tales[currentIndex]?.T_TaleContent
-                              ? tales[currentIndex]?.T_TaleContent
-                              : "",
-                            "text/html"
-                          ).body.textContent.length
-                        }
-                      />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <p>Time</p>
-                      <input
-                        readOnly
-                        value={
-                          new DOMParser().parseFromString(
-                            tales[currentIndex]?.T_TaleContent
-                              ? tales[currentIndex]?.T_TaleContent
-                              : "",
-                            "text/html"
-                          ).body.textContent.length / 238
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    border: "2px solid black",
-                    width: 400,
-                    height: 300,
-                  }}
-                >
-                  {HTMLReactParser(
-                    tales[currentIndex]?.T_TaleContent
-                      ? tales[currentIndex]?.T_TaleContent
-                      : ""
-                  )}
-                </div>
+                  </Col>
+                </Row>
               </div>
-            </div>
-            <div className="row-container">
-              <div
-                style={{
-                  backgroundColor: "#EBEAFF",
-                  width: "25%",
-                  margin: 20,
-                  padding: 20,
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <h2 className="title-header">Book</h2>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B0_ID_Book</p>
-                  <input defaultValue={tales[currentIndex]?.B0_ID_Book} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B_BAuthorName</p>
-                  <input defaultValue={tales[currentIndex]?.B_B_BAuthorName} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B0_ID_Book_WEB</p>
-                  <input defaultValue={tales[currentIndex]?.B0_ID_Book_WEB} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B_Web</p>
-                  <input defaultValue={tales[currentIndex]?.B_Web} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B_isBookFree</p>
-                  <Checkbox checked={tales[currentIndex]?.B_isBookFree} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B_isBookHidden</p>
-                  <Checkbox checked={tales[currentIndex]?.B_isBookHidden} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <img
-                    style={{
-                      width: "200px",
-                      height: "200px",
-                    }}
-                    src={
-                      tales[currentIndex]?.B_Storage
-                        ? tales[currentIndex]?.B_Storage
-                        : null
-                    }
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B_BookImage</p>
-                  <input defaultValue={tales[currentIndex]?.B_BookImage} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <p>B_Storage</p>
-                  <input defaultValue={tales[currentIndex]?.B_Storage} />
-                </div>
-              </div>
-              <div
-                style={{
-                  backgroundColor: "#EBEAFF",
-                  width: "25%",
-                  margin: 20,
-                  padding: 20,
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <h2 className="title-header">Book Language</h2>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>L_LanguageName</p>
-                    <input defaultValue={tales[currentIndex]?.L_LanguageName} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>L0_ID_Language</p>
-                    <input defaultValue={tales[currentIndex]?.L0_ID_Language} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>L0_ID_Language_WEB</p>
-                    <input
-                      defaultValue={tales[currentIndex]?.L0_ID_Language_WEB}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <h2 className="title-header">Book Owner</h2>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O0_ID_Owner</p>
-                    <input defaultValue={tales[currentIndex]?.O0_ID_Owner} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O0_ID_Owner_WEB</p>
-                    <input
-                      defaultValue={tales[currentIndex]?.O0_ID_Owner_WEB}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O_Company</p>
-                    <input defaultValue={tales[currentIndex]?.O_Company} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O_Web</p>
-                    <input defaultValue={tales[currentIndex]?.O_Web} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O_ContactName</p>
-                    <input defaultValue={tales[currentIndex]?.O_ContactName} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O_ContactEmail</p>
-                    <input defaultValue={tales[currentIndex]?.O_ContactEmail} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>O_ContactTel</p>
-                    <input defaultValue={tales[currentIndex]?.O_ContactTel} />
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{
-                  backgroundColor: "#EBEAFF",
-                  width: "25%",
-                  margin: 20,
-                  padding: 20,
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <h2 className="title-header">Author</h2>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>A0_ID_Author</p>
-                    <input defaultValue={tales[currentIndex]?.A0_ID_Author} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>A0_ID_Author_WEB</p>
-                    <input
-                      defaultValue={tales[currentIndex]?.A0_ID_Author_WEB}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>A_AuthorImage</p>
-                    <input defaultValue={tales[currentIndex]?.A_AuthorImage} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>A_AuthorName</p>
-                    <input defaultValue={tales[currentIndex]?.A_AuthorName} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>A_isAuthorHiden</p>
-                    <Checkbox checked={tales[currentIndex]?.A_isAuthorHiden} />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <img
-                      style={{
-                        width: 150,
-                        height: 150,
-                      }}
-                      src={
-                        tales[currentIndex]?.A_Storage
-                          ? tales[currentIndex]?.A_Storage
-                          : null
-                      }
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>A_Storage</p>
-                    <input defaultValue={tales[currentIndex]?.A_Storage} />
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <h2 className="title-header">Illustrator</h2>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>I0_ID_Illustrator</p>
-                    <input
-                      defaultValue={tales[currentIndex]?.I0_ID_Illustrator}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>I0_ID_Illustrator_WEB</p>
-                    <input
-                      defaultValue={tales[currentIndex]?.I0_ID_Illustrator_WEB}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>I_IllustratorName</p>
-                    <input
-                      defaultValue={tales[currentIndex]?.I_IllustratorName}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <p>_isIllustratorHidden</p>
-                    <Checkbox
-                      checked={tales[currentIndex]?._isIllustratorHidden}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+            )}
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }
