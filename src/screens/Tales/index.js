@@ -514,7 +514,7 @@ export default class Tales extends Component {
                   >
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Book</Typography>
+                        <Typography className="input-title">Book</Typography>
                       </Col>
                       <Col span={14}>
                         <Select
@@ -539,7 +539,7 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Author</Typography>
+                        <Typography className="input-title">Author</Typography>
                       </Col>
                       <Col span={14}>
                         <Select
@@ -565,7 +565,9 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Illustrator</Typography>
+                        <Typography className="input-title">
+                          Illustrator
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <Select
@@ -589,7 +591,7 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Title</Typography>
+                        <Typography className="input-title">Title</Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -605,7 +607,9 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>T_TaleContent</Typography>
+                        <Typography className="input-title">
+                          T_TaleContent
+                        </Typography>
                       </Col>
                     </Row>
 
@@ -648,7 +652,9 @@ export default class Tales extends Component {
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>T_Storage</Typography>
+                            <Typography className="input-title">
+                              T_Storage
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <ValidationInput
@@ -673,7 +679,9 @@ export default class Tales extends Component {
 
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>T_TaleImage</Typography>
+                            <Typography className="input-title">
+                              T_TaleImage
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <ValidationInput
@@ -689,7 +697,9 @@ export default class Tales extends Component {
 
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>T_isTaleHidden</Typography>
+                            <Typography className="input-title">
+                              T_isTaleHidden
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <Checkbox
@@ -708,7 +718,7 @@ export default class Tales extends Component {
                       <Col span={12}>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>Len</Typography>
+                            <Typography className="input-title">Len</Typography>
                           </Col>
                           <Col span={14}>
                             <input
@@ -721,7 +731,9 @@ export default class Tales extends Component {
 
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>Time</Typography>
+                            <Typography className="input-title">
+                              Time
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <input
@@ -756,7 +768,7 @@ export default class Tales extends Component {
                       backgroundColor: "#EBEAFF",
                     }}
                   >
-                    <Row>
+                    <Row className="title-header-container">
                       <h2 className="title-header">Book</h2>
                     </Row>
 
@@ -766,7 +778,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B0_ID_Book</Typography>
+                        <Typography className="input-title">
+                          B0_ID_Book
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -785,7 +799,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B_BAuthorName</Typography>
+                        <Typography className="input-title">
+                          B_BAuthorName
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -804,7 +820,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B0_ID_Book_WEB</Typography>
+                        <Typography className="input-title">
+                          B0_ID_Book_WEB
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -823,7 +841,7 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B_Web</Typography>
+                        <Typography className="input-title">B_Web</Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -842,7 +860,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B_isBookFree</Typography>
+                        <Typography className="input-title">
+                          B_isBookFree
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <Checkbox
@@ -863,7 +883,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B_isBookHidden</Typography>
+                        <Typography className="input-title">
+                          B_isBookHidden
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <Checkbox
@@ -893,7 +915,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B_BookImage</Typography>
+                        <Typography className="input-title">
+                          B_BookImage
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -912,7 +936,9 @@ export default class Tales extends Component {
                       }}
                     >
                       <Col span={10}>
-                        <Typography>B_Storage</Typography>
+                        <Typography className="input-title">
+                          B_Storage
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -935,7 +961,7 @@ export default class Tales extends Component {
                     }}
                   >
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <h2 className="title-header">Book Language</h2>
                       </Row>
                       <Row
@@ -944,7 +970,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>L_LanguageName</Typography>
+                          <Typography className="input-title">
+                            L_LanguageName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -964,7 +992,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>L0_ID_Language</Typography>
+                          <Typography className="input-title">
+                            L0_ID_Language
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -984,7 +1014,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>L0_ID_Language_WEB</Typography>
+                          <Typography className="input-title">
+                            L0_ID_Language_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1000,7 +1032,7 @@ export default class Tales extends Component {
                     </div>
 
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <h2 className="title-header">Book Owner</h2>
                       </Row>
 
@@ -1010,7 +1042,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O0_ID_Owner</Typography>
+                          <Typography className="input-title">
+                            O0_ID_Owner
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1030,7 +1064,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O0_ID_Owner_WEB</Typography>
+                          <Typography className="input-title">
+                            O0_ID_Owner_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1050,7 +1086,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O_Company</Typography>
+                          <Typography className="input-title">
+                            O_Company
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1070,7 +1108,7 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O_Web</Typography>
+                          <Typography className="input-title">O_Web</Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1090,7 +1128,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O_ContactName</Typography>
+                          <Typography className="input-title">
+                            O_ContactName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1110,7 +1150,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O_ContactEmail</Typography>
+                          <Typography className="input-title">
+                            O_ContactEmail
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1130,7 +1172,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>O_ContactTel</Typography>
+                          <Typography className="input-title">
+                            O_ContactTel
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1154,7 +1198,7 @@ export default class Tales extends Component {
                     }}
                   >
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <h2 className="title-header">Author</h2>
                       </Row>
                       <Row
@@ -1163,7 +1207,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>A0_ID_Author</Typography>
+                          <Typography className="input-title">
+                            A0_ID_Author
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1182,7 +1228,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>A0_ID_Author_WEB</Typography>
+                          <Typography className="input-title">
+                            A0_ID_Author_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1201,7 +1249,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>A_AuthorImage</Typography>
+                          <Typography className="input-title">
+                            A_AuthorImage
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1220,7 +1270,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>A_AuthorName</Typography>
+                          <Typography className="input-title">
+                            A_AuthorName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1239,7 +1291,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>A_isAuthorHiden</Typography>
+                          <Typography className="input-title">
+                            A_isAuthorHiden
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
@@ -1269,7 +1323,7 @@ export default class Tales extends Component {
                       </Row>
                     </div>
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <h2 className="title-header">Illustrator</h2>
                       </Row>
                       <Row
@@ -1278,7 +1332,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>I0_ID_Illustrator</Typography>
+                          <Typography className="input-title">
+                            I0_ID_Illustrator
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1297,7 +1353,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>I0_ID_Illustrator_WEB</Typography>
+                          <Typography className="input-title">
+                            I0_ID_Illustrator_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1319,7 +1377,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>I_IllustratorName</Typography>
+                          <Typography className="input-title">
+                            I_IllustratorName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
@@ -1341,7 +1401,9 @@ export default class Tales extends Component {
                         }}
                       >
                         <Col span={10}>
-                          <Typography>_isIllustratorHidden</Typography>
+                          <Typography className="input-title">
+                            _isIllustratorHidden
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
@@ -1386,15 +1448,16 @@ export default class Tales extends Component {
                   width: "100%",
                   backgroundColor: "#EBEAFF",
                   margin: 20,
-                  padding: 20,
+                  paddingTop: 20,
+
                   border: "2px solid red",
                 }}
               >
                 <Row>
-                  <Col span={12}>
+                  <Col span={10} offset={1}>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Book</Typography>
+                        <Typography className="input-title">Book</Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1405,7 +1468,7 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Author</Typography>
+                        <Typography className="input-title">Author</Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1416,7 +1479,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Illustrator</Typography>
+                        <Typography className="input-title">
+                          Illustrator
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1427,7 +1492,7 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>Title</Typography>
+                        <Typography className="input-title">Title</Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1438,7 +1503,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>T_TaleContent</Typography>
+                        <Typography className="input-title">
+                          T_TaleContent
+                        </Typography>
                       </Col>
                     </Row>
                     <Row>
@@ -1450,7 +1517,7 @@ export default class Tales extends Component {
                       ></textarea>
                     </Row>
                   </Col>
-                  <Col span={12}>
+                  <Col span={10} offset={1}>
                     <Row>
                       <Col span={12}>
                         <Row>
@@ -1468,7 +1535,9 @@ export default class Tales extends Component {
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>T_TaleImage</Typography>
+                            <Typography className="input-title">
+                              T_TaleImage
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <input
@@ -1479,7 +1548,9 @@ export default class Tales extends Component {
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>T_Storage</Typography>
+                            <Typography className="input-title">
+                              T_Storage
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <input
@@ -1490,7 +1561,9 @@ export default class Tales extends Component {
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>T_isTaleHidden</Typography>
+                            <Typography className="input-title">
+                              T_isTaleHidden
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <Checkbox
@@ -1502,7 +1575,7 @@ export default class Tales extends Component {
                       <Col span={12}>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>Len</Typography>
+                            <Typography className="input-title">Len</Typography>
                           </Col>
                           <Col span={14}>
                             <input
@@ -1521,7 +1594,9 @@ export default class Tales extends Component {
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography>Time</Typography>
+                            <Typography className="input-title">
+                              Time
+                            </Typography>
                           </Col>
                           <Col span={14}>
                             <input
@@ -1559,14 +1634,16 @@ export default class Tales extends Component {
                     </Row>
                   </Col>
                 </Row>
-                <Row>
-                  <Col span={8}>
-                    <Row>
+                <Row gutter={[8, 24]}>
+                  <Col span={7} offset={1}>
+                    <Row className="title-header-container">
                       <Typography className="title-header">Book</Typography>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B0_ID_Book</Typography>
+                        <Typography className="input-title">
+                          B0_ID_Book
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1577,7 +1654,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B_BAuthorName</Typography>
+                        <Typography className="input-title">
+                          B_BAuthorName
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1588,7 +1667,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B0_ID_Book_WEB</Typography>
+                        <Typography className="input-title">
+                          B0_ID_Book_WEB
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1599,7 +1680,7 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B_Web</Typography>
+                        <Typography className="input-title">B_Web</Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1610,7 +1691,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B_isBookFree</Typography>
+                        <Typography className="input-title">
+                          B_isBookFree
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <Checkbox checked={tales[currentIndex]?.B_isBookFree} />
@@ -1618,7 +1701,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B_isBookHidden</Typography>
+                        <Typography className="input-title">
+                          B_isBookHidden
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <Checkbox
@@ -1641,7 +1726,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B_BookImage</Typography>
+                        <Typography className="input-title">
+                          B_BookImage
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1652,7 +1739,9 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography>B_Storage</Typography>
+                        <Typography className="input-title">
+                          B_Storage
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <input
@@ -1662,16 +1751,18 @@ export default class Tales extends Component {
                       </Col>
                     </Row>
                   </Col>
-                  <Col span={8}>
+                  <Col span={7} offset={1}>
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <Typography className="title-header">
                           Book Language
                         </Typography>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>L_LanguageName</Typography>
+                          <Typography className="input-title">
+                            L_LanguageName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1682,7 +1773,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>L0_ID_Language</Typography>
+                          <Typography className="input-title">
+                            L0_ID_Language
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1693,7 +1786,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>L0_ID_Language_WEB</Typography>
+                          <Typography className="input-title">
+                            L0_ID_Language_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1706,14 +1801,16 @@ export default class Tales extends Component {
                       </Row>
                     </div>
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <Typography className="title-header">
                           Book Owner
                         </Typography>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O0_ID_Owner</Typography>
+                          <Typography className="input-title">
+                            O0_ID_Owner
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1724,7 +1821,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O0_ID_Owner_WEB</Typography>
+                          <Typography className="input-title">
+                            O0_ID_Owner_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1735,7 +1834,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O_Company</Typography>
+                          <Typography className="input-title">
+                            O_Company
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1746,7 +1847,7 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O_Web</Typography>
+                          <Typography className="input-title">O_Web</Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1757,7 +1858,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O_ContactName</Typography>
+                          <Typography className="input-title">
+                            O_ContactName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1768,7 +1871,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O_ContactEmail</Typography>
+                          <Typography className="input-title">
+                            O_ContactEmail
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1779,7 +1884,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>O_ContactTel</Typography>
+                          <Typography className="input-title">
+                            O_ContactTel
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1790,14 +1897,16 @@ export default class Tales extends Component {
                       </Row>
                     </div>
                   </Col>
-                  <Col span={8}>
+                  <Col span={7} style={{ paddingLeft: 25 }}>
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <Typography className="title-header">Author</Typography>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>A0_ID_Author</Typography>
+                          <Typography className="input-title">
+                            A0_ID_Author
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1808,7 +1917,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>A0_ID_Author_WEB</Typography>
+                          <Typography className="input-title">
+                            A0_ID_Author_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1819,7 +1930,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>A_AuthorImage</Typography>
+                          <Typography className="input-title">
+                            A_AuthorImage
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1830,7 +1943,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>A_AuthorName</Typography>
+                          <Typography className="input-title">
+                            A_AuthorName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1841,7 +1956,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>A_isAuthorHiden</Typography>
+                          <Typography className="input-title">
+                            A_isAuthorHiden
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
@@ -1864,7 +1981,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>A_Storage</Typography>
+                          <Typography className="input-title">
+                            A_Storage
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1875,14 +1994,16 @@ export default class Tales extends Component {
                       </Row>
                     </div>
                     <div>
-                      <Row>
+                      <Row className="title-header-container">
                         <Typography className="title-header">
                           Illustrator
                         </Typography>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>I0_ID_Illustrator</Typography>
+                          <Typography className="input-title">
+                            I0_ID_Illustrator
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1895,7 +2016,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>I0_ID_Illustrator_WEB</Typography>
+                          <Typography className="input-title">
+                            I0_ID_Illustrator_WEB
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1908,7 +2031,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>I_IllustratorName</Typography>
+                          <Typography className="input-title">
+                            I_IllustratorName
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <input
@@ -1921,7 +2046,9 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography>_isIllustratorHidden</Typography>
+                          <Typography className="input-title">
+                            _isIllustratorHidden
+                          </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
