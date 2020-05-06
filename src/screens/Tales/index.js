@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Checkbox, Select, Row, Col } from "antd";
+import { Checkbox, Select, Row, Col, Button } from "antd";
 import firebase from "../../config/firebase";
 import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
@@ -479,8 +479,17 @@ export default class Tales extends Component {
         {isAddNew ? (
           <span>
             <Row>
-              <Col span={12}>
-                <Row>
+              <Col
+                span={11}
+                style={{ backgroundColor: "#EBEAFF", padding: 20, margin: 20 }}
+              >
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "50%",
+                  }}
+                >
                   <p>Book</p>
                   <Select
                     style={{ width: 250 }}
@@ -500,7 +509,13 @@ export default class Tales extends Component {
                     ))}
                   </Select>
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "50%",
+                  }}
+                >
                   <p>Author</p>
                   <Select
                     style={{ width: 250 }}
@@ -522,7 +537,13 @@ export default class Tales extends Component {
                   </Select>
                 </Row>
 
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "50%",
+                  }}
+                >
                   <p>Illustrator</p>
                   <Select
                     style={{ width: 250 }}
@@ -542,7 +563,13 @@ export default class Tales extends Component {
                   </Select>
                 </Row>
 
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "50%",
+                  }}
+                >
                   <p>Title</p>
                   <ValidationInput
                     type="text"
@@ -553,31 +580,53 @@ export default class Tales extends Component {
                     errorMessage={validation_error?.T_TaleTitle}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
                   <p>T_TaleContent</p>
                   <textarea
                     defaultValue={T_TaleContent}
                     rows={10}
-                    cols={100}
+                    cols={90}
                     onChange={(e) =>
                       this.setState({ T_TaleContent: e.target.value })
                     }
                   ></textarea>
                 </Row>
               </Col>
-              <Col span={12}>
+              <Col
+                span={11}
+                style={{ backgroundColor: "#EBEAFF", padding: 20, margin: 20 }}
+              >
                 <Row>
                   <Col span={12}>
-                    <Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        marginBottom: 12,
+                      }}
+                    >
                       <img
                         style={{
-                          width: "200px",
-                          height: "200px",
+                          width: 150,
+                          height: 150,
                         }}
                         src={T_Storage ? T_Storage : null}
                       />
                     </Row>
-                    <Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                      }}
+                    >
                       <p>T_Storage</p>
                       <ValidationInput
                         type="file"
@@ -595,7 +644,14 @@ export default class Tales extends Component {
                         errorMessage={validation_error?.T_Storage}
                       />
                     </Row>
-                    <Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        marginBottom: 12,
+                      }}
+                    >
                       <p>T_TaleImage</p>
                       <ValidationInput
                         type="text"
@@ -606,8 +662,14 @@ export default class Tales extends Component {
                         errorMessage={validation_error?.T_TaleImage}
                       />
                     </Row>
-                    <Row>
-                      <p>T_isTaleHidden</p>
+                    <Row
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p style={{ marginRight: 40 }}>T_isTaleHidden</p>
                       <Checkbox
                         key={45}
                         checked={T_isTaleHidden}
@@ -621,11 +683,25 @@ export default class Tales extends Component {
                     </Row>
                   </Col>
                   <Col span={12}>
-                    <Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "70%",
+                        marginBottom: 12,
+                      }}
+                    >
                       <p>Len</p>
                       <input readOnly value={noOfCharacter} />
                     </Row>
-                    <Row>
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "70%",
+                        marginBottom: 12,
+                      }}
+                    >
                       <p>Time</p>
                       <input readOnly value={noOfCharacter / 238} />
                     </Row>
@@ -645,11 +721,21 @@ export default class Tales extends Component {
               </Col>
             </Row>
             <Row gutter={24}>
-              <Col span={8}>
+              <Col
+                span={7}
+                style={{ margin: 20, padding: 20, backgroundColor: "#EBEAFF" }}
+              >
                 <Row>
                   <h2 className="title-header">Book</h2>
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B0_ID_Book</p>
                   <ValidationInput
                     type="number"
@@ -660,7 +746,14 @@ export default class Tales extends Component {
                     errorMessage={validation_error?.B0_ID_Book}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B_BAuthorName</p>
                   <ValidationInput
                     type="text"
@@ -671,7 +764,14 @@ export default class Tales extends Component {
                     errorMessage={validation_error?.B0_ID_Book_WEB}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B0_ID_Book_WEB</p>
                   <ValidationInput
                     type="text"
@@ -682,7 +782,14 @@ export default class Tales extends Component {
                     errorMessage={validation_error?.B0_ID_Book_WEB}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B_Web</p>
                   <ValidationInput
                     type="url"
@@ -693,7 +800,14 @@ export default class Tales extends Component {
                     errorMessage={validation_error?.B_Web}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B_isBookFree</p>
                   <Checkbox
                     key={9}
@@ -706,7 +820,14 @@ export default class Tales extends Component {
                     }
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B_isBookHidden</p>
                   <Checkbox
                     key={10}
@@ -719,16 +840,23 @@ export default class Tales extends Component {
                     }
                   />
                 </Row>
-                <Row>
+                <Row style={{ marginBottom: 12 }}>
                   <img
                     style={{
-                      width: "200px",
-                      height: "200px",
+                      width: 150,
+                      height: 150,
                     }}
                     src={B_Storage ? B_Storage : null}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B_BookImage</p>
                   <ValidationInput
                     type="text"
@@ -739,7 +867,14 @@ export default class Tales extends Component {
                     errorMessage={validation_error?.B_BookImage}
                   />
                 </Row>
-                <Row>
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "80%",
+                    marginBottom: 12,
+                  }}
+                >
                   <p>B_Storage</p>
                   <ValidationInput
                     type="text"
@@ -751,12 +886,22 @@ export default class Tales extends Component {
                   />
                 </Row>
               </Col>
-              <Col span={8}>
+              <Col
+                span={7}
+                style={{ padding: 20, margin: 20, backgroundColor: "#EBEAFF" }}
+              >
                 <Col>
                   <Row>
                     <h2 className="title-header">Book Language</h2>
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>L_LanguageName</p>
                     <ValidationInput
                       type="text"
@@ -767,7 +912,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.L_LanguageName}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>L0_ID_Language</p>
                     <ValidationInput
                       type="number"
@@ -778,7 +930,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.L0_ID_Language}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>L0_ID_Language_WEB</p>
                     <ValidationInput
                       type="text"
@@ -794,7 +953,14 @@ export default class Tales extends Component {
                   <Row>
                     <h2 className="title-header">Book Owner</h2>
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O0_ID_Owner</p>
                     <ValidationInput
                       type="number"
@@ -805,7 +971,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.O0_ID_Owner}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O0_ID_Owner_WEB</p>
                     <ValidationInput
                       type="text"
@@ -816,7 +989,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.O0_ID_Owner_WEB}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O_Company</p>
                     <ValidationInput
                       type="text"
@@ -827,7 +1007,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.O_Company}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O_Web</p>
                     <ValidationInput
                       type="url"
@@ -838,7 +1025,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.O_Web}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O_ContactName</p>
                     <ValidationInput
                       type="text"
@@ -849,7 +1043,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.O_ContactName}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O_ContactEmail</p>
                     <ValidationInput
                       type="email"
@@ -860,7 +1061,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.O_ContactEmail}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>O_ContactTel</p>
                     <ValidationInput
                       type="tel"
@@ -873,12 +1081,22 @@ export default class Tales extends Component {
                   </Row>
                 </Col>
               </Col>
-              <Col span={8}>
+              <Col
+                span={7}
+                style={{ margin: 20, padding: 20, backgroundColor: "#EBEAFF" }}
+              >
                 <Col>
                   <Row>
                     <h2 className="title-header">Author</h2>
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>A0_ID_Author</p>
                     <ValidationInput
                       type="number"
@@ -889,7 +1107,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.A0_ID_Author}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>A0_ID_Author_WEB</p>
                     <ValidationInput
                       type="text"
@@ -900,7 +1125,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.A0_ID_Author_WEB}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>A_AuthorImage</p>
                     <ValidationInput
                       type="text"
@@ -911,7 +1143,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.A_AuthorImage}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>A_AuthorName</p>
                     <ValidationInput
                       type="text"
@@ -922,7 +1161,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.A_AuthorName}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>A_isAuthorHiden</p>
                     <Checkbox
                       key={10}
@@ -935,11 +1181,18 @@ export default class Tales extends Component {
                       }
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <img
                       style={{
-                        width: "200px",
-                        height: "200px",
+                        width: 150,
+                        height: 150,
                       }}
                       src={A_Storage ? A_Storage : null}
                     />
@@ -949,7 +1202,14 @@ export default class Tales extends Component {
                   <Row>
                     <h2 className="title-header">Illustrator</h2>
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>I0_ID_Illustrator</p>
                     <ValidationInput
                       type="number"
@@ -960,7 +1220,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.I0_ID_Illustrator}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>I0_ID_Illustrator_WEB</p>
                     <ValidationInput
                       type="text"
@@ -972,7 +1239,14 @@ export default class Tales extends Component {
                     />
                   </Row>
 
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>I_IllustratorName</p>
                     <ValidationInput
                       type="text"
@@ -983,7 +1257,14 @@ export default class Tales extends Component {
                       errorMessage={validation_error?.I_IllustratorName}
                     />
                   </Row>
-                  <Row>
+                  <Row
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      marginBottom: 12,
+                    }}
+                  >
                     <p>_isIllustratorHidden</p>
                     <Checkbox
                       key={25}
@@ -1000,45 +1281,86 @@ export default class Tales extends Component {
               </Col>
             </Row>
             <Row>
-              <button
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.setState({ isAddNew: false });
                 }}
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
                 onClick={() => {
                   this.handleSaveData();
                 }}
               >
                 Save
-              </button>
+              </Button>
             </Row>
           </span>
         ) : (
           <div>
             <div className="row-container">
-              <div>
-                <div className="row">
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: "25%",
+                  margin: 20,
+                  padding: 20,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>Book</p>
                   <input defaultValue={tales[currentIndex]?.B_BookTitle} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>Author</p>
                   <input defaultValue={tales[currentIndex]?.A_AuthorName} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>Illustrator</p>
                   <input
                     defaultValue={tales[currentIndex]?.I_IllustratorName}
                   />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>Title</p>
                   <input defaultValue={tales[currentIndex]?.T_TaleTitle} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>T_TaleContent</p>
                   <textarea
                     defaultValue={tales[currentIndex]?.T_TaleContent}
@@ -1047,14 +1369,27 @@ export default class Tales extends Component {
                   ></textarea>
                 </div>
               </div>
-              <div>
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: "40%",
+                  margin: 20,
+                  padding: 20,
+                }}
+              >
                 <div className="row-container">
-                  <div>
-                    <div className="row">
+                  <div style={{ width: "45%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: 20,
+                      }}
+                    >
                       <img
                         style={{
-                          width: "200px",
-                          height: "200px",
+                          width: 150,
+                          height: 150,
                         }}
                         src={
                           tales[currentIndex]?.B_Storage
@@ -1063,21 +1398,45 @@ export default class Tales extends Component {
                         }
                       />
                     </div>
-                    <div className="row">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: 20,
+                      }}
+                    >
                       <p>T_TaleImage</p>
                       <input defaultValue={tales[currentIndex]?.T_TaleImage} />
                     </div>
-                    <div className="row">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: 20,
+                      }}
+                    >
                       <p>T_Storage</p>
                       <input defaultValue={tales[currentIndex]?.T_Storage} />
                     </div>
-                    <div className="row">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: 20,
+                      }}
+                    >
                       <p>T_isTaleHidden</p>
                       <Checkbox checked={tales[currentIndex]?.T_isTaleHidden} />
                     </div>
                   </div>
-                  <div>
-                    <div className="row">
+                  <div style={{ width: "35%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: 20,
+                      }}
+                    >
                       <p>Len</p>
                       <input
                         readOnly
@@ -1091,7 +1450,13 @@ export default class Tales extends Component {
                         }
                       />
                     </div>
-                    <div className="row">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: 20,
+                      }}
+                    >
                       <p>Time</p>
                       <input
                         readOnly
@@ -1123,35 +1488,90 @@ export default class Tales extends Component {
               </div>
             </div>
             <div className="row-container">
-              <div>
-                <div className="row">
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: "25%",
+                  margin: 20,
+                  padding: 20,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <h2 className="title-header">Book</h2>
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B0_ID_Book</p>
                   <input defaultValue={tales[currentIndex]?.B0_ID_Book} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B_BAuthorName</p>
                   <input defaultValue={tales[currentIndex]?.B_B_BAuthorName} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B0_ID_Book_WEB</p>
                   <input defaultValue={tales[currentIndex]?.B0_ID_Book_WEB} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B_Web</p>
                   <input defaultValue={tales[currentIndex]?.B_Web} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B_isBookFree</p>
                   <Checkbox checked={tales[currentIndex]?.B_isBookFree} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B_isBookHidden</p>
                   <Checkbox checked={tales[currentIndex]?.B_isBookHidden} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <img
                     style={{
                       width: "200px",
@@ -1164,29 +1584,72 @@ export default class Tales extends Component {
                     }
                   />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B_BookImage</p>
                   <input defaultValue={tales[currentIndex]?.B_BookImage} />
                 </div>
-                <div className="row">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
                   <p>B_Storage</p>
                   <input defaultValue={tales[currentIndex]?.B_Storage} />
                 </div>
               </div>
-              <div>
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: "25%",
+                  margin: 20,
+                  padding: 20,
+                }}
+              >
                 <div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <h2 className="title-header">Book Language</h2>
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>L_LanguageName</p>
                     <input defaultValue={tales[currentIndex]?.L_LanguageName} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>L0_ID_Language</p>
                     <input defaultValue={tales[currentIndex]?.L0_ID_Language} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>L0_ID_Language_WEB</p>
                     <input
                       defaultValue={tales[currentIndex]?.L0_ID_Language_WEB}
@@ -1194,73 +1657,170 @@ export default class Tales extends Component {
                   </div>
                 </div>
                 <div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <h2 className="title-header">Book Owner</h2>
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O0_ID_Owner</p>
                     <input defaultValue={tales[currentIndex]?.O0_ID_Owner} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O0_ID_Owner_WEB</p>
                     <input
                       defaultValue={tales[currentIndex]?.O0_ID_Owner_WEB}
                     />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O_Company</p>
                     <input defaultValue={tales[currentIndex]?.O_Company} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O_Web</p>
                     <input defaultValue={tales[currentIndex]?.O_Web} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O_ContactName</p>
                     <input defaultValue={tales[currentIndex]?.O_ContactName} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O_ContactEmail</p>
                     <input defaultValue={tales[currentIndex]?.O_ContactEmail} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>O_ContactTel</p>
                     <input defaultValue={tales[currentIndex]?.O_ContactTel} />
                   </div>
                 </div>
               </div>
-              <div>
+              <div
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  width: "25%",
+                  margin: 20,
+                  padding: 20,
+                }}
+              >
                 <div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <h2 className="title-header">Author</h2>
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>A0_ID_Author</p>
                     <input defaultValue={tales[currentIndex]?.A0_ID_Author} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>A0_ID_Author_WEB</p>
                     <input
                       defaultValue={tales[currentIndex]?.A0_ID_Author_WEB}
                     />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>A_AuthorImage</p>
                     <input defaultValue={tales[currentIndex]?.A_AuthorImage} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>A_AuthorName</p>
                     <input defaultValue={tales[currentIndex]?.A_AuthorName} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>A_isAuthorHiden</p>
                     <Checkbox checked={tales[currentIndex]?.A_isAuthorHiden} />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <img
                       style={{
-                        width: "200px",
-                        height: "200px",
+                        width: 150,
+                        height: 150,
                       }}
                       src={
                         tales[currentIndex]?.A_Storage
@@ -1269,34 +1829,70 @@ export default class Tales extends Component {
                       }
                     />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>A_Storage</p>
                     <input defaultValue={tales[currentIndex]?.A_Storage} />
                   </div>
                 </div>
                 <div>
-                  <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <h2 className="title-header">Illustrator</h2>
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>I0_ID_Illustrator</p>
                     <input
                       defaultValue={tales[currentIndex]?.I0_ID_Illustrator}
                     />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>I0_ID_Illustrator_WEB</p>
                     <input
                       defaultValue={tales[currentIndex]?.I0_ID_Illustrator_WEB}
                     />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>I_IllustratorName</p>
                     <input
                       defaultValue={tales[currentIndex]?.I_IllustratorName}
                     />
                   </div>
-                  <div className="row">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: 20,
+                    }}
+                  >
                     <p>_isIllustratorHidden</p>
                     <Checkbox
                       checked={tales[currentIndex]?._isIllustratorHidden}
