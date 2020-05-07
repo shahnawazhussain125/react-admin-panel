@@ -110,7 +110,7 @@ export default class Tales extends Component {
     let tales = [];
     firebase
       .firestore()
-      .collection("zTales")
+      .collection("Tales")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -313,7 +313,7 @@ export default class Tales extends Component {
               .then((Storage) => {
                 firebase
                   .firestore()
-                  .collection("zTales")
+                  .collection("Tales")
                   .add({
                     A0_ID_Author,
                     A0_ID_Author_WEB,

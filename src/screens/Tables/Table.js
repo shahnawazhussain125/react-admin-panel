@@ -11,6 +11,10 @@ import { Button, Checkbox, Row } from "antd";
 import {
   languageInputValidation,
   illustrationInputValidation,
+  ownerInputValidation,
+  autherInputValidation,
+  bookInputValidation,
+  talesInputValidation,
 } from "../../utilities/validation";
 import TableInput from "../../components/TableInput";
 import firebase from "../../config/firebase";
@@ -75,27 +79,27 @@ class CustomTable extends React.Component {
     let { types, collectionKeys } = this.props;
     const { dataSet, validation_errors } = this.state;
 
-    console.log("dataSet", dataSet);
-
     const newLine = [];
 
     for (let row = 0; row < dataSet.length; row++) {
       newLine.push(
-        <TableRow key={Math.random()}>
+        <TableRow key={"r" + Math.random()}>
           {types.map((value, col) => {
             if (col === 0) {
-              return <TableCell>{row + 1}</TableCell>;
+              return <TableCell key={Math.random()}>{row + 1}</TableCell>;
             }
-            if (value === "string" || value === "number") {
+            if (
+              collectionKeys[col] === "Storage" ||
+              collectionKeys[col] === "T_Storage"
+            ) {
               return (
-                <TableCell>
+                <TableCell key={Math.random()}>
                   <TableInput
-                    key={Math.random()}
-                    type={value === "number" ? value : "text"}
-                    name={collectionKeys[col]}
-                    defaultValue={dataSet[row][collectionKeys[col]]}
+                    type="file"
+                    accept="image/*"
+                    name="Storage"
                     handleOnChange={(e) =>
-                      this.handleOnChange(e.target.value, row, col)
+                      this.handleOnChange(e.target.files[0], row, col)
                     }
                     errorMessage={
                       validation_errors[row]
@@ -105,19 +109,24 @@ class CustomTable extends React.Component {
                   />
                 </TableCell>
               );
-            } else if (value === "boolean") {
-              return (
-                <TableCell>
-                  <Checkbox
-                    key={3}
-                    checked={dataSet[row][types[col]]}
-                    onChange={(e) =>
-                      this.handleOnChange(!dataSet[row][types[col]], row, col)
-                    }
-                  />
-                </TableCell>
-              );
             }
+            return (
+              <TableCell key={Math.random()}>
+                <TableInput
+                  type={value === "number" ? value : "text"}
+                  name={collectionKeys[col]}
+                  defaultValue={dataSet[row][collectionKeys[col]]}
+                  handleOnChange={(e) =>
+                    this.handleOnChange(e.target.value, row, col)
+                  }
+                  errorMessage={
+                    validation_errors[row]
+                      ? validation_errors[row][collectionKeys[col]]
+                      : null
+                  }
+                />
+              </TableCell>
+            );
           })}
           <TableCell></TableCell>
         </TableRow>
@@ -169,7 +178,64 @@ class CustomTable extends React.Component {
         });
         illustrators.push(data);
       });
+    } else if (selectedCollection === "Owners") {
+      let owners = [...collectionData];
+
+      dataSet.forEach((data) => {
+        const inputValidation = ownerInputValidation({
+          ...data,
+          owners,
+        });
+
+        is_error = is_error || inputValidation.is_error;
+        validation_errors.push({
+          ...inputValidation.validation_error,
+        });
+        owners.push(data);
+      });
+    } else if (selectedCollection === "Authors") {
+      let authors = [...collectionData];
+
+      dataSet.forEach((data) => {
+        const inputValidation = autherInputValidation({
+          ...data,
+          authors,
+        });
+
+        is_error = is_error || inputValidation.is_error;
+        validation_errors.push({
+          ...inputValidation.validation_error,
+        });
+        authors.push(data);
+      });
+    } else if (selectedCollection === "Books") {
+      let books = [...collectionData];
+
+      dataSet.forEach((data) => {
+        const inputValidation = bookInputValidation({
+          ...data,
+          books,
+        });
+
+        is_error = is_error || inputValidation.is_error;
+        validation_errors.push({
+          ...inputValidation.validation_error,
+        });
+        books.push(data);
+      });
+    } else if (selectedCollection === "Tales") {
+      dataSet.forEach((data) => {
+        const inputValidation = talesInputValidation({
+          ...data,
+        });
+
+        is_error = is_error || inputValidation.is_error;
+        validation_errors.push({
+          ...inputValidation.validation_error,
+        });
+      });
     }
+
     return {
       is_error,
       validation_errors,
@@ -203,7 +269,78 @@ class CustomTable extends React.Component {
     });
   };
 
-  saveImageAndData = () => {};
+  saveImage = (folderName, file) => {
+    return new Promise((resole, reject) => {
+      let storageRef = firebase
+        .storage()
+        .ref()
+        .child(`${folderName}/${Math.random().toString().substring(5)}`);
+
+      storageRef
+        .put(file)
+        .then(() => {
+          storageRef.getDownloadURL().then((Storage) => {
+            resole(Storage);
+          });
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  saveImageAndData = () => {
+    const { selectedCollection, dataSet } = this.props;
+    const { is_error, validation_errors } = this.validateInputFields();
+
+    this.setState({ is_error, validation_errors }, () => {
+      if (!is_error) {
+        let imagePromise = [];
+
+        let firebasePromises = [];
+
+        dataSet.forEach((data) => {
+          if (selectedCollection === "Tales") {
+            imagePromise.push(this.saveImage("TaleImages", data.T_Storage));
+          } else if (selectedCollection === "Authors") {
+            imagePromise.push(this.saveImage("AuthorImages", data.Storage));
+          } else {
+            imagePromise.push(this.saveImage("BookImages", data.Storage));
+          }
+        });
+
+        Promise.all(imagePromise)
+          .then((urls) => {
+            let index = 0;
+
+            dataSet.forEach((data) => {
+              delete data.ID_WEB;
+              if (selectedCollection === "Tales") {
+                data.T_Storage = urls[index];
+              } else {
+                data.Storage = urls[index];
+              }
+              firebasePromises.push(
+                firebase.firestore().collection(selectedCollection).add(data)
+              );
+
+              index++;
+            });
+            Promise.all(firebasePromises)
+              .then(() => {
+                notify.show("All data has been successfully added", "success");
+                this.handleGetSelectedCollectionData();
+              })
+              .catch((error) => {
+                notify.show("Error! " + error.message, "error");
+              });
+          })
+          .catch((error) => {
+            notify.show("Error! " + error.message, "error");
+          });
+      }
+    });
+  };
 
   handleSaveAllNew = () => {
     const { selectedCollection } = this.props;
@@ -222,21 +359,23 @@ class CustomTable extends React.Component {
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
-      firebase
-        .firestore()
-        .collection(this.props.selectedCollection)
-        .doc(docId)
-        .delete()
-        .then(() => {
-          swal("Success! Document has been successfully deleted!", {
-            icon: "success",
-          });
+      if (willDelete) {
+        firebase
+          .firestore()
+          .collection(this.props.selectedCollection)
+          .doc(docId)
+          .delete()
+          .then(() => {
+            swal("Success! Document has been successfully deleted!", {
+              icon: "success",
+            });
 
-          this.handleGetSelectedCollectionData();
-        })
-        .catch((error) => {
-          swal("Could not delete. An error occured" + error.message);
-        });
+            this.handleGetSelectedCollectionData();
+          })
+          .catch((error) => {
+            swal("Could not delete. An error occured" + error.message);
+          });
+      }
     });
   };
   handleGetSelectedCollectionData = () => {
@@ -246,7 +385,7 @@ class CustomTable extends React.Component {
   };
 
   render() {
-    const { collectionData, collectionKeys, classes } = this.props;
+    const { collectionData, collectionKeys, classes, types } = this.props;
 
     return (
       <TableContainer component={Paper}>
@@ -257,30 +396,30 @@ class CustomTable extends React.Component {
                 return <TableCell key={value}>{value}</TableCell>;
               })}
               <TableCell></TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            <TableRow>
+              {types?.map((value, index) => {
+                return <TableCell key={index}>{value}</TableCell>;
+              })}
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+            </TableRow>
             {collectionData.map((row, i) => {
               return (
                 <TableRow key={i}>
                   {collectionKeys?.map((value, index) => {
-                    if (typeof row[value] === "boolean") {
-                      return (
-                        <TableCell key={index}>
-                          <Checkbox checked={row[value]} />
-                        </TableCell>
-                      );
-                    } else {
-                      return (
-                        <TableCell key={index}>
-                          {row[value]?.length > 20 ? (
-                            <textarea value={row[value]}></textarea>
-                          ) : (
-                            row[value]
-                          )}
-                        </TableCell>
-                      );
-                    }
+                    return (
+                      <TableCell key={index}>
+                        {row[value]?.length > 20 ? (
+                          <textarea value={row[value]}></textarea>
+                        ) : (
+                          row[value]
+                        )}
+                      </TableCell>
+                    );
                   })}
                   <TableCell>
                     <Button
@@ -289,6 +428,8 @@ class CustomTable extends React.Component {
                     >
                       Show
                     </Button>
+                  </TableCell>
+                  <TableCell>
                     <Button
                       danger
                       type="primary"

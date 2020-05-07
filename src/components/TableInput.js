@@ -11,7 +11,7 @@ export default function TableInput(props) {
     errorMessage,
   } = props;
   return (
-    <div key={key}>
+    <div>
       <input
         className="ant-input"
         type={type}

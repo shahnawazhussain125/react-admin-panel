@@ -39,7 +39,6 @@ export const languageInputValidation = (obj) => {
     validation_error,
   };
 };
-// Illustration
 
 export const illustrationInputValidation = (obj) => {
   const { I0_ID_Illustrator, I_IllustratorName, illustrators } = obj;

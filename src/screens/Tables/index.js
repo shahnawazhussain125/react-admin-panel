@@ -7,6 +7,7 @@ import "./index.css";
 import SimpleTable from "./Table";
 import Modal from "./Modal";
 import SideMenu from "../../components/sideMenu";
+import { getKeysFromCollection } from "../../utilities/constants";
 
 const { Option } = Select;
 const db = firebase.firestore();
@@ -44,14 +45,6 @@ class Tables extends Component {
           name: "Users",
           id: "Users",
         },
-        {
-          name: "zTales",
-          id: "zTales",
-        },
-        {
-          name: "zTest",
-          id: "zTest",
-        },
       ],
       selectedCollection: "Languages",
       collectionData: [],
@@ -77,9 +70,9 @@ class Tables extends Component {
             ...doc.data(),
           });
         });
-        let keys = collectionData.map((value) => Object.keys(value));
-        let lengths = keys.map((value) => value.length);
-        let collectionKeys = keys[lengths.indexOf(Math.max(...lengths))];
+
+        let collectionKeys = getKeysFromCollection(collectionData);
+
         let types = collectionKeys.map((value) => {
           return typeof collectionData[0][value];
         });
@@ -181,9 +174,7 @@ class Tables extends Component {
                         placeholder="Select collection"
                         defaultValue={selectedCollection}
                         onChange={(value) =>
-                          this.setState({ selectedCollection: value }, () => {
-                            this.getSelectedCollectionData();
-                          })
+                          this.setState({ selectedCollection: value })
                         }
                       >
                         {collectionNames.map((value) => (
@@ -194,7 +185,9 @@ class Tables extends Component {
                       </Select>
                     </Col>
                     <Col span={8}>
-                      <Button>Search</Button>
+                      <Button onClick={() => this.getSelectedCollectionData()}>
+                        Search
+                      </Button>
                     </Col>
                   </Row>
                 </Col>
