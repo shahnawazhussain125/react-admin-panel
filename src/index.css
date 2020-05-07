@@ -29,3 +29,12 @@ code {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.link-list {
+  list-style-type: circle;
+  color: #8ebbf5;
+}
+
+.link {
+  color: #8ebbf5;
+}

@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 import "./index.css";
 import SimpleTable from "./Table";
 import Modal from "./Modal";
+import SideMenu from "../../components/sideMenu";
 
 const { Option } = Select;
 const db = firebase.firestore();
@@ -154,11 +155,23 @@ class Tables extends Component {
     } = this.state;
 
     return (
-      <div>
+      <Row>
         <Notifications />
-        <div className="provoder-list-body">
-          <Row className="row-container">
-            <Col span={21} style={{ marginTop: 100, marginBottom: 30 }}>
+        <Col className="gutter-row" span={4}>
+          <SideMenu />
+        </Col>
+        <Col className="gutter-row" span={20}>
+          <Row
+            style={{
+              background: "#f5f6f8",
+              height: 60,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          ></Row>
+
+          <Row style={{ padding: 15 }}>
+            <Col span={24} style={{ marginTop: 50, marginBottom: 30 }}>
               <Row>
                 <Col span={5}>
                   <Row>
@@ -217,11 +230,9 @@ class Tables extends Component {
                   getSelectedCollectionData={this.getSelectedCollectionData}
                 />
               </Row>
-              {/* Table conatiner */}
             </Col>
           </Row>
-        </div>
-        {/* Modal */}
+        </Col>
         <Modal
           visible={visible}
           handleModalVisible={this.handleModalVisible}
@@ -229,7 +240,7 @@ class Tables extends Component {
           collectionKeys={collectionKeys}
           selectedCollection={selectedCollection}
         />
-      </div>
+      </Row>
     );
   }
 }

@@ -72,30 +72,45 @@ export default function SideMenu() {
           padding: 10,
         }}
       >
-        <ul style={{ marginBottom: "150%" }}>
+        <ul className="link-list">
           <li>
-            <Link to="tables">Tables</Link>
+            <Link className="link" to="tables">
+              Tables
+            </Link>
           </li>
           <li>
-            <Link to="tales">Tales</Link>
+            <Link className="link" to="tales">
+              Tales
+            </Link>
           </li>
           <li>
-            <Link to="auther">Authers</Link>
+            <Link className="link" to="auther">
+              Authers
+            </Link>
           </li>
           <li>
-            <Link to="illustrator">Illustrators</Link>
+            <Link className="link" to="illustrator">
+              Illustrators
+            </Link>
           </li>
           <li>
-            <Link to="book">Book</Link>
+            <Link className="link" to="book">
+              Book
+            </Link>
           </li>
           <li>
-            <Link to="language">Book Language</Link>
+            <Link className="link" to="language">
+              Book Language
+            </Link>
           </li>
           <li>
-            <Link to="owner">Book Owner</Link>
+            <Link className="link" to="owner">
+              Book Owner
+            </Link>
           </li>
         </ul>
       </Row>
+      <Row style={{ height: 200, backgroundColor: "#EFEFFF" }}></Row>
     </span>
   );
 }
