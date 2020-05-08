@@ -22,6 +22,7 @@ export default class Owner extends Component {
       O_ContactTel: "",
       isAddNew: false,
       isLoading: true,
+      isEdit: false,
     };
   }
 
@@ -141,6 +142,132 @@ export default class Owner extends Component {
     });
   };
 
+  handleOnUpdate = () => {
+    const {
+      O0_ID_Owner,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      owners,
+      O0_ID_Owner_WEB,
+      currentIndex,
+    } = this.state;
+
+    const { is_error, validation_error } = ownerInputValidation({
+      O0_ID_Owner,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      owners: owners.filter((value, index) => index !== currentIndex),
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        firebase
+          .firestore()
+          .collection("Owners")
+          .doc(O0_ID_Owner_WEB)
+          .update({
+            O0_ID_Owner,
+            O_Company,
+            O_Web,
+            O_ContactName,
+            O_ContactEmail,
+            O_ContactTel,
+          })
+          .then(() => {
+            let collectionPromise = [];
+
+            collectionPromise.push(
+              firebase
+                .firestore()
+                .collection("Books")
+                .where("O0_ID_Owner_WEB", "==", O0_ID_Owner_WEB)
+                .get()
+            );
+
+            collectionPromise.push(
+              firebase
+                .firestore()
+                .collection("Tales")
+                .where("O0_ID_Owner_WEB", "==", O0_ID_Owner_WEB)
+                .get()
+            );
+
+            Promise.all(collectionPromise)
+              .then((responses) => {
+                let collections = ["Books", "Tales"];
+                let updateDocumentPromise = [];
+
+                for (let index = 0; index < responses.length; index++) {
+                  responses[index].forEach((doc) => {
+                    updateDocumentPromise.push(
+                      firebase
+                        .firestore()
+                        .collection(collections[index])
+                        .doc(doc.id)
+                        .update({
+                          O0_ID_Owner,
+                          O_Company,
+                          O_Web,
+                          O_ContactName,
+                          O_ContactEmail,
+                          O_ContactTel,
+                          O0_ID_Owner_WEB,
+                        })
+                    );
+                  });
+                }
+
+                Promise.all(updateDocumentPromise)
+                  .then(() => {
+                    notify.show(
+                      "Owner has been successfully updated",
+                      "success",
+                      2000
+                    );
+
+                    owners[currentIndex] = {
+                      O0_ID_Owner,
+                      O_Company,
+                      O_Web,
+                      O_ContactName,
+                      O_ContactEmail,
+                      O_ContactTel,
+                      O0_ID_Owner_WEB,
+                    };
+
+                    this.setState({
+                      O0_ID_Owner: "",
+                      O_Company: "",
+                      O_Web: "",
+                      O_ContactName: "",
+                      O_ContactEmail: "",
+                      O_ContactTel: "",
+                      isAddNew: false,
+                      isEdit: false,
+                      owners,
+                    });
+                  })
+                  .catch((error) => {
+                    notify.show(`Error! ${error.message}`, "error", 2000);
+                  });
+              })
+              .catch((error) => {
+                notify.show(`Error! ${error.message}`, "error", 2000);
+              });
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      }
+    });
+  };
+
   handleOnChange = (name, value) => {
     this.setState({ [name]: value });
   };
@@ -157,6 +284,7 @@ export default class Owner extends Component {
       owners,
       currentIndex,
       validation_error,
+      isEdit,
     } = this.state;
     return (
       <Row>
@@ -186,7 +314,7 @@ export default class Owner extends Component {
                   fontSize: 20,
                 }}
               >
-                Add New
+                {isEdit ? "Update Owner" : "Add New Owner"}
               </p>
             </Row>
           )}
@@ -200,6 +328,21 @@ export default class Owner extends Component {
                   padding: 20,
                 }}
               >
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="number"
+                      key={0}
+                      name="O0_ID_Owner"
+                      value={O0_ID_Owner}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.O0_ID_Owner}
+                    />
+                  </Col>
+                </Row>
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
                     <Typography>O_Company</Typography>
@@ -277,23 +420,8 @@ export default class Owner extends Component {
                     />
                   </Col>
                 </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O0_ID_Owner</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="number"
-                      key={0}
-                      name="O0_ID_Owner"
-                      value={O0_ID_Owner}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O0_ID_Owner}
-                    />
-                  </Col>
-                </Row>
 
-                <Row style={{ marginBottom: 10 }}>
+                <Row style={{ marginTop: 10 }}>
                   <Button
                     style={{ marginLeft: 10 }}
                     type="primary"
@@ -303,15 +431,27 @@ export default class Owner extends Component {
                   >
                     Cancel
                   </Button>
-                  <Button
-                    style={{ marginLeft: 10 }}
-                    type="primary"
-                    onClick={() => {
-                      this.handleSaveData();
-                    }}
-                  >
-                    Save
-                  </Button>
+                  {isEdit ? (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleOnUpdate();
+                      }}
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleSaveData();
+                      }}
+                    >
+                      Save
+                    </Button>
+                  )}
                 </Row>
               </div>
             ) : (
@@ -325,13 +465,32 @@ export default class Owner extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
+                    <Typography>O0_ID_Owner</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O0_ID_Owner}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner_WEB</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O0_ID_Owner_WEB}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
                     <Typography>O_Company</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O_Company}
-                    />
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O_Company}
+                    </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -339,10 +498,9 @@ export default class Owner extends Component {
                     <Typography>O_Web</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O_Web}
-                    />
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O_Web}
+                    </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -350,10 +508,9 @@ export default class Owner extends Component {
                     <Typography>O_ContactName</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O_ContactName}
-                    />
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O_ContactName}
+                    </Typography>
                   </Col>
                 </Row>
 
@@ -362,10 +519,9 @@ export default class Owner extends Component {
                     <Typography>O_ContactEmail</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O_ContactEmail}
-                    />
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O_ContactEmail}
+                    </Typography>
                   </Col>
                 </Row>
 
@@ -374,33 +530,26 @@ export default class Owner extends Component {
                     <Typography>O_ContactTel</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O_ContactTel}
-                    />
+                    <Typography className="ant-input">
+                      {owners[currentIndex]?.O_ContactTel}
+                    </Typography>
                   </Col>
                 </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O0_ID_Owner</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O0_ID_Owner}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O0_ID_Owner_WEB</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O0_ID_Owner_WEB}
-                    />
-                  </Col>
+
+                <Row style={{ marginTop: 10 }}>
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.setState({
+                        isAddNew: true,
+                        isEdit: true,
+                        ...owners[currentIndex],
+                      });
+                    }}
+                  >
+                    Edit
+                  </Button>
                 </Row>
               </div>
             )}
