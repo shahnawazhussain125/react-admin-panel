@@ -262,7 +262,7 @@ export default class Language extends Component {
                   fontSize: 20,
                 }}
               >
-                Add new Language
+                {isEdit ? "Update Language" : "Add New Language"}
               </p>
             </Row>
           )}
