@@ -346,31 +346,14 @@ export default class Book extends Component {
                 alignItems: "center",
               }}
             >
-              <p
-                style={{
-                  fontSize: 20,
-                }}
-              >
-                Add New
-              </p>
+              <p style={{ fontSize: 20 }}>Add New</p>
             </Row>
           )}
           <Row>
             {isAddNew ? (
               <Row style={{ margin: 20 }}>
-                <Col
-                  span={11}
-                  style={{
-                    backgroundColor: "#EBEAFF",
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: "#EBEAFF",
-
-                      padding: 20,
-                    }}
-                  >
+                <Col span={11} style={{ backgroundColor: "#EBEAFF" }}>
+                  <div style={{ backgroundColor: "#EBEAFF", padding: 20 }}>
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
                         <Typography>B_BookTitle</Typography>
@@ -399,22 +382,6 @@ export default class Book extends Component {
                           value={BAuthorName}
                           handleOnChange={this.handleOnChange}
                           errorMessage={validation_error?.BAuthorName}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>B0_ID_Book</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <ValidationInput
-                          key={2}
-                          type="number"
-                          name="B0_ID_Book"
-                          value={B0_ID_Book}
-                          handleOnChange={this.handleOnChange}
-                          errorMessage={validation_error?.B0_ID_Book}
                         />
                       </Col>
                     </Row>
@@ -467,6 +434,21 @@ export default class Book extends Component {
                               B_isBookHidden: !B_isBookHidden,
                             })
                           }
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>B0_ID_Book</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <ValidationInput
+                          key={2}
+                          type="number"
+                          name="B0_ID_Book"
+                          value={B0_ID_Book}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.B0_ID_Book}
                         />
                       </Col>
                     </Row>
@@ -545,12 +527,7 @@ export default class Book extends Component {
                     </Row>
                   </div>
                 </Col>
-                <Col
-                  span={11}
-                  style={{
-                    backgroundColor: "#EBEAFF",
-                  }}
-                >
+                <Col span={11} style={{ backgroundColor: "#EBEAFF" }}>
                   <div
                     style={{
                       backgroundColor: "#EBEAFF",
@@ -777,23 +754,9 @@ export default class Book extends Component {
                   <div
                     style={{
                       backgroundColor: "#EBEAFF",
-
                       padding: 20,
                     }}
                   >
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>B0_ID_Book</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.B0_ID_Book}
-                        />
-                      </Col>
-                    </Row>
-
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
                         <Typography>BAuthorName</Typography>
@@ -803,19 +766,6 @@ export default class Book extends Component {
                           readOnly
                           className="ant-input"
                           defaultValue={books[currentIndex]?.BAuthorName}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>B0_ID_Book_WEB</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.B0_ID_Book_WEB}
                         />
                       </Col>
                     </Row>
@@ -849,6 +799,30 @@ export default class Book extends Component {
                       <Col span={14}>
                         <Checkbox
                           checked={books[currentIndex]?.B_isBookHidden}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>B0_ID_Book</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          readOnly
+                          className="ant-input"
+                          defaultValue={books[currentIndex]?.B0_ID_Book}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>B0_ID_Book_WEB</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          readOnly
+                          className="ant-input"
+                          defaultValue={books[currentIndex]?.B0_ID_Book_WEB}
                         />
                       </Col>
                     </Row>

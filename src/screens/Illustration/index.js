@@ -181,21 +181,6 @@ export default class Illustration extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>L0_ID_Language</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="number"
-                      key={0}
-                      name="I0_ID_Illustrator"
-                      value={I0_ID_Illustrator}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I0_ID_Illustrator}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
                     <Typography>I_IllustratorName</Typography>
                   </Col>
                   <Col span={14}>
@@ -240,6 +225,21 @@ export default class Illustration extends Component {
                     />
                   </Col>
                 </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>L0_ID_Language</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="number"
+                      key={0}
+                      name="I0_ID_Illustrator"
+                      value={I0_ID_Illustrator}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.I0_ID_Illustrator}
+                    />
+                  </Col>
+                </Row>
                 <Row className="bottom-butns">
                   <Button
                     style={{ marginLeft: 10 }}
@@ -272,6 +272,29 @@ export default class Illustration extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
+                    <Typography>I_IllustratorName</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <input
+                      className="ant-input"
+                      defaultValue={
+                        illustrators[currentIndex]?.I_IllustratorName
+                      }
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>_isIllustratorHidden</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Checkbox
+                      checked={illustrators[currentIndex]?._isIllustratorHidden}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
                     <Typography>I0_ID_Illustrator</Typography>
                   </Col>
                   <Col span={14}>
@@ -293,29 +316,6 @@ export default class Illustration extends Component {
                       defaultValue={
                         illustrators[currentIndex]?.I0_ID_Illustrator_WEB
                       }
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>I_IllustratorName</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={
-                        illustrators[currentIndex]?.I_IllustratorName
-                      }
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>_isIllustratorHidden</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Checkbox
-                      checked={illustrators[currentIndex]?._isIllustratorHidden}
                     />
                   </Col>
                 </Row>

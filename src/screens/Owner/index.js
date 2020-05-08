@@ -202,21 +202,6 @@ export default class Owner extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>O0_ID_Owner</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="number"
-                      key={0}
-                      name="O0_ID_Owner"
-                      value={O0_ID_Owner}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O0_ID_Owner}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
                     <Typography>O_Company</Typography>
                   </Col>
                   <Col span={14}>
@@ -292,6 +277,21 @@ export default class Owner extends Component {
                     />
                   </Col>
                 </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="number"
+                      key={0}
+                      name="O0_ID_Owner"
+                      value={O0_ID_Owner}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.O0_ID_Owner}
+                    />
+                  </Col>
+                </Row>
 
                 <Row style={{ marginBottom: 10 }}>
                   <Button
@@ -323,29 +323,6 @@ export default class Owner extends Component {
                   padding: 20,
                 }}
               >
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O0_ID_Owner</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O0_ID_Owner}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O0_ID_Owner_WEB</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={owners[currentIndex]?.O0_ID_Owner_WEB}
-                    />
-                  </Col>
-                </Row>
-
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
                     <Typography>O_Company</Typography>
@@ -400,6 +377,28 @@ export default class Owner extends Component {
                     <input
                       className="ant-input"
                       defaultValue={owners[currentIndex]?.O_ContactTel}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <input
+                      className="ant-input"
+                      defaultValue={owners[currentIndex]?.O0_ID_Owner}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner_WEB</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <input
+                      className="ant-input"
+                      defaultValue={owners[currentIndex]?.O0_ID_Owner_WEB}
                     />
                   </Col>
                 </Row>

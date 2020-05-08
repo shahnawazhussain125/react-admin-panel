@@ -218,16 +218,16 @@ export default class Auther extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>A0_ID_Author</Typography>
+                    <Typography>A_AuthorName</Typography>
                   </Col>
                   <Col span={14}>
                     <ValidationInput
-                      key={0}
-                      type="number"
-                      name="A0_ID_Author"
-                      value={A0_ID_Author}
+                      type="text"
+                      key={2}
+                      name="A_AuthorName"
+                      value={A_AuthorName}
                       handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A0_ID_Author}
+                      errorMessage={validation_error?.A_AuthorName}
                     />
                   </Col>
                 </Row>
@@ -243,22 +243,6 @@ export default class Auther extends Component {
                       value={A_AuthorImage}
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.A_AuthorImage}
-                    />
-                  </Col>
-                </Row>
-
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>A_AuthorName</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="text"
-                      key={2}
-                      name="A_AuthorName"
-                      value={A_AuthorName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A_AuthorName}
                     />
                   </Col>
                 </Row>
@@ -295,6 +279,21 @@ export default class Auther extends Component {
                   </Col>
                 </Row>
 
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>A0_ID_Author</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      key={0}
+                      type="number"
+                      name="A0_ID_Author"
+                      value={A0_ID_Author}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.A0_ID_Author}
+                    />
+                  </Col>
+                </Row>
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
                     <Typography>Storage</Typography>
