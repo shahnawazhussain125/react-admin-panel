@@ -21,6 +21,7 @@ export default class Language extends Component {
       isLoading: true,
       validation_error: null,
       is_error: null,
+      isEdit: false,
     };
   }
 
@@ -73,6 +74,7 @@ export default class Language extends Component {
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
+      isEdit: false,
       L0_ID_Language: "",
       L_LanguageName: "",
     });
@@ -116,6 +118,108 @@ export default class Language extends Component {
     });
   };
 
+  handleOnUpdate = () => {
+    const {
+      L0_ID_Language_WEB,
+      L0_ID_Language,
+      L_LanguageName,
+      languages,
+      currentIndex,
+    } = this.state;
+
+    const { is_error, validation_error } = languageInputValidation({
+      L0_ID_Language,
+      L_LanguageName,
+      languages: languages.filter((value, index) => index !== currentIndex),
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        firebase
+          .firestore()
+          .collection("Languages")
+          .doc(L0_ID_Language_WEB)
+          .update({
+            L0_ID_Language,
+            L_LanguageName,
+          })
+          .then(() => {
+            let collectionPromise = [];
+
+            collectionPromise.push(
+              firebase
+                .firestore()
+                .collection("Books")
+                .where("L0_ID_Language_WEB", "==", L0_ID_Language_WEB)
+                .get()
+            );
+
+            collectionPromise.push(
+              firebase
+                .firestore()
+                .collection("Tales")
+                .where("L0_ID_Language_WEB", "==", L0_ID_Language_WEB)
+                .get()
+            );
+
+            Promise.all(collectionPromise)
+              .then((responses) => {
+                let collections = ["Books", "Tales"];
+                let updateDocumentPromise = [];
+
+                for (let index = 0; index < responses.length; index++) {
+                  responses[index].forEach((doc) => {
+                    updateDocumentPromise.push(
+                      firebase
+                        .firestore()
+                        .collection(collections[index])
+                        .doc(doc.id)
+                        .update({
+                          L0_ID_Language,
+                          L_LanguageName,
+                          L0_ID_Language_WEB,
+                        })
+                    );
+                  });
+                }
+
+                Promise.all(updateDocumentPromise)
+                  .then(() => {
+                    notify.show(
+                      "Language has been successfully updated",
+                      "success",
+                      2000
+                    );
+
+                    languages[currentIndex] = {
+                      L0_ID_Language,
+                      L_LanguageName,
+                      L0_ID_Language_WEB,
+                    };
+
+                    this.setState({
+                      L0_ID_Language: "",
+                      L_LanguageName: "",
+                      isAddNew: false,
+                      isEdit: false,
+                      languages,
+                    });
+                  })
+                  .catch((error) => {
+                    notify.show(`Error! ${error.message}`, "error", 2000);
+                  });
+              })
+              .catch((error) => {
+                notify.show(`Error! ${error.message}`, "error", 2000);
+              });
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      }
+    });
+  };
+
   handleOnChange = (name, value) => {
     this.setState({ [name]: value });
   };
@@ -128,6 +232,7 @@ export default class Language extends Component {
       languages,
       currentIndex,
       validation_error,
+      isEdit,
     } = this.state;
     return (
       <Row>
@@ -214,15 +319,27 @@ export default class Language extends Component {
                   >
                     Cancel
                   </Button>
-                  <Button
-                    style={{ marginLeft: 10 }}
-                    type="primary"
-                    onClick={() => {
-                      this.handleSaveData();
-                    }}
-                  >
-                    Save
-                  </Button>
+                  {isEdit ? (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleOnUpdate();
+                      }}
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleSaveData();
+                      }}
+                    >
+                      Save
+                    </Button>
+                  )}
                 </Row>
               </div>
             ) : (
@@ -239,10 +356,9 @@ export default class Language extends Component {
                     <Typography>L0_ID_Language</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={languages[currentIndex]?.L0_ID_Language}
-                    />
+                    <Typography className="ant-input">
+                      {languages[currentIndex]?.L0_ID_Language}
+                    </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -250,10 +366,9 @@ export default class Language extends Component {
                     <Typography>L0_ID_Language_WEB</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={languages[currentIndex]?.L0_ID_Language_WEB}
-                    />
+                    <Typography className="ant-input">
+                      {languages[currentIndex]?.L0_ID_Language_WEB}
+                    </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -263,11 +378,25 @@ export default class Language extends Component {
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={languages[currentIndex]?.L_LanguageName}
-                    />
+                    <Typography className="ant-input">
+                      {languages[currentIndex]?.L_LanguageName}
+                    </Typography>
                   </Col>
+                </Row>
+                <Row style={{ marginTop: 10 }}>
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.setState({
+                        isAddNew: true,
+                        isEdit: true,
+                        ...languages[currentIndex],
+                      });
+                    }}
+                  >
+                    Edit
+                  </Button>
                 </Row>
               </div>
             )}
