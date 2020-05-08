@@ -66,46 +66,41 @@ export default function SideMenu() {
           Administration
         </h3>
       </Row>
-      <Row
-        style={{
-          backgroundColor: "#EFEFFF",
-          padding: 10,
-        }}
-      >
+      <Row style={{ backgroundColor: "#EFEFFF", padding: 10 }}>
         <ul className="link-list">
           <li>
             <Link className="link" to="tables">
-              Tables
+              <h4 style={{ color: "#2298FF" }}>Tables</h4>
             </Link>
           </li>
           <li>
             <Link className="link" to="tales">
-              Tales
+              <h4 style={{ color: "#2298FF" }}>Tales</h4>
             </Link>
           </li>
           <li>
             <Link className="link" to="auther">
-              Authors
+              <h4 style={{ color: "#2298FF" }}>Authors</h4>
             </Link>
           </li>
           <li>
             <Link className="link" to="illustrator">
-              Illustrators
+              <h4 style={{ color: "#2298FF" }}>Illustrators</h4>
             </Link>
           </li>
           <li>
             <Link className="link" to="book">
-              Book
+              <h4 style={{ color: "#2298FF" }}>Book</h4>
             </Link>
           </li>
           <li>
             <Link className="link" to="language">
-              Book Language
+              <h4 style={{ color: "#2298FF" }}>Book Language</h4>
             </Link>
           </li>
           <li>
             <Link className="link" to="owner">
-              Book Owner
+              <h4 style={{ color: "#2298FF" }}>Book Owner</h4>
             </Link>
           </li>
         </ul>
