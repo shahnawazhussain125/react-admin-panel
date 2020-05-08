@@ -66,12 +66,21 @@ class CustomTable extends React.Component {
       rowLength = dataArr.length;
     }
 
+    console.log(
+      "dataArr[row][col];",
+
+      { e, prow, pcol }
+    );
+
     for (let row = 0; row < rowLength; row++) {
       obj = {};
       for (let col = 0; col < dataArr[row].length; col++) {
         dataSet[row + prow][collectionKeys[col + pcol]] = dataArr[row][col];
       }
     }
+
+    console.log("dataSet", dataSet);
+
     this.setState({ dataSet });
   };
 
@@ -124,6 +133,7 @@ class CustomTable extends React.Component {
                       ? validation_errors[row][collectionKeys[col]]
                       : null
                   }
+                  handleOnPast={(e) => this.handleOnPast(e, row, col)}
                 />
               </TableCell>
             );

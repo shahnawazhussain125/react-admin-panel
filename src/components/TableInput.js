@@ -9,6 +9,7 @@ export default function TableInput(props) {
     handleOnChange,
     name,
     errorMessage,
+    handleOnPast,
   } = props;
   return (
     <div>
@@ -19,6 +20,7 @@ export default function TableInput(props) {
         // value={value}
         accept={accept}
         onChange={(e) => handleOnChange(e)}
+        onPaste={handleOnPast}
       />
       {errorMessage && (
         <p style={{ color: "red", fontSize: 10 }}>{errorMessage}</p>

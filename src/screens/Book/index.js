@@ -477,12 +477,12 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>BooK_Owner</Typography>
+                        <Typography>BooK Language</Typography>
                       </Col>
                       <Col span={14}>
                         <Select
                           style={{ width: "100%" }}
-                          placeholder="Select Owner"
+                          placeholder="Select Language"
                           onChange={(value) =>
                             this.setState({ ...languages[value] })
                           }
