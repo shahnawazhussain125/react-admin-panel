@@ -14,7 +14,7 @@ export default function SideMenu() {
         }}
       >
         <h2 style={{ color: "#109CF1", marginTop: 10, marginBottom: 15 }}>
-          Mesélj nekem
+          Mesélj nekem!
         </h2>
         <div
           style={{
@@ -85,7 +85,7 @@ export default function SideMenu() {
           </li>
           <li>
             <Link className="link" to="auther">
-              Authers
+              Authors
             </Link>
           </li>
           <li>

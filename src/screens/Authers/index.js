@@ -352,29 +352,6 @@ export default class Auther extends Component {
                 >
                   <Row>
                     <Col span={10}>
-                      <p>A0_ID_Author</p>
-                    </Col>
-                    <Col span={14}>
-                      <input
-                        className="ant-input"
-                        defaultValue={authors[currentIndex]?.A0_ID_Author}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col span={10}>
-                      <p>A0_ID_Author_WEB</p>
-                    </Col>
-                    <Col span={14}>
-                      <input
-                        className="ant-input"
-                        defaultValue={authors[currentIndex]?.A0_ID_Author_WEB}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={10}>
                       <p>A_AuthorImage</p>
                     </Col>
                     <Col span={14}>
@@ -430,6 +407,29 @@ export default class Auther extends Component {
                       <input
                         className="ant-input"
                         defaultValue={authors[currentIndex]?.Storage}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={10}>
+                      <p>A0_ID_Author</p>
+                    </Col>
+                    <Col span={14}>
+                      <input
+                        className="ant-input"
+                        defaultValue={authors[currentIndex]?.A0_ID_Author}
+                      />
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col span={10}>
+                      <p>A0_ID_Author_WEB</p>
+                    </Col>
+                    <Col span={14}>
+                      <input
+                        className="ant-input"
+                        defaultValue={authors[currentIndex]?.A0_ID_Author_WEB}
                       />
                     </Col>
                   </Row>

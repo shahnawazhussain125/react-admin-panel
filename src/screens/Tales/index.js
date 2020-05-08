@@ -1453,7 +1453,7 @@ export default class Tales extends Component {
               >
                 <Row>
                   <Col span={10} offset={1}>
-                    <Row style={{ marginBottom: 10 }}>
+                    <Row style={{ marginBottom: 10, backgroundColor: "red" }}>
                       <Col span={10}>
                         <Typography className="input-title">Book</Typography>
                       </Col>
