@@ -1453,7 +1453,7 @@ export default class Tales extends Component {
               >
                 <Row>
                   <Col span={10} offset={1}>
-                    <Row style={{ marginBottom: 10, backgroundColor: "red" }}>
+                    <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
                         <Typography className="input-title">Book</Typography>
                       </Col>
@@ -1640,19 +1640,6 @@ export default class Tales extends Component {
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
                         <Typography className="input-title">
-                          B0_ID_Book
-                        </Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          className="ant-input"
-                          defaultValue={tales[currentIndex]?.B0_ID_Book}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
-                        <Typography className="input-title">
                           B_BAuthorName
                         </Typography>
                       </Col>
@@ -1660,19 +1647,6 @@ export default class Tales extends Component {
                         <input
                           className="ant-input"
                           defaultValue={tales[currentIndex]?.B_BAuthorName}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
-                        <Typography className="input-title">
-                          B0_ID_Book_WEB
-                        </Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          className="ant-input"
-                          defaultValue={tales[currentIndex]?.B0_ID_Book_WEB}
                         />
                       </Col>
                     </Row>
@@ -1748,6 +1722,32 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          B0_ID_Book
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B0_ID_Book}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          B0_ID_Book_WEB
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <input
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.B0_ID_Book_WEB}
+                        />
+                      </Col>
+                    </Row>
                   </Col>
                   <Col span={7} offset={1}>
                     <div>
@@ -1803,32 +1803,6 @@ export default class Tales extends Component {
                         <Typography className="title-header">
                           Book Owner
                         </Typography>
-                      </Row>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            O0_ID_Owner
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <input
-                            className="ant-input"
-                            defaultValue={tales[currentIndex]?.O0_ID_Owner}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            O0_ID_Owner_WEB
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <input
-                            className="ant-input"
-                            defaultValue={tales[currentIndex]?.O0_ID_Owner_WEB}
-                          />
-                        </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
@@ -1893,38 +1867,38 @@ export default class Tales extends Component {
                           />
                         </Col>
                       </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            O0_ID_Owner
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O0_ID_Owner}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            O0_ID_Owner_WEB
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.O0_ID_Owner_WEB}
+                          />
+                        </Col>
+                      </Row>
                     </div>
                   </Col>
                   <Col span={7} style={{ paddingLeft: 25 }}>
                     <div>
                       <Row className="title-header-container">
                         <Typography className="title-header">Author</Typography>
-                      </Row>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            A0_ID_Author
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <input
-                            className="ant-input"
-                            defaultValue={tales[currentIndex]?.A0_ID_Author}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            A0_ID_Author_WEB
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <input
-                            className="ant-input"
-                            defaultValue={tales[currentIndex]?.A0_ID_Author_WEB}
-                          />
-                        </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
@@ -1990,12 +1964,65 @@ export default class Tales extends Component {
                           />
                         </Col>
                       </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            A0_ID_Author
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A0_ID_Author}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            A0_ID_Author_WEB
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={tales[currentIndex]?.A0_ID_Author_WEB}
+                          />
+                        </Col>
+                      </Row>
                     </div>
                     <div>
                       <Row className="title-header-container">
                         <Typography className="title-header">
                           Illustrator
                         </Typography>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            I_IllustratorName
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <input
+                            className="ant-input"
+                            defaultValue={
+                              tales[currentIndex]?.I_IllustratorName
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 10 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            _isIllustratorHidden
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <Checkbox
+                            checked={tales[currentIndex]?._isIllustratorHidden}
+                          />
+                        </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
@@ -2024,33 +2051,6 @@ export default class Tales extends Component {
                             defaultValue={
                               tales[currentIndex]?.I0_ID_Illustrator_WEB
                             }
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            I_IllustratorName
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <input
-                            className="ant-input"
-                            defaultValue={
-                              tales[currentIndex]?.I_IllustratorName
-                            }
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            _isIllustratorHidden
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <Checkbox
-                            checked={tales[currentIndex]?._isIllustratorHidden}
                           />
                         </Col>
                       </Row>
