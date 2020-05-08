@@ -15,67 +15,100 @@ export default class Headers extends Component {
         style={{
           display: "flex",
           background: "#f5f6f8",
-          height: 60,
-          justifyContent: "center",
+          height: 80,
+          justifyContent: "flex-start",
           alignItems: "center",
         }}
       >
         <Button
           style={{
-            height: 36,
-            width: 36,
+            height: 50,
+            width: 50,
             display: "flex",
-            marginRight: 20,
+            marginLeft: 30,
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 18,
+            background: "#f5f6f8",
+            padding: 0,
           }}
           onClick={this.props.handlePrevious}
         >
-          <CaretLeftOutlined style={{ color: "blue", fontSize: 26 }} />
+          <img
+            src={require("../image/icon_previous.png")}
+            width={50}
+            height={50}
+            style={{
+              fill: "red",
+            }}
+          />
         </Button>
         <Button
           style={{
-            height: 36,
-            width: 36,
+            height: 50,
+            width: 50,
             display: "flex",
-            marginRight: 20,
+            marginLeft: 30,
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 18,
+            background: "#f5f6f8",
+            padding: 0,
           }}
           onClick={this.props.handleReload}
         >
-          <RedoOutlined style={{ color: "red", fontSize: 27 }} />
+          <img
+            src={require("../image/icon_update.png")}
+            width={50}
+            height={50}
+            style={{
+              fill: "red",
+            }}
+          />
         </Button>
         <Button
           style={{
-            height: 36,
-            width: 36,
+            height: 50,
+            width: 50,
             display: "flex",
-            marginRight: 20,
+            marginLeft: 30,
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 18,
+            borderRadius: 5,
+            background: "#f5f6f8",
+            padding: 0,
           }}
           onClick={this.props.handleNext}
         >
-          <CaretRightOutlined style={{ color: "blue", fontSize: 26 }} />
+          <img
+            src={require("../image/icon_next.png")}
+            width={50}
+            height={50}
+            style={{
+              fill: "red",
+            }}
+          />
         </Button>
         <Button
           style={{
-            height: 36,
-            width: 36,
+            height: 50,
+            width: 50,
             display: "flex",
-            marginRight: 20,
+            marginLeft: 50,
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 18,
-            background: "#BE0012",
+            borderRadius: 25,
+            background: "#f5f6f8",
+            padding: 0,
           }}
           onClick={this.props.handleAddNew}
         >
-          <PlusOutlined style={{ color: "white", fontSize: 27 }} />
+          <img
+            src={require("../image/icon_add.png")}
+            width={50}
+            height={50}
+            style={{
+              fill: "red",
+            }}
+          />
         </Button>
       </div>
     );
