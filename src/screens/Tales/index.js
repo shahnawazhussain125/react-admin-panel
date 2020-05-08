@@ -1336,7 +1336,7 @@ export default class Tales extends Component {
                       >
                         <Col span={10}>
                           <Typography className="input-title">
-                            _isIllustratorHidden
+                            I_isIllustratorHidden
                           </Typography>
                         </Col>
                         <Col span={14}>
