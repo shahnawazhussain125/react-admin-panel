@@ -27,7 +27,7 @@ const styles = (theme) => ({
     marginTop: 20,
   },
   tableHead: {
-    backgroundColor: "red",
+    backgroundColor: "#FF9500",
   },
 });
 
@@ -436,7 +436,7 @@ class CustomTable extends React.Component {
                       type="primary"
                       onClick={() => this.props.handleModalVisible(true, row)}
                     >
-                      Show
+                      Edit
                     </Button>
                   </TableCell>
                   <TableCell>

@@ -157,7 +157,7 @@ class Tables extends Component {
           <Row
             style={{
               background: "#f5f6f8",
-              height: 60,
+              height: 80,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -185,8 +185,11 @@ class Tables extends Component {
                       </Select>
                     </Col>
                     <Col span={8}>
-                      <Button onClick={() => this.getSelectedCollectionData()}>
-                        Search
+                      <Button
+                        type="primary"
+                        onClick={() => this.getSelectedCollectionData()}
+                      >
+                        Show
                       </Button>
                     </Col>
                   </Row>
@@ -204,7 +207,8 @@ class Tables extends Component {
                 </Col>
                 <Col span={3}>
                   <Button
-                    className="text-add"
+                    type="primary"
+                    style={{ marginLeft: 10 }}
                     onClick={() => this.createDataSet()}
                   >
                     Add Line
