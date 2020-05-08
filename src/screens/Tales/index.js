@@ -779,27 +779,6 @@ export default class Tales extends Component {
                     >
                       <Col span={10}>
                         <Typography className="input-title">
-                          B0_ID_Book
-                        </Typography>
-                      </Col>
-                      <Col span={14}>
-                        <ValidationInput
-                          type="number"
-                          key={5}
-                          name="B0_ID_Book"
-                          value={B0_ID_Book}
-                          handleOnChange={this.handleOnChange}
-                          errorMessage={validation_error?.B0_ID_Book}
-                        />
-                      </Col>
-                    </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
-                      <Col span={10}>
-                        <Typography className="input-title">
                           B_BAuthorName
                         </Typography>
                       </Col>
@@ -807,27 +786,6 @@ export default class Tales extends Component {
                         <ValidationInput
                           type="text"
                           key={6}
-                          name="B0_ID_Book_WEB"
-                          value={B0_ID_Book_WEB}
-                          handleOnChange={this.handleOnChange}
-                          errorMessage={validation_error?.B0_ID_Book_WEB}
-                        />
-                      </Col>
-                    </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
-                      <Col span={10}>
-                        <Typography className="input-title">
-                          B0_ID_Book_WEB
-                        </Typography>
-                      </Col>
-                      <Col span={14}>
-                        <ValidationInput
-                          type="text"
-                          key={7}
                           name="B0_ID_Book_WEB"
                           value={B0_ID_Book_WEB}
                           handleOnChange={this.handleOnChange}
@@ -951,6 +909,44 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
+                    <Row style={{ marginBottom: 12 }}>
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          B0_ID_Book
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <ValidationInput
+                          type="number"
+                          key={5}
+                          name="B0_ID_Book"
+                          value={B0_ID_Book}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.B0_ID_Book}
+                        />
+                      </Col>
+                    </Row>
+                    <Row
+                      style={{
+                        marginBottom: 12,
+                      }}
+                    >
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          B0_ID_Book_WEB
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <ValidationInput
+                          type="text"
+                          key={7}
+                          name="B0_ID_Book_WEB"
+                          value={B0_ID_Book_WEB}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.B0_ID_Book_WEB}
+                        />
+                      </Col>
+                    </Row>
                   </Col>
                   <Col
                     span={7}
@@ -1034,50 +1030,6 @@ export default class Tales extends Component {
                     <div>
                       <Row className="title-header-container">
                         <h2 className="title-header">Book Owner</h2>
-                      </Row>
-
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            O0_ID_Owner
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <ValidationInput
-                            type="number"
-                            key={13}
-                            name="O0_ID_Owner"
-                            value={O0_ID_Owner}
-                            handleOnChange={this.handleOnChange}
-                            errorMessage={validation_error?.O0_ID_Owner}
-                          />
-                        </Col>
-                      </Row>
-
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            O0_ID_Owner_WEB
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <ValidationInput
-                            type="text"
-                            key={14}
-                            name="O0_ID_Owner_WEB"
-                            value={O0_ID_Owner_WEB}
-                            handleOnChange={this.handleOnChange}
-                            errorMessage={validation_error?.O0_ID_Owner_WEB}
-                          />
-                        </Col>
                       </Row>
 
                       <Row
@@ -1187,6 +1139,40 @@ export default class Tales extends Component {
                           />
                         </Col>
                       </Row>
+                      <Row style={{ marginBottom: 12 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            O0_ID_Owner
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <ValidationInput
+                            type="number"
+                            key={13}
+                            name="O0_ID_Owner"
+                            value={O0_ID_Owner}
+                            handleOnChange={this.handleOnChange}
+                            errorMessage={validation_error?.O0_ID_Owner}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 12 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            O0_ID_Owner_WEB
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <ValidationInput
+                            type="text"
+                            key={14}
+                            name="O0_ID_Owner_WEB"
+                            value={O0_ID_Owner_WEB}
+                            handleOnChange={this.handleOnChange}
+                            errorMessage={validation_error?.O0_ID_Owner_WEB}
+                          />
+                        </Col>
+                      </Row>
                     </div>
                   </Col>
                   <Col
@@ -1200,48 +1186,6 @@ export default class Tales extends Component {
                     <div>
                       <Row className="title-header-container">
                         <h2 className="title-header">Author</h2>
-                      </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            A0_ID_Author
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <ValidationInput
-                            type="number"
-                            key={18}
-                            name="A0_ID_Author"
-                            value={A0_ID_Author}
-                            handleOnChange={this.handleOnChange}
-                            errorMessage={validation_error?.A0_ID_Author}
-                          />
-                        </Col>
-                      </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
-                        <Col span={10}>
-                          <Typography className="input-title">
-                            A0_ID_Author_WEB
-                          </Typography>
-                        </Col>
-                        <Col span={14}>
-                          <ValidationInput
-                            type="text"
-                            key={19}
-                            name="A0_ID_Author_WEB"
-                            value={A0_ID_Author_WEB}
-                            handleOnChange={this.handleOnChange}
-                            errorMessage={validation_error?.A0_ID_Author_WEB}
-                          />
-                        </Col>
                       </Row>
                       <Row
                         style={{
@@ -1321,54 +1265,44 @@ export default class Tales extends Component {
                           src={A_Storage ? A_Storage : null}
                         />
                       </Row>
-                    </div>
-                    <div>
-                      <Row className="title-header-container">
-                        <h2 className="title-header">Illustrator</h2>
-                      </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
-                            I0_ID_Illustrator
+                            A0_ID_Author
                           </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
                             type="number"
-                            key={23}
-                            name="I0_ID_Illustrator"
-                            value={I0_ID_Illustrator}
+                            key={18}
+                            name="A0_ID_Author"
+                            value={A0_ID_Author}
                             handleOnChange={this.handleOnChange}
-                            errorMessage={validation_error?.I0_ID_Illustrator}
+                            errorMessage={validation_error?.A0_ID_Author}
                           />
                         </Col>
                       </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
-                            I0_ID_Illustrator_WEB
+                            A0_ID_Author_WEB
                           </Typography>
                         </Col>
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={23}
-                            name="I0_ID_Illustrator_WEB"
-                            value={I0_ID_Illustrator_WEB}
+                            key={19}
+                            name="A0_ID_Author_WEB"
+                            value={A0_ID_Author_WEB}
                             handleOnChange={this.handleOnChange}
-                            errorMessage={
-                              validation_error?.I0_ID_Illustrator_WEB
-                            }
+                            errorMessage={validation_error?.A0_ID_Author_WEB}
                           />
                         </Col>
+                      </Row>
+                    </div>
+                    <div>
+                      <Row className="title-header-container">
+                        <h2 className="title-header">Illustrator</h2>
                       </Row>
 
                       <Row
@@ -1414,6 +1348,42 @@ export default class Tales extends Component {
                               this.setState({
                                 _isIllustratorHidden: !_isIllustratorHidden,
                               })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 12 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            I0_ID_Illustrator
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <ValidationInput
+                            type="number"
+                            key={23}
+                            name="I0_ID_Illustrator"
+                            value={I0_ID_Illustrator}
+                            handleOnChange={this.handleOnChange}
+                            errorMessage={validation_error?.I0_ID_Illustrator}
+                          />
+                        </Col>
+                      </Row>
+                      <Row style={{ marginBottom: 12 }}>
+                        <Col span={10}>
+                          <Typography className="input-title">
+                            I0_ID_Illustrator_WEB
+                          </Typography>
+                        </Col>
+                        <Col span={14}>
+                          <ValidationInput
+                            type="text"
+                            key={23}
+                            name="I0_ID_Illustrator_WEB"
+                            value={I0_ID_Illustrator_WEB}
+                            handleOnChange={this.handleOnChange}
+                            errorMessage={
+                              validation_error?.I0_ID_Illustrator_WEB
                             }
                           />
                         </Col>
