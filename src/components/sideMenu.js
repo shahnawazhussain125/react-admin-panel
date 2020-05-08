@@ -13,7 +13,7 @@ export default function SideMenu() {
           backgroundColor: "#EFEFFF",
         }}
       >
-        <h2 style={{ color: "#109CF1", marginTop: 10, marginBottom: 15 }}>
+        <h2 style={{ color: "#109CF1", marginTop: 21, marginBottom: 25 }}>
           Mesélj nekem!
         </h2>
         <div
