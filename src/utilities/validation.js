@@ -199,7 +199,7 @@ export const authorInputValidation = (obj) => {
 export const bookInputValidation = (obj) => {
   const {
     B_BookTitle,
-    BAuthorName,
+    B_BAuthorName,
     B0_ID_Book,
     B_Web,
     L_LanguageName,
@@ -235,9 +235,9 @@ export const bookInputValidation = (obj) => {
     validation_error.B_BookTitle = "Please enter B_BookTitle";
   }
 
-  if (isEmpty(BAuthorName)) {
+  if (isEmpty(B_BAuthorName)) {
     is_error = true;
-    validation_error.BAuthorName = "Please enter BAuthorName";
+    validation_error.B_BAuthorName = "Please enter B_BAuthorName";
   }
 
   if (isEmpty(Storage)) {
@@ -324,7 +324,7 @@ export const talesInputValidation = (obj) => {
     A_AuthorName,
     A_Storage,
     B_BookTitle,
-    B_BAuthorName,
+    B_B_BAuthorName,
     B_Web,
     B0_ID_Book,
     B_BookImage,
@@ -432,9 +432,9 @@ export const talesInputValidation = (obj) => {
     validation_error.B_BookTitle = "Please enter B_BookTitle";
   }
 
-  if (isEmpty(B_BAuthorName)) {
+  if (isEmpty(B_B_BAuthorName)) {
     is_error = true;
-    validation_error.B_BAuthorName = "Please enter B_BAuthorName";
+    validation_error.B_B_BAuthorName = "Please enter B_B_BAuthorName";
   }
 
   if (isEmpty(B_Web)) {

@@ -16,27 +16,27 @@ export default class Book extends Component {
   constructor() {
     super();
     this.state = {
-      books: [],
-      currentIndex: 0,
-      B_BookTitle: null,
-      BAuthorName: null,
-      B0_ID_Book: null,
-      B_Web: null,
+      B_BookTitle: "",
+      B_BAuthorName: "",
+      B0_ID_Book: "",
+      B_Web: "",
       B_isBookFree: false,
       B_isBookHidden: false,
-      L_LanguageName: null,
-      L0_ID_Language: null,
-      L0_ID_Language_WEB: null,
-      storage: null,
-      B_BookImage: null,
-      BOOKOwner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
-      O0_ID_Owner: null,
-      O0_ID_Owner_WEB: null,
+      L_LanguageName: "",
+      L0_ID_Language: "",
+      L0_ID_Language_WEB: "",
+      B_BookImage: "",
+      BOOKOwner: "",
+      O_Company: "",
+      O_Web: "",
+      O_ContactName: "",
+      O_ContactEmail: "",
+      O_ContactTel: "",
+      O0_ID_Owner: "",
+      O0_ID_Owner_WEB: "",
+      Storage: "",
+      B0_ID_Book_WEB: "",
+      file: "",
       isAddNew: false,
       isLoading: true,
       authors: [],
@@ -44,6 +44,8 @@ export default class Book extends Component {
       owners: [],
       validation_error: null,
       imagesName: [],
+      books: [],
+      currentIndex: 0,
     };
   }
 
@@ -107,7 +109,7 @@ export default class Book extends Component {
           books.push({
             B0_ID_Book_WEB: doc.id,
             B_BookTitle: doc.data()?.B_BookTitle,
-            BAuthorName: doc.data()?.BAuthorName,
+            B_BAuthorName: doc.data()?.B_BAuthorName,
             B0_ID_Book: doc.data()?.B0_ID_Book,
             B_Web: doc.data()?.B_Web,
             A_AuthorImage: doc.data().A_AuthorImage,
@@ -177,33 +179,36 @@ export default class Book extends Component {
 
   handleAddNew = () => {
     this.setState({
-      isAddNew: true,
-      B_BookTitle: null,
-      BAuthorName: null,
-      B0_ID_Book: null,
-      B_Web: null,
+      B_BookTitle: "",
+      B_BAuthorName: "",
+      B0_ID_Book: "",
+      B_Web: "",
       B_isBookFree: false,
       B_isBookHidden: false,
-      L_LanguageName: null,
-      L0_ID_Language: null,
-      L0_ID_Language_WEB: null,
-      storage: null,
-      B_BookImage: null,
-      BOOKOwner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
-      O0_ID_Owner: null,
-      O0_ID_Owner_WEB: null,
+      L_LanguageName: "",
+      L0_ID_Language: "",
+      L0_ID_Language_WEB: "",
+      B_BookImage: "",
+      BOOKOwner: "",
+      O_Company: "",
+      O_Web: "",
+      O_ContactName: "",
+      O_ContactEmail: "",
+      O_ContactTel: "",
+      O0_ID_Owner: "",
+      O0_ID_Owner_WEB: "",
+      B_Storage: "",
+      B0_ID_Book_WEB: "",
+      file: "",
+      isAddNew: true,
+      isEdit: false,
     });
   };
 
   handleSaveData = () => {
     const {
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       B0_ID_Book,
       B_Web,
       B_isBookFree,
@@ -227,7 +232,7 @@ export default class Book extends Component {
 
     const { is_error, validation_error } = bookInputValidation({
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       B0_ID_Book,
       B_Web,
       L_LanguageName,
@@ -263,7 +268,7 @@ export default class Book extends Component {
                   .collection("Books")
                   .add({
                     B_BookTitle,
-                    BAuthorName,
+                    B_BAuthorName,
                     B0_ID_Book,
                     B_Web,
                     B_isBookFree,
@@ -289,12 +294,29 @@ export default class Book extends Component {
                       2000
                     );
                     this.setState({
-                      B0_ID_Book: null,
-                      A_AuthorImage: null,
-                      B_BookTitle: null,
-                      file: null,
-                      BAuthorName: false,
+                      B_BookTitle: "",
+                      B_BAuthorName: "",
+                      B0_ID_Book: "",
+                      B_Web: "",
+                      B_isBookFree: false,
+                      B_isBookHidden: false,
+                      L_LanguageName: "",
+                      L0_ID_Language: "",
+                      L0_ID_Language_WEB: "",
+                      B_BookImage: "",
+                      BOOKOwner: "",
+                      O_Company: "",
+                      O_Web: "",
+                      O_ContactName: "",
+                      O_ContactEmail: "",
+                      O_ContactTel: "",
+                      O0_ID_Owner: "",
+                      O0_ID_Owner_WEB: "",
+                      Storage: "",
+                      B0_ID_Book_WEB: "",
+                      file: "",
                       isAddNew: false,
+                      isEdit: false,
                     });
                     this.getAllBooks();
                   })
@@ -316,15 +338,13 @@ export default class Book extends Component {
   handleOnUpdate = () => {
     const {
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       B0_ID_Book,
       B_Web,
-
       L_LanguageName,
       L0_ID_Language,
       L0_ID_Language_WEB,
       B_BookImage,
-      BOOKOwner,
       O_Company,
       O_Web,
       O_ContactName,
@@ -341,7 +361,7 @@ export default class Book extends Component {
 
     const { is_error, validation_error } = bookInputValidation({
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       B0_ID_Book,
       B_Web,
       L_LanguageName,
@@ -356,7 +376,7 @@ export default class Book extends Component {
       O0_ID_Owner,
       O0_ID_Owner_WEB,
       Storage,
-      books,
+      books: books.filter((value, index) => index !== currentIndex),
       imagesName: imagesName.filter(
         (value) => value !== books[currentIndex].B_BookImage
       ),
@@ -394,30 +414,59 @@ export default class Book extends Component {
 
   handleUpdateData = (Storage) => {
     const {
-      A0_ID_Author,
-      A_AuthorImage,
-      A_AuthorName,
-      A_isAuthorHiden,
-      A0_ID_Author_WEB,
+      B_BookTitle,
+      B_BAuthorName,
+      B0_ID_Book,
+      B_Web,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      B_BookImage,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      B0_ID_Book_WEB,
+      B_isBookFree,
+      B_isBookHidden,
+      BOOKOwner,
+      books,
       currentIndex,
-      authors,
     } = this.state;
+
     firebase
       .firestore()
-      .collection("Authors")
-      .doc(A0_ID_Author_WEB)
+      .collection("Books")
+      .doc(B0_ID_Book_WEB)
       .update({
-        A0_ID_Author,
-        A_AuthorImage,
-        A_AuthorName,
-        A_isAuthorHiden,
+        B_BookTitle,
+        B_BAuthorName,
+        B0_ID_Book,
+        B_Web,
+        B_isBookFree,
+        B_isBookHidden,
+        L_LanguageName,
+        L0_ID_Language,
+        L0_ID_Language_WEB,
+        B_BookImage,
+        BOOKOwner,
+        O_Company,
+        O_Web,
+        O_ContactName,
+        O_ContactEmail,
+        O_ContactTel,
+        O0_ID_Owner,
+        O0_ID_Owner_WEB,
         Storage,
       })
       .then(() => {
         firebase
           .firestore()
           .collection("Tales")
-          .where("A0_ID_Author_WEB", "==", A0_ID_Author_WEB)
+          .where("B0_ID_Book_WEB", "==", B0_ID_Book_WEB)
           .get()
           .then((response) => {
             let updateDocumentPromise = [];
@@ -425,12 +474,25 @@ export default class Book extends Component {
             response.forEach((doc) => {
               updateDocumentPromise.push(
                 firebase.firestore().collection("Tales").doc(doc.id).update({
-                  A0_ID_Author,
-                  A_AuthorImage,
-                  A_AuthorName,
-                  A_isAuthorHiden,
-                  Storage,
-                  A0_ID_Author_WEB,
+                  B_BookTitle,
+                  B_BAuthorName,
+                  B0_ID_Book,
+                  B_Web,
+                  B_isBookFree,
+                  B_isBookHidden,
+                  L_LanguageName,
+                  L0_ID_Language,
+                  L0_ID_Language_WEB,
+                  B_BookImage,
+                  BOOKOwner,
+                  O_Company,
+                  O_Web,
+                  O_ContactName,
+                  O_ContactEmail,
+                  O_ContactTel,
+                  O0_ID_Owner,
+                  O0_ID_Owner_WEB,
+                  B_Storage: Storage,
                 })
               );
             });
@@ -438,31 +500,59 @@ export default class Book extends Component {
             Promise.all(updateDocumentPromise)
               .then(() => {
                 notify.show(
-                  "Author has been successfully updated",
+                  "Book has been successfully updated",
                   "success",
                   2000
                 );
 
-                authors[currentIndex] = {
-                  A0_ID_Author,
-                  A_AuthorImage,
-                  A_AuthorName,
-                  A_isAuthorHiden,
+                books[currentIndex] = {
+                  B_BookTitle,
+                  B_BAuthorName,
+                  B0_ID_Book,
+                  B_Web,
+                  B_isBookFree,
+                  B_isBookHidden,
+                  L_LanguageName,
+                  L0_ID_Language,
+                  L0_ID_Language_WEB,
+                  B_BookImage,
+                  BOOKOwner,
+                  O_Company,
+                  O_Web,
+                  O_ContactName,
+                  O_ContactEmail,
+                  O_ContactTel,
+                  O0_ID_Owner,
+                  O0_ID_Owner_WEB,
                   Storage,
-                  A0_ID_Author_WEB,
+                  B0_ID_Book_WEB,
                 };
 
                 this.setState({
-                  A0_ID_Author: "",
-                  A_AuthorImage: "",
-                  A_AuthorName: "",
-                  A_isAuthorHiden: false,
+                  B_BookTitle: "",
+                  B_BAuthorName: "",
+                  B0_ID_Book: "",
+                  B_Web: "",
+                  B_isBookFree: false,
+                  B_isBookHidden: false,
+                  L_LanguageName: "",
+                  L0_ID_Language: "",
+                  L0_ID_Language_WEB: "",
+                  B_BookImage: "",
+                  BOOKOwner: "",
+                  O_Company: "",
+                  O_Web: "",
+                  O_ContactName: "",
+                  O_ContactEmail: "",
+                  O_ContactTel: "",
+                  O0_ID_Owner: "",
+                  O0_ID_Owner_WEB: "",
                   Storage: "",
+                  B0_ID_Book_WEB: "",
                   file: "",
-                  A0_ID_Author_WEB: "",
                   isAddNew: false,
                   isEdit: false,
-                  authors,
+                  books,
                 });
               })
               .catch((error) => {
@@ -485,7 +575,7 @@ export default class Book extends Component {
   render() {
     const {
       B_BookTitle,
-      BAuthorName,
+      B_BAuthorName,
       B0_ID_Book,
       B_Web,
       B_isBookFree,
@@ -562,16 +652,16 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>BAuthorName</Typography>
+                        <Typography>B_BAuthorName</Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
                           key={1}
                           type="text"
-                          name="BAuthorName"
-                          value={BAuthorName}
+                          name="B_BAuthorName"
+                          value={B_BAuthorName}
                           handleOnChange={this.handleOnChange}
-                          errorMessage={validation_error?.BAuthorName}
+                          errorMessage={validation_error?.B_BAuthorName}
                         />
                       </Col>
                     </Row>
@@ -963,6 +1053,16 @@ export default class Book extends Component {
                   >
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
+                        <Typography>B_BookTitle</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.B_BookTitle}
+                        </Typography>
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
                         <Typography>B0_ID_Book</Typography>
                       </Col>
                       <Col span={14}>
@@ -984,11 +1084,11 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>BAuthorName</Typography>
+                        <Typography>B_BAuthorName</Typography>
                       </Col>
                       <Col span={14}>
                         <Typography className="ant-input">
-                          {books[currentIndex]?.BAuthorName}
+                          {books[currentIndex]?.B_BAuthorName}
                         </Typography>
                       </Col>
                     </Row>

@@ -273,7 +273,7 @@ export default class Authors extends Component {
                   A_AuthorImage,
                   A_AuthorName,
                   A_isAuthorHiden,
-                  Storage,
+                  A_Storage: Storage,
                   A0_ID_Author_WEB,
                 })
               );

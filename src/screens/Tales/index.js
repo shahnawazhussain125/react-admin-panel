@@ -19,7 +19,7 @@ export default class Tales extends Component {
       tales: [],
       currentIndex: 0,
       B_BookTitle: null,
-      B_BAuthorName: null,
+      B_B_BAuthorName: null,
       B0_ID_Book: null,
       B_Web: null,
       B_isBookFree: false,
@@ -124,7 +124,7 @@ export default class Tales extends Component {
             A_Storage: doc.data().A_Storage,
             B0_ID_Book: doc.data()?.B0_ID_Book,
             B0_ID_Book_WEB: doc.data()?.B0_ID_Book_WEB,
-            B_BAuthorName: doc.data()?.B_BAuthorName,
+            B_B_BAuthorName: doc.data()?.B_B_BAuthorName,
 
             B_BookImage: doc.data()?.B_BookImage,
             B_BookTitle: doc.data()?.B_BookTitle,
@@ -197,7 +197,7 @@ export default class Tales extends Component {
       A_isAuthorHiden: false,
       A_Storage: "",
       B_BookTitle: "",
-      B_BAuthorName: "",
+      B_B_BAuthorName: "",
       T_TaleTitle: "",
       T_TaleImage: "",
       T_Storage: "",
@@ -236,7 +236,7 @@ export default class Tales extends Component {
       A_isAuthorHiden,
       A_Storage,
       B_BookTitle,
-      B_BAuthorName,
+      B_B_BAuthorName,
       T_TaleTitle,
       T_TaleImage,
       T_Storage,
@@ -273,7 +273,7 @@ export default class Tales extends Component {
       A_AuthorName,
       A_Storage,
       B_BookTitle,
-      B_BAuthorName,
+      B_B_BAuthorName,
       B_Web,
       B0_ID_Book,
       B_BookImage,
@@ -322,7 +322,7 @@ export default class Tales extends Component {
                     A_isAuthorHiden,
                     A_Storage,
                     B_BookTitle,
-                    B_BAuthorName,
+                    B_B_BAuthorName,
                     T_TaleTitle,
                     T_TaleImage,
                     T_Storage,
@@ -366,7 +366,7 @@ export default class Tales extends Component {
                       A_isAuthorHiden: false,
                       A_Storage: "",
                       B_BookTitle: "",
-                      B_BAuthorName: "",
+                      B_B_BAuthorName: "",
                       T_TaleTitle: "",
                       T_TaleImage: "",
                       T_Storage: "",
@@ -425,7 +425,7 @@ export default class Tales extends Component {
       A_isAuthorHiden,
       A_Storage,
       B_BookTitle,
-      B_BAuthorName,
+      B_B_BAuthorName,
       T_TaleTitle,
       T_TaleImage,
       T_Storage,
@@ -545,12 +545,12 @@ export default class Tales extends Component {
                         <Select
                           style={{ width: 250 }}
                           placeholder="Select Author"
-                          value={B_BAuthorName}
+                          value={B_B_BAuthorName}
                           onChange={(value) =>
                             this.setState({
                               ...authors[value],
                               A_Storage: authors[value].A_Storage,
-                              B_BAuthorName: authors[value].A_AuthorName,
+                              B_B_BAuthorName: authors[value].A_AuthorName,
                             })
                           }
                         >
@@ -779,7 +779,7 @@ export default class Tales extends Component {
                     >
                       <Col span={10}>
                         <Typography className="input-title">
-                          B_BAuthorName
+                          B_B_BAuthorName
                         </Typography>
                       </Col>
                       <Col span={14}>
@@ -1610,13 +1610,13 @@ export default class Tales extends Component {
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
                         <Typography className="input-title">
-                          B_BAuthorName
+                          B_B_BAuthorName
                         </Typography>
                       </Col>
                       <Col span={14}>
                         <input
                           className="ant-input"
-                          defaultValue={tales[currentIndex]?.B_BAuthorName}
+                          defaultValue={tales[currentIndex]?.B_B_BAuthorName}
                         />
                       </Col>
                     </Row>
