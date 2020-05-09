@@ -532,7 +532,10 @@ export default class Authors extends Component {
                       <p>A0_ID_Author</p>
                     </Col>
                     <Col span={14}>
-                      <Typography className="ant-input">
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                      >
                         {authors[currentIndex]?.A0_ID_Author}
                       </Typography>
                     </Col>
@@ -543,7 +546,10 @@ export default class Authors extends Component {
                       <p>A0_ID_Author_WEB</p>
                     </Col>
                     <Col span={14}>
-                      <Typography className="ant-input">
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                      >
                         {authors[currentIndex]?.A0_ID_Author_WEB}
                       </Typography>
                     </Col>
@@ -554,7 +560,10 @@ export default class Authors extends Component {
                       <p>A_AuthorImage</p>
                     </Col>
                     <Col span={14}>
-                      <Typography className="ant-input">
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                      >
                         {authors[currentIndex]?.A_AuthorImage}
                       </Typography>
                     </Col>
@@ -564,7 +573,10 @@ export default class Authors extends Component {
                       <p>A_AuthorName</p>
                     </Col>
                     <Col span={14}>
-                      <Typography className="ant-input">
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                      >
                         {authors[currentIndex]?.A_AuthorName}
                       </Typography>
                     </Col>

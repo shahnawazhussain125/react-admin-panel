@@ -793,11 +793,7 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <Col span={10}>
                         <Typography className="input-title">B_Web</Typography>
                       </Col>
@@ -812,11 +808,7 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <Col span={10}>
                         <Typography className="input-title">
                           B_isBookFree
@@ -835,11 +827,7 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <Col span={10}>
                         <Typography className="input-title">
                           B_isBookHidden
@@ -867,11 +855,7 @@ export default class Tales extends Component {
                         src={B_Storage ? B_Storage : null}
                       />
                     </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <Col span={10}>
                         <Typography className="input-title">
                           B_BookImage
@@ -888,11 +872,7 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <Col span={10}>
                         <Typography className="input-title">
                           B_Storage
@@ -926,11 +906,7 @@ export default class Tales extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row
-                      style={{
-                        marginBottom: 12,
-                      }}
-                    >
+                    <Row style={{ marginBottom: 12 }}>
                       <Col span={10}>
                         <Typography className="input-title">
                           B0_ID_Book_WEB
@@ -960,11 +936,7 @@ export default class Tales extends Component {
                       <Row className="title-header-container">
                         <h2 className="title-header">Book Language</h2>
                       </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             L_LanguageName
@@ -982,11 +954,7 @@ export default class Tales extends Component {
                         </Col>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             L0_ID_Language
@@ -1004,11 +972,7 @@ export default class Tales extends Component {
                         </Col>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             L0_ID_Language_WEB
@@ -1032,11 +996,7 @@ export default class Tales extends Component {
                         <h2 className="title-header">Book Owner</h2>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             O_Company
@@ -1054,11 +1014,7 @@ export default class Tales extends Component {
                         </Col>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">O_Web</Typography>
                         </Col>
@@ -1074,11 +1030,7 @@ export default class Tales extends Component {
                         </Col>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             O_ContactName
@@ -1096,11 +1048,7 @@ export default class Tales extends Component {
                         </Col>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             O_ContactEmail
@@ -1118,11 +1066,7 @@ export default class Tales extends Component {
                         </Col>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             O_ContactTel
@@ -1187,11 +1131,7 @@ export default class Tales extends Component {
                       <Row className="title-header-container">
                         <h2 className="title-header">Author</h2>
                       </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             A_AuthorImage
@@ -1208,11 +1148,7 @@ export default class Tales extends Component {
                           />
                         </Col>
                       </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             A_AuthorName
@@ -1229,11 +1165,7 @@ export default class Tales extends Component {
                           />
                         </Col>
                       </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             A_isAuthorHiden
@@ -1252,11 +1184,7 @@ export default class Tales extends Component {
                           />
                         </Col>
                       </Row>
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <img
                           style={{
                             width: 150,
@@ -1305,11 +1233,7 @@ export default class Tales extends Component {
                         <h2 className="title-header">Illustrator</h2>
                       </Row>
 
-                      <Row
-                        style={{
-                          marginBottom: 12,
-                        }}
-                      >
+                      <Row style={{ marginBottom: 12 }}>
                         <Col span={10}>
                           <Typography className="input-title">
                             I_IllustratorName
@@ -1428,7 +1352,10 @@ export default class Tales extends Component {
                         <Typography className="input-title">Book</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.B_BookTitle}
                         </Typography>
                       </Col>
@@ -1438,7 +1365,10 @@ export default class Tales extends Component {
                         <Typography className="input-title">Author</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.A_AuthorName}
                         </Typography>
                       </Col>
@@ -1450,7 +1380,10 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.I_IllustratorName}
                         </Typography>
                       </Col>
@@ -1460,14 +1393,20 @@ export default class Tales extends Component {
                         <Typography className="input-title">Title</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.T_TaleTitle}
                         </Typography>
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography className="input-title">
+                        <Typography
+                          className="input-title"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           T_TaleContent
                         </Typography>
                       </Col>
@@ -1504,7 +1443,10 @@ export default class Tales extends Component {
                             </Typography>
                           </Col>
                           <Col span={14}>
-                            <Typography className="ant-input">
+                            <Typography
+                              className="ant-input"
+                              ellipsis={{ rows: 3, expandable: true }}
+                            >
                               {tales[currentIndex]?.T_TaleImage}
                             </Typography>
                           </Col>
@@ -1541,7 +1483,10 @@ export default class Tales extends Component {
                             <Typography className="input-title">Len</Typography>
                           </Col>
                           <Col span={14}>
-                            <Typography className="ant-input">
+                            <Typography
+                              className="ant-input"
+                              ellipsis={{ rows: 3, expandable: true }}
+                            >
                               {
                                 new DOMParser().parseFromString(
                                   tales[currentIndex]?.T_TaleContent
@@ -1560,7 +1505,10 @@ export default class Tales extends Component {
                             </Typography>
                           </Col>
                           <Col span={14}>
-                            <Typography className="ant-input">
+                            <Typography
+                              className="ant-input"
+                              ellipsis={{ rows: 3, expandable: true }}
+                            >
                               {new DOMParser().parseFromString(
                                 tales[currentIndex]?.T_TaleContent
                                   ? tales[currentIndex]?.T_TaleContent
@@ -1576,6 +1524,7 @@ export default class Tales extends Component {
                       <Col span={14}>
                         <Typography
                           className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
                           style={{
                             width: 400,
                             height: 300,
@@ -1603,7 +1552,10 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.B_BAuthorName}
                         </Typography>
                       </Col>
@@ -1613,7 +1565,10 @@ export default class Tales extends Component {
                         <Typography className="input-title">B_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.B_Web}
                         </Typography>
                       </Col>
@@ -1660,7 +1615,10 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.B_BookImage}
                         </Typography>
                       </Col>
@@ -1685,7 +1643,10 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {tales[currentIndex]?.B0_ID_Book}
                         </Typography>
                       </Col>
@@ -1719,7 +1680,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.L0_ID_Language}
                           </Typography>
                         </Col>
@@ -1747,7 +1711,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.L_LanguageName}
                           </Typography>
                         </Col>
@@ -1766,7 +1733,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.O0_ID_Owner}
                           </Typography>
                         </Col>
@@ -1787,12 +1757,18 @@ export default class Tales extends Component {
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography className="input-title">
+                          <Typography
+                            className="input-title"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             O_Company
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.O_Company}
                           </Typography>
                         </Col>
@@ -1802,19 +1778,28 @@ export default class Tales extends Component {
                           <Typography className="input-title">O_Web</Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.O_Web}
                           </Typography>
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
-                          <Typography className="input-title">
+                          <Typography
+                            className="input-title"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             O_ContactName
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.O_ContactName}
                           </Typography>
                         </Col>
@@ -1826,7 +1811,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.O_ContactEmail}
                           </Typography>
                         </Col>
@@ -1838,7 +1826,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.O_ContactTel}
                           </Typography>
                         </Col>
@@ -1857,7 +1848,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.A0_ID_Author}
                           </Typography>
                         </Col>
@@ -1883,7 +1877,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.A_AuthorName}
                           </Typography>
                         </Col>
@@ -1896,7 +1893,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.A_AuthorImage}
                           </Typography>
                         </Col>
@@ -1954,7 +1954,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.I_IllustratorName}
                           </Typography>
                         </Col>
@@ -1978,7 +1981,10 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography className="ant-input">
+                          <Typography
+                            className="ant-input"
+                            ellipsis={{ rows: 3, expandable: true }}
+                          >
                             {tales[currentIndex]?.I0_ID_Illustrator}
                           </Typography>
                         </Col>

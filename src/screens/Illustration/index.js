@@ -369,7 +369,10 @@ export default class Illustration extends Component {
                     <Typography>I0_ID_Illustrator</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {illustrators[currentIndex]?.I0_ID_Illustrator}
                     </Typography>
                   </Col>
@@ -379,7 +382,10 @@ export default class Illustration extends Component {
                     <Typography>I0_ID_Illustrator_WEB</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
                     </Typography>
                   </Col>
@@ -389,7 +395,10 @@ export default class Illustration extends Component {
                     <Typography>I_IllustratorName</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {illustrators[currentIndex]?.I_IllustratorName}
                     </Typography>
                   </Col>

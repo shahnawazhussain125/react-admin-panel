@@ -469,7 +469,10 @@ export default class Owner extends Component {
                     <Typography>O0_ID_Owner</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O0_ID_Owner}
                     </Typography>
                   </Col>
@@ -479,7 +482,10 @@ export default class Owner extends Component {
                     <Typography>O0_ID_Owner_WEB</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O0_ID_Owner_WEB}
                     </Typography>
                   </Col>
@@ -489,7 +495,10 @@ export default class Owner extends Component {
                     <Typography>O_Company</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O_Company}
                     </Typography>
                   </Col>
@@ -499,7 +508,10 @@ export default class Owner extends Component {
                     <Typography>O_Web</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O_Web}
                     </Typography>
                   </Col>
@@ -509,7 +521,10 @@ export default class Owner extends Component {
                     <Typography>O_ContactName</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O_ContactName}
                     </Typography>
                   </Col>
@@ -520,7 +535,10 @@ export default class Owner extends Component {
                     <Typography>O_ContactEmail</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O_ContactEmail}
                     </Typography>
                   </Col>
@@ -531,7 +549,10 @@ export default class Owner extends Component {
                     <Typography>O_ContactTel</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {owners[currentIndex]?.O_ContactTel}
                     </Typography>
                   </Col>

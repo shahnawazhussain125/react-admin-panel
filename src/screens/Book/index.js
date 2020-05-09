@@ -1056,7 +1056,10 @@ export default class Book extends Component {
                         <Typography>B_BookTitle</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.B_BookTitle}
                         </Typography>
                       </Col>
@@ -1066,7 +1069,10 @@ export default class Book extends Component {
                         <Typography>B0_ID_Book</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.B0_ID_Book}
                         </Typography>
                       </Col>
@@ -1076,7 +1082,10 @@ export default class Book extends Component {
                         <Typography>B0_ID_Book_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.B0_ID_Book_WEB}
                         </Typography>
                       </Col>
@@ -1087,7 +1096,10 @@ export default class Book extends Component {
                         <Typography>B_BAuthorName</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.B_BAuthorName}
                         </Typography>
                       </Col>
@@ -1098,7 +1110,10 @@ export default class Book extends Component {
                         <Typography>B_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.B_Web}
                         </Typography>
                       </Col>
@@ -1133,7 +1148,10 @@ export default class Book extends Component {
                         <Typography>L0_ID_Language</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.L0_ID_Language}
                         </Typography>
                       </Col>
@@ -1144,7 +1162,10 @@ export default class Book extends Component {
                         <Typography>L0_ID_Language_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.L0_ID_Language_WEB}
                         </Typography>
                       </Col>
@@ -1155,23 +1176,20 @@ export default class Book extends Component {
                         <Typography>L_LanguageName</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.L_LanguageName}
                         </Typography>
                       </Col>
                     </Row>
                   </div>
                 </Col>
-                <Col
-                  span={12}
-                  style={{
-                    backgroundColor: "#EBEAFF",
-                  }}
-                >
+                <Col span={12} style={{ backgroundColor: "#EBEAFF" }}>
                   <div
                     style={{
                       backgroundColor: "#EBEAFF",
-
                       padding: 20,
                     }}
                   >
@@ -1203,7 +1221,10 @@ export default class Book extends Component {
                         <Typography>B_BookImage</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.B_BookImage}
                         </Typography>
                       </Col>
@@ -1218,7 +1239,10 @@ export default class Book extends Component {
                         <Typography>O0_ID_Owner</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O0_ID_Owner}
                         </Typography>
                       </Col>
@@ -1229,7 +1253,10 @@ export default class Book extends Component {
                         <Typography>O0_ID_Owner_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O0_ID_Owner_WEB}
                         </Typography>
                       </Col>
@@ -1240,7 +1267,10 @@ export default class Book extends Component {
                         <Typography>O_Company</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O_Company}
                         </Typography>
                       </Col>
@@ -1251,7 +1281,10 @@ export default class Book extends Component {
                         <Typography>O_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O_Web}
                         </Typography>
                       </Col>
@@ -1262,7 +1295,10 @@ export default class Book extends Component {
                         <Typography>O_ContactName</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O_ContactName}
                         </Typography>
                       </Col>
@@ -1273,7 +1309,10 @@ export default class Book extends Component {
                         <Typography>O_ContactEmail</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O_ContactEmail}
                         </Typography>
                       </Col>
@@ -1284,7 +1323,10 @@ export default class Book extends Component {
                         <Typography>O_ContactTel</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography className="ant-input">
+                        <Typography
+                          className="ant-input"
+                          ellipsis={{ rows: 3, expandable: true }}
+                        >
                           {books[currentIndex]?.O_ContactTel}
                         </Typography>
                       </Col>
