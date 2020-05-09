@@ -83,31 +83,25 @@ export default class Headers extends Component {
         </Button>
         <div
           style={{
-            border: "2px solid red",
+            border: "2px solid rgba(0, 0, 0, 0.1)",
             height: 50,
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             marginLeft: 50,
+            backgroundColor: "#fff",
           }}
         >
-          <div
-            style={{
-              border: "2px solid red",
-              textAlign: "center",
-              width: 25,
-            }}
-          >
-            {Number(this.props.currentIndex) + 1}
+          <div style={{ textAlign: "center", width: 30 }}>
+            <Typography style={{ fontSize: 19 }}>
+              {Number(this.props.currentIndex) + 1}
+            </Typography>
           </div>
-          <div
-            style={{
-              border: "2px solid red",
-              textAlign: "center",
-              width: 25,
-            }}
-          >
-            {this.props.noOfDocument}
+          <Typography style={{ fontSize: 19 }}>/</Typography>
+          <div style={{ textAlign: "center", width: 30 }}>
+            <Typography style={{ fontSize: 19 }}>
+              {this.props.noOfDocument}
+            </Typography>
           </div>
         </div>
         <Button
