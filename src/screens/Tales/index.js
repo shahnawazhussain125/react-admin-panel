@@ -48,7 +48,7 @@ export default class Tales extends Component {
     };
   }
 
-  getAllLanguageAndAuther = () => {
+  getAllLanguageAndAuthor = () => {
     let authors = [];
     let languages = [];
     let owners = [];
@@ -135,7 +135,7 @@ export default class Tales extends Component {
             B_isBookHidden: doc.data().B_isBookHidden,
             I0_ID_Illustrator: doc.data().I0_ID_Illustrator,
             I_IllustratorName: doc.data().I_IllustratorName,
-            I_isIllustratorHidden: doc.data().I_isIllustratorHidden,
+            II_isIllustratorHidden: doc.data().II_isIllustratorHidden,
             I0_ID_Illustrator_WEB: doc.data().I0_ID_Illustrator_WEB,
             L0_ID_Language: doc.data().L0_ID_Language,
             L0_ID_Language_WEB: doc.data().L0_ID_Language_WEB,
@@ -166,7 +166,7 @@ export default class Tales extends Component {
 
   componentDidMount() {
     this.getAllTales();
-    this.getAllLanguageAndAuther();
+    this.getAllLanguageAndAuthor();
   }
 
   handleNext = () => {
@@ -223,7 +223,7 @@ export default class Tales extends Component {
       I0_ID_Illustrator_WEB: "",
       I0_ID_Illustrator: "",
       I_IllustratorName: "",
-      _isIllustratorHidden: false,
+      I_isIllustratorHidden: false,
     });
   };
 
@@ -262,7 +262,7 @@ export default class Tales extends Component {
       I0_ID_Illustrator_WEB,
       I0_ID_Illustrator,
       I_IllustratorName,
-      _isIllustratorHidden,
+      I_isIllustratorHidden,
       file,
     } = this.state;
 
@@ -348,7 +348,7 @@ export default class Tales extends Component {
                     I0_ID_Illustrator_WEB,
                     I0_ID_Illustrator,
                     I_IllustratorName,
-                    _isIllustratorHidden,
+                    I_isIllustratorHidden,
                     T_Storage: Storage,
                   })
                   .then(() => {
@@ -392,7 +392,7 @@ export default class Tales extends Component {
                       I0_ID_Illustrator_WEB: "",
                       I0_ID_Illustrator: "",
                       I_IllustratorName: "",
-                      _isIllustratorHidden: false,
+                      I_isIllustratorHidden: false,
                       file: null,
                     });
                     this.getAllTales();
@@ -451,7 +451,7 @@ export default class Tales extends Component {
       I0_ID_Illustrator_WEB,
       I0_ID_Illustrator,
       I_IllustratorName,
-      _isIllustratorHidden,
+      I_isIllustratorHidden,
       isAddNew,
       tales,
       currentIndex,
@@ -1336,17 +1336,17 @@ export default class Tales extends Component {
                       >
                         <Col span={10}>
                           <Typography className="input-title">
-                            I_isIllustratorHidden
+                            II_isIllustratorHidden
                           </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
                             key={25}
-                            checked={_isIllustratorHidden}
-                            value={_isIllustratorHidden}
+                            checked={I_isIllustratorHidden}
+                            value={I_isIllustratorHidden}
                             onChange={() =>
                               this.setState({
-                                _isIllustratorHidden: !_isIllustratorHidden,
+                                I_isIllustratorHidden: !I_isIllustratorHidden,
                               })
                             }
                           />
@@ -1985,12 +1985,12 @@ export default class Tales extends Component {
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
                           <Typography className="input-title">
-                            _isIllustratorHidden
+                            I_isIllustratorHidden
                           </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
-                            checked={tales[currentIndex]?._isIllustratorHidden}
+                            checked={tales[currentIndex]?.I_isIllustratorHidden}
                           />
                         </Col>
                       </Row>

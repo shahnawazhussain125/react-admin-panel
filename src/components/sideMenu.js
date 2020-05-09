@@ -79,7 +79,7 @@ export default function SideMenu() {
             </Link>
           </li>
           <li>
-            <Link className="link" to="auther">
+            <Link className="link" to="author">
               <h4 style={{ color: "#2298FF" }}>Authors</h4>
             </Link>
           </li>

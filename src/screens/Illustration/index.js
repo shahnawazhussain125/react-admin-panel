@@ -17,7 +17,7 @@ export default class Illustration extends Component {
       currentIndex: 0,
       I0_ID_Illustrator: "",
       I_IllustratorName: "",
-      _isIllustratorHidden: false,
+      I_isIllustratorHidden: false,
       isAddNew: false,
       isLoading: true,
       is_error: null,
@@ -38,7 +38,7 @@ export default class Illustration extends Component {
             I0_ID_Illustrator_WEB: doc.id,
             I0_ID_Illustrator: doc.data()?.I0_ID_Illustrator,
             I_IllustratorName: doc.data()?.I_IllustratorName,
-            _isIllustratorHidden: doc.data()?._isIllustratorHidden,
+            I_isIllustratorHidden: doc.data()?.I_isIllustratorHidden,
           });
         });
         this.setState({
@@ -77,7 +77,7 @@ export default class Illustration extends Component {
       isAddNew: true,
       I0_ID_Illustrator: "",
       I_IllustratorName: "",
-      _isIllustratorHidden: false,
+      I_isIllustratorHidden: false,
     });
   };
 
@@ -85,14 +85,14 @@ export default class Illustration extends Component {
     const {
       I0_ID_Illustrator,
       I_IllustratorName,
-      _isIllustratorHidden,
+      I_isIllustratorHidden,
       illustrators,
     } = this.state;
 
     const { is_error, validation_error } = illustrationInputValidation({
       I0_ID_Illustrator,
       I_IllustratorName,
-      _isIllustratorHidden,
+      I_isIllustratorHidden,
       illustrators,
     });
 
@@ -104,17 +104,111 @@ export default class Illustration extends Component {
           .add({
             I0_ID_Illustrator,
             I_IllustratorName,
-            _isIllustratorHidden,
+            I_isIllustratorHidden,
           })
           .then(() => {
             notify.show("Owner has been successfully added", "success", 2000);
             this.setState({
               I0_ID_Illustrator: "",
               I_IllustratorName: "",
-              _isIllustratorHidden: false,
+              I_isIllustratorHidden: false,
               isAddNew: false,
             });
             this.getAllIllustrator();
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      }
+    });
+  };
+
+  handleOnUpdate = () => {
+    const {
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      I_isIllustratorHidden,
+      illustrators,
+      I0_ID_Illustrator_WEB,
+      currentIndex,
+    } = this.state;
+
+    const { is_error, validation_error } = illustrationInputValidation({
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      I_isIllustratorHidden,
+      illustrators: illustrators.filter(
+        (value, index) => index !== currentIndex
+      ),
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        firebase
+          .firestore()
+          .collection("Illustrators")
+          .doc(I0_ID_Illustrator_WEB)
+          .update({
+            I0_ID_Illustrator,
+            I_IllustratorName,
+            I_isIllustratorHidden,
+          })
+          .then(() => {
+            firebase
+              .firestore()
+              .collection("Tales")
+              .where("I0_ID_Illustrator_WEB", "==", I0_ID_Illustrator_WEB)
+              .get()
+              .then((response) => {
+                let updateDocumentPromise = [];
+
+                response.forEach((doc) => {
+                  updateDocumentPromise.push(
+                    firebase
+                      .firestore()
+                      .collection("Tales")
+                      .doc(doc.id)
+                      .update({
+                        I0_ID_Illustrator,
+                        I_IllustratorName,
+                        I_isIllustratorHidden,
+                        I0_ID_Illustrator_WEB,
+                      })
+                  );
+                });
+
+                Promise.all(updateDocumentPromise)
+                  .then(() => {
+                    notify.show(
+                      "Illustrator has been successfully updated",
+                      "success",
+                      2000
+                    );
+
+                    illustrators[currentIndex] = {
+                      I0_ID_Illustrator,
+                      I_IllustratorName,
+                      I_isIllustratorHidden,
+                      I0_ID_Illustrator_WEB,
+                    };
+
+                    this.setState({
+                      I0_ID_Illustrator: "",
+                      I_IllustratorName: "",
+                      I0_ID_Illustrator_WEB: "",
+                      I_isIllustratorHidden: false,
+                      isAddNew: false,
+                      isEdit: false,
+                      illustrators,
+                    });
+                  })
+                  .catch((error) => {
+                    notify.show(`Error! ${error.message}`, "error", 2000);
+                  });
+              })
+              .catch((error) => {
+                notify.show(`Error! ${error.message}`, "error", 2000);
+              });
           })
           .catch((error) => {
             notify.show(`Error! ${error.message}`, "error", 2000);
@@ -131,11 +225,12 @@ export default class Illustration extends Component {
     const {
       I0_ID_Illustrator,
       I_IllustratorName,
-      _isIllustratorHidden,
+      I_isIllustratorHidden,
       isAddNew,
       illustrators,
       currentIndex,
       validation_error,
+      isEdit,
     } = this.state;
     return (
       <Row>
@@ -165,7 +260,7 @@ export default class Illustration extends Component {
                   fontSize: 20,
                 }}
               >
-                Add new Language
+                {isEdit ? "Update Illustrator" : "Add New Illustrator"}
               </Typography>
             </Row>
           )}
@@ -181,52 +276,6 @@ export default class Illustration extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>I_IllustratorName</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="text"
-                      key={1}
-                      name="I_IllustratorName"
-                      value={I_IllustratorName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I_IllustratorName}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>_isIllustratorHidden</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="text"
-                      key={1}
-                      name="I_IllustratorName"
-                      value={I_IllustratorName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I_IllustratorName}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>_isIllustratorHidden</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Checkbox
-                      key={3}
-                      checked={_isIllustratorHidden}
-                      onChange={() =>
-                        this.setState({
-                          _isIllustratorHidden: !_isIllustratorHidden,
-                        })
-                      }
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
                     <Typography>L0_ID_Language</Typography>
                   </Col>
                   <Col span={14}>
@@ -240,7 +289,39 @@ export default class Illustration extends Component {
                     />
                   </Col>
                 </Row>
-                <Row className="bottom-butns">
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I_IllustratorName</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="text"
+                      key={1}
+                      name="I_IllustratorName"
+                      value={I_IllustratorName}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.I_IllustratorName}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I_isIllustratorHidden</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Checkbox
+                      key={3}
+                      checked={I_isIllustratorHidden}
+                      onChange={() =>
+                        this.setState({
+                          I_isIllustratorHidden: !I_isIllustratorHidden,
+                        })
+                      }
+                    />
+                  </Col>
+                </Row>
+
+                <Row style={{ marginTop: 10 }}>
                   <Button
                     style={{ marginLeft: 10 }}
                     type="primary"
@@ -250,15 +331,27 @@ export default class Illustration extends Component {
                   >
                     Cancel
                   </Button>
-                  <Button
-                    style={{ marginLeft: 10 }}
-                    type="primary"
-                    onClick={() => {
-                      this.handleSaveData();
-                    }}
-                  >
-                    Save
-                  </Button>
+                  {isEdit ? (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleOnUpdate();
+                      }}
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleSaveData();
+                      }}
+                    >
+                      Save
+                    </Button>
+                  )}
                 </Row>
               </div>
             ) : (
@@ -272,38 +365,12 @@ export default class Illustration extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>I_IllustratorName</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={
-                        illustrators[currentIndex]?.I_IllustratorName
-                      }
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>_isIllustratorHidden</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Checkbox
-                      checked={illustrators[currentIndex]?._isIllustratorHidden}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
                     <Typography>I0_ID_Illustrator</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={
-                        illustrators[currentIndex]?.I0_ID_Illustrator
-                      }
-                    />
+                    <Typography className="ant-input">
+                      {illustrators[currentIndex]?.I0_ID_Illustrator}
+                    </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -311,13 +378,48 @@ export default class Illustration extends Component {
                     <Typography>I0_ID_Illustrator_WEB</Typography>
                   </Col>
                   <Col span={14}>
-                    <input
-                      className="ant-input"
-                      defaultValue={
-                        illustrators[currentIndex]?.I0_ID_Illustrator_WEB
+                    <Typography className="ant-input">
+                      {illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I_IllustratorName</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography className="ant-input">
+                      {illustrators[currentIndex]?.I_IllustratorName}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>I_isIllustratorHidden</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Checkbox
+                      checked={
+                        illustrators[currentIndex]?.I_isIllustratorHidden
                       }
                     />
                   </Col>
+                </Row>
+
+                <Row style={{ marginTop: 10 }}>
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    type="primary"
+                    onClick={() => {
+                      this.setState({
+                        isAddNew: true,
+                        isEdit: true,
+                        ...illustrators[currentIndex],
+                      });
+                    }}
+                  >
+                    Edit
+                  </Button>
                 </Row>
               </div>
             )}

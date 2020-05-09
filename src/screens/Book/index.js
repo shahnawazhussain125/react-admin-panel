@@ -46,7 +46,7 @@ export default class Book extends Component {
     };
   }
 
-  getAllLanguageAndAuther = () => {
+  getAllLanguageAndAuthor = () => {
     let authors = [];
     let languages = [];
     let owners = [];
@@ -132,7 +132,7 @@ export default class Book extends Component {
 
   componentDidMount() {
     this.getAllBooks();
-    this.getAllLanguageAndAuther();
+    this.getAllLanguageAndAuthor();
   }
 
   handleNext = () => {

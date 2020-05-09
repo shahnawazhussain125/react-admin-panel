@@ -12,7 +12,7 @@ import {
   languageInputValidation,
   illustrationInputValidation,
   ownerInputValidation,
-  autherInputValidation,
+  authorInputValidation,
   bookInputValidation,
   talesInputValidation,
 } from "../../utilities/validation";
@@ -207,7 +207,7 @@ class CustomTable extends React.Component {
       let authors = [...collectionData];
 
       dataSet.forEach((data) => {
-        const inputValidation = autherInputValidation({
+        const inputValidation = authorInputValidation({
           ...data,
           authors,
         });

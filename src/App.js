@@ -5,7 +5,7 @@ import Tables from "./screens/Tables";
 import Language from "./screens/Language";
 import Owner from "./screens/Owner";
 import Illustration from "./screens/Illustration";
-import Auther from "./screens/Authers";
+import Author from "./screens/Authors";
 import Book from "./screens/Book";
 import Tales from "./screens/Tales";
 
@@ -18,7 +18,7 @@ function App() {
         <Route path="/language" component={Language} />
         <Route path="/owner" component={Owner} />
         <Route path="/illustrator" component={Illustration} />
-        <Route path="/auther" component={Auther} />
+        <Route path="/author" component={Author} />
         <Route path="/book" component={Book} />
         <Route path="/tales" component={Tales} />
       </Switch>

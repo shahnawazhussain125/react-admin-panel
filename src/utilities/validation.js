@@ -148,8 +148,15 @@ export const ownerInputValidation = (obj) => {
   };
 };
 
-export const autherInputValidation = (obj) => {
-  const { A0_ID_Author, A_AuthorImage, A_AuthorName, Storage, authors } = obj;
+export const authorInputValidation = (obj) => {
+  const {
+    A0_ID_Author,
+    A_AuthorImage,
+    A_AuthorName,
+    Storage,
+    authors,
+    imagesName,
+  } = obj;
   validation_error = {};
   is_error = false;
 
@@ -166,6 +173,11 @@ export const autherInputValidation = (obj) => {
   if (isEmpty(A_AuthorImage)) {
     is_error = true;
     validation_error.A_AuthorImage = "Please enter A_AuthorImage";
+  } else {
+    if (imagesName?.filter((value) => A_AuthorImage === value).length) {
+      is_error = true;
+      validation_error.A_AuthorImage = "A_AuthorImage is already exit";
+    }
   }
 
   if (isEmpty(A_AuthorName)) {
@@ -175,7 +187,7 @@ export const autherInputValidation = (obj) => {
 
   if (isEmpty(Storage)) {
     is_error = true;
-    validation_error.Storage = "Please select auther image";
+    validation_error.Storage = "Please select author image";
   }
 
   return {
