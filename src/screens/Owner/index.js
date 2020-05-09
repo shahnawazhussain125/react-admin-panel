@@ -333,22 +333,9 @@ export default class Owner extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>O0_ID_Owner</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="number"
-                      key={0}
-                      name="O0_ID_Owner"
-                      value={O0_ID_Owner}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.O0_ID_Owner}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O_Company</Typography>
+                    <Typography style={{ fontSize: 15, fontWeight: "bold" }}>
+                      O_Company
+                    </Typography>
                   </Col>
                   <Col span={14}>
                     <ValidationInput
@@ -423,6 +410,21 @@ export default class Owner extends Component {
                     />
                   </Col>
                 </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="number"
+                      key={0}
+                      name="O0_ID_Owner"
+                      value={O0_ID_Owner}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.O0_ID_Owner}
+                    />
+                  </Col>
+                </Row>
 
                 <Row style={{ marginTop: 10 }}>
                   <Button
@@ -468,33 +470,9 @@ export default class Owner extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>O0_ID_Owner</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Typography
-                      className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O0_ID_Owner}
+                    <Typography style={{ fontWeight: "bold", fontSize: 15 }}>
+                      O_Company
                     </Typography>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O0_ID_Owner_WEB</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Typography
-                      className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O0_ID_Owner_WEB}
-                    </Typography>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>O_Company</Typography>
                   </Col>
                   <Col span={14}>
                     <Typography
@@ -556,6 +534,32 @@ export default class Owner extends Component {
                       ellipsis={{ rows: 3, expandable: true }}
                     >
                       {owners[currentIndex]?.O_ContactTel}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
+                      {owners[currentIndex]?.O0_ID_Owner}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>O0_ID_Owner_WEB</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
+                      {owners[currentIndex]?.O0_ID_Owner_WEB}
                     </Typography>
                   </Col>
                 </Row>

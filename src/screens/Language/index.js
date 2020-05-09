@@ -280,23 +280,7 @@ export default class Language extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>L0_ID_Language</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="number"
-                      key={0}
-                      name="L0_ID_Language"
-                      value={L0_ID_Language}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.L0_ID_Language}
-                    />
-                  </Col>
-                </Row>
-
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography style={{ fontWeight: "bold" }}>
+                    <Typography style={{ fontWeight: "bold", fontSize: 15 }}>
                       L_LanguageName
                     </Typography>
                   </Col>
@@ -308,6 +292,21 @@ export default class Language extends Component {
                       value={L_LanguageName}
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.L_LanguageName}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>L0_ID_Language</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="number"
+                      key={0}
+                      name="L0_ID_Language"
+                      value={L0_ID_Language}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.L0_ID_Language}
                     />
                   </Col>
                 </Row>
@@ -355,6 +354,24 @@ export default class Language extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
+                    <Typography
+                      style={{ fontWeight: "bold", fontSize: 15 }}
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
+                      L_LanguageName
+                    </Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
+                      {languages[currentIndex]?.L_LanguageName}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
                     <Typography ellipsis={{ rows: 3, expandable: true }}>
                       L0_ID_Language
                     </Typography>
@@ -380,24 +397,6 @@ export default class Language extends Component {
                       ellipsis={{ rows: 3, expandable: true }}
                     >
                       {languages[currentIndex]?.L0_ID_Language_WEB}
-                    </Typography>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography
-                      style={{ fontWeight: "bold" }}
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      L_LanguageName
-                    </Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Typography
-                      className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {languages[currentIndex]?.L_LanguageName}
                     </Typography>
                   </Col>
                 </Row>
