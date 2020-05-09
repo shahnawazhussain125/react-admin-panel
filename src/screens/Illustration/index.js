@@ -279,6 +279,23 @@ export default class Illustration extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
+                    <Typography style={{ fontSize: 15, fontWeight: "bold" }}>
+                      I_IllustratorName
+                    </Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      type="text"
+                      key={1}
+                      name="I_IllustratorName"
+                      value={I_IllustratorName}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.I_IllustratorName}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
                     <Typography>L0_ID_Language</Typography>
                   </Col>
                   <Col span={14}>
@@ -289,21 +306,6 @@ export default class Illustration extends Component {
                       value={I0_ID_Illustrator}
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.I0_ID_Illustrator}
-                    />
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>I_IllustratorName</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      type="text"
-                      key={1}
-                      name="I_IllustratorName"
-                      value={I_IllustratorName}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.I_IllustratorName}
                     />
                   </Col>
                 </Row>
@@ -368,6 +370,21 @@ export default class Illustration extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
+                    <Typography style={{ fontWeight: "bold", fontSize: 15 }}>
+                      I_IllustratorName
+                    </Typography>
+                  </Col>
+                  <Col span={14}>
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
+                      {illustrators[currentIndex]?.I_IllustratorName}
+                    </Typography>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
                     <Typography>I0_ID_Illustrator</Typography>
                   </Col>
                   <Col span={14}>
@@ -389,19 +406,6 @@ export default class Illustration extends Component {
                       ellipsis={{ rows: 3, expandable: true }}
                     >
                       {illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
-                    </Typography>
-                  </Col>
-                </Row>
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>I_IllustratorName</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <Typography
-                      className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {illustrators[currentIndex]?.I_IllustratorName}
                     </Typography>
                   </Col>
                 </Row>

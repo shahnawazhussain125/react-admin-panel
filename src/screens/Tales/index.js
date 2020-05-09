@@ -860,7 +860,12 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography className="input-title">Title</Typography>
+                        <Typography
+                          style={{ fontWeight: "bold", fontSize: 15 }}
+                          className="input-title"
+                        >
+                          Title
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <ValidationInput
@@ -1671,7 +1676,12 @@ export default class Tales extends Component {
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
                       <Col span={10}>
-                        <Typography className="input-title">Title</Typography>
+                        <Typography
+                          style={{ fontSize: 15, fontWeight: "bold" }}
+                          className="input-title"
+                        >
+                          Title
+                        </Typography>
                       </Col>
                       <Col span={14}>
                         <Typography

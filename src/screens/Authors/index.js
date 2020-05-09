@@ -385,23 +385,9 @@ export default class Authors extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>A0_ID_Author</Typography>
-                  </Col>
-                  <Col span={14}>
-                    <ValidationInput
-                      key={0}
-                      type="number"
-                      name="A0_ID_Author"
-                      value={A0_ID_Author}
-                      handleOnChange={this.handleOnChange}
-                      errorMessage={validation_error?.A0_ID_Author}
-                    />
-                  </Col>
-                </Row>
-
-                <Row style={{ marginBottom: 10 }}>
-                  <Col span={10}>
-                    <Typography>A_AuthorName</Typography>
+                    <Typography style={{ fontWeight: "bold", fontSize: 15 }}>
+                      A_AuthorName
+                    </Typography>
                   </Col>
                   <Col span={14}>
                     <ValidationInput
@@ -426,6 +412,21 @@ export default class Authors extends Component {
                       value={A_AuthorImage}
                       handleOnChange={this.handleOnChange}
                       errorMessage={validation_error?.A_AuthorImage}
+                    />
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: 10 }}>
+                  <Col span={10}>
+                    <Typography>A0_ID_Author</Typography>
+                  </Col>
+                  <Col span={14}>
+                    <ValidationInput
+                      key={0}
+                      type="number"
+                      name="A0_ID_Author"
+                      value={A0_ID_Author}
+                      handleOnChange={this.handleOnChange}
+                      errorMessage={validation_error?.A0_ID_Author}
                     />
                   </Col>
                 </Row>
@@ -531,6 +532,34 @@ export default class Authors extends Component {
                 >
                   <Row>
                     <Col span={10}>
+                      <p style={{ fontWeight: "bold", fontSize: 15 }}>
+                        A_AuthorName
+                      </p>
+                    </Col>
+                    <Col span={14}>
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                      >
+                        {authors[currentIndex]?.A_AuthorName}
+                      </Typography>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={10}>
+                      <p>A_AuthorImage</p>
+                    </Col>
+                    <Col span={14}>
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                      >
+                        {authors[currentIndex]?.A_AuthorImage}
+                      </Typography>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={10}>
                       <p>A0_ID_Author</p>
                     </Col>
                     <Col span={14}>
@@ -553,33 +582,6 @@ export default class Authors extends Component {
                         ellipsis={{ rows: 3, expandable: true }}
                       >
                         {authors[currentIndex]?.A0_ID_Author_WEB}
-                      </Typography>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col span={10}>
-                      <p>A_AuthorImage</p>
-                    </Col>
-                    <Col span={14}>
-                      <Typography
-                        className="ant-input"
-                        ellipsis={{ rows: 3, expandable: true }}
-                      >
-                        {authors[currentIndex]?.A_AuthorImage}
-                      </Typography>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={10}>
-                      <p>A_AuthorName</p>
-                    </Col>
-                    <Col span={14}>
-                      <Typography
-                        className="ant-input"
-                        ellipsis={{ rows: 3, expandable: true }}
-                      >
-                        {authors[currentIndex]?.A_AuthorName}
                       </Typography>
                     </Col>
                   </Row>
