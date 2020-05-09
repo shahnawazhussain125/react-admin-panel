@@ -79,6 +79,7 @@ export default class Owner extends Component {
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
+      isEdit: false,
       O0_ID_Owner: "",
       O_Company: "",
       O_Web: "",

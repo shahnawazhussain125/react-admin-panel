@@ -75,6 +75,7 @@ export default class Illustration extends Component {
   handleAddNew = () => {
     this.setState({
       isAddNew: true,
+      isEdit: false,
       I0_ID_Illustrator: "",
       I_IllustratorName: "",
       I_isIllustratorHidden: false,

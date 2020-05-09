@@ -102,6 +102,7 @@ export default class Authors extends Component {
       A0_ID_Author: "",
       A_AuthorName: "",
       A_isAuthorHiden: false,
+      isEdit: false,
       A_AuthorImage: "",
     });
   };
@@ -191,6 +192,7 @@ export default class Authors extends Component {
       authors,
       file,
       imagesName,
+      currentIndex,
     } = this.state;
 
     const { is_error, validation_error } = authorInputValidation({
@@ -199,16 +201,20 @@ export default class Authors extends Component {
       A_AuthorName,
       Storage,
       authors: authors.filter((value, index) => index !== currentIndex),
-      imagesName: imagesName.filter((name) => name !== A_AuthorImage),
+      imagesName: imagesName.filter(
+        (value) => value !== authors[currentIndex].A_AuthorImage
+      ),
     });
 
     this.setState({ is_error, validation_error }, () => {
       if (!is_error) {
         if (file) {
-          firebase
+          let storageRef = firebase
             .storage()
             .ref()
-            .child(`AuthorImages/${A_AuthorImage}`)
+            .child(`AuthorImages/${A_AuthorImage}`);
+
+          storageRef
             .put(file)
             .then(() => {
               storageRef
@@ -361,7 +367,7 @@ export default class Authors extends Component {
                   fontSize: 20,
                 }}
               >
-                Add New
+                {isEdit ? "Update Author" : "Add New Author"}
               </p>
             </Row>
           )}

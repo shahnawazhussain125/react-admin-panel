@@ -215,6 +215,7 @@ export const bookInputValidation = (obj) => {
     O0_ID_Owner_WEB,
     Storage,
     books,
+    imagesName,
   } = obj;
   validation_error = {};
   is_error = false;
@@ -267,6 +268,11 @@ export const bookInputValidation = (obj) => {
   if (isEmpty(B_BookImage)) {
     is_error = true;
     validation_error.B_BookImage = "Please enter B_BookImage";
+  } else {
+    if (imagesName?.filter((value) => B_BookImage === value).length) {
+      is_error = true;
+      validation_error.B_BookImage = "B_BookImage is already exit";
+    }
   }
 
   if (isEmpty(O_Company)) {

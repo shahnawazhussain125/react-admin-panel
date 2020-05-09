@@ -43,7 +43,14 @@ export default class Book extends Component {
       languages: [],
       owners: [],
       validation_error: null,
+      imagesName: [],
     };
+  }
+
+  componentDidMount() {
+    this.getAllBooks();
+    this.getAllLanguageAndAuthor();
+    this.getAllImageFileName();
   }
 
   getAllLanguageAndAuthor = () => {
@@ -130,10 +137,25 @@ export default class Book extends Component {
       });
   };
 
-  componentDidMount() {
-    this.getAllBooks();
-    this.getAllLanguageAndAuthor();
-  }
+  getAllImageFileName = () => {
+    let imagesName = [];
+
+    firebase
+      .storage()
+      .ref()
+      .child("BookImages")
+      .listAll()
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          imagesName.push(itemRef.name);
+        });
+
+        this.state.imagesName = imagesName;
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
 
   handleNext = () => {
     const { currentIndex, books } = this.state;
@@ -291,6 +313,171 @@ export default class Book extends Component {
     });
   };
 
+  handleOnUpdate = () => {
+    const {
+      B_BookTitle,
+      BAuthorName,
+      B0_ID_Book,
+      B_Web,
+
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      B_BookImage,
+      BOOKOwner,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      file,
+      Storage,
+      books,
+      imagesName,
+      currentIndex,
+    } = this.state;
+
+    const { is_error, validation_error } = bookInputValidation({
+      B_BookTitle,
+      BAuthorName,
+      B0_ID_Book,
+      B_Web,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      B_BookImage,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      Storage,
+      books,
+      imagesName: imagesName.filter(
+        (value) => value !== books[currentIndex].B_BookImage
+      ),
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        if (file) {
+          let storageRef = firebase
+            .storage()
+            .ref()
+            .child(`BookImages/${B_BookImage}`);
+
+          storageRef
+            .put(file)
+            .then(() => {
+              storageRef
+                .getDownloadURL()
+                .then((Storage) => {
+                  this.handleUpdateData(Storage);
+                })
+                .catch((error) => {
+                  notify.show(`Error! ${error.message}`, "error", 2000);
+                });
+            })
+            .catch((error) => {
+              notify.show(`Error! ${error.message}`, "error", 2000);
+            });
+        } else {
+          this.handleUpdateData(Storage);
+        }
+      }
+    });
+  };
+
+  handleUpdateData = (Storage) => {
+    const {
+      A0_ID_Author,
+      A_AuthorImage,
+      A_AuthorName,
+      A_isAuthorHiden,
+      A0_ID_Author_WEB,
+      currentIndex,
+      authors,
+    } = this.state;
+    firebase
+      .firestore()
+      .collection("Authors")
+      .doc(A0_ID_Author_WEB)
+      .update({
+        A0_ID_Author,
+        A_AuthorImage,
+        A_AuthorName,
+        A_isAuthorHiden,
+        Storage,
+      })
+      .then(() => {
+        firebase
+          .firestore()
+          .collection("Tales")
+          .where("A0_ID_Author_WEB", "==", A0_ID_Author_WEB)
+          .get()
+          .then((response) => {
+            let updateDocumentPromise = [];
+
+            response.forEach((doc) => {
+              updateDocumentPromise.push(
+                firebase.firestore().collection("Tales").doc(doc.id).update({
+                  A0_ID_Author,
+                  A_AuthorImage,
+                  A_AuthorName,
+                  A_isAuthorHiden,
+                  Storage,
+                  A0_ID_Author_WEB,
+                })
+              );
+            });
+
+            Promise.all(updateDocumentPromise)
+              .then(() => {
+                notify.show(
+                  "Author has been successfully updated",
+                  "success",
+                  2000
+                );
+
+                authors[currentIndex] = {
+                  A0_ID_Author,
+                  A_AuthorImage,
+                  A_AuthorName,
+                  A_isAuthorHiden,
+                  Storage,
+                  A0_ID_Author_WEB,
+                };
+
+                this.setState({
+                  A0_ID_Author: "",
+                  A_AuthorImage: "",
+                  A_AuthorName: "",
+                  A_isAuthorHiden: false,
+                  Storage: "",
+                  file: "",
+                  A0_ID_Author_WEB: "",
+                  isAddNew: false,
+                  isEdit: false,
+                  authors,
+                });
+              })
+              .catch((error) => {
+                notify.show(`Error! ${error.message}`, "error", 2000);
+              });
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
   handleOnChange = (name, value) => {
     this.setState({ [name]: value });
   };
@@ -322,6 +509,7 @@ export default class Book extends Component {
       authors,
       languages,
       validation_error,
+      isEdit,
     } = this.state;
     return (
       <Row>
@@ -346,7 +534,9 @@ export default class Book extends Component {
                 alignItems: "center",
               }}
             >
-              <p style={{ fontSize: 20 }}>Add New</p>
+              <p style={{ fontSize: 20 }}>
+                {isEdit ? "Update Book" : "Add New Book"}
+              </p>
             </Row>
           )}
           <Row>
@@ -468,6 +658,7 @@ export default class Book extends Component {
                           onChange={(value) =>
                             this.setState({ ...languages[value] })
                           }
+                          defaultValue={L_LanguageName}
                         >
                           {languages.map((value, index) => (
                             <Option key={value.L0_ID_Language} value={index}>
@@ -598,6 +789,7 @@ export default class Book extends Component {
                           onChange={(value) =>
                             this.setState({ ...owners[value] })
                           }
+                          defaultValue={O_ContactName}
                         >
                           {owners.map((value, index) => (
                             <Option key={value.O0_ID_Owner} value={index}>
@@ -730,15 +922,27 @@ export default class Book extends Component {
                       >
                         Cancel
                       </Button>
-                      <Button
-                        style={{ marginLeft: 10 }}
-                        type="primary"
-                        onClick={() => {
-                          this.handleSaveData();
-                        }}
-                      >
-                        Save
-                      </Button>
+                      {isEdit ? (
+                        <Button
+                          style={{ marginLeft: 10 }}
+                          type="primary"
+                          onClick={() => {
+                            this.handleOnUpdate();
+                          }}
+                        >
+                          Update
+                        </Button>
+                      ) : (
+                        <Button
+                          style={{ marginLeft: 10 }}
+                          type="primary"
+                          onClick={() => {
+                            this.handleSaveData();
+                          }}
+                        >
+                          Save
+                        </Button>
+                      )}
                     </Row>
                   </div>
                 </Col>
@@ -759,14 +963,33 @@ export default class Book extends Component {
                   >
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
+                        <Typography>B0_ID_Book</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.B0_ID_Book}
+                        </Typography>
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>B0_ID_Book_WEB</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.B0_ID_Book_WEB}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
                         <Typography>BAuthorName</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.BAuthorName}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.BAuthorName}
+                        </Typography>
                       </Col>
                     </Row>
 
@@ -775,11 +998,9 @@ export default class Book extends Component {
                         <Typography>B_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.B_Web}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.B_Web}
+                        </Typography>
                       </Col>
                     </Row>
 
@@ -802,30 +1023,6 @@ export default class Book extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>B0_ID_Book</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.B0_ID_Book}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>B0_ID_Book_WEB</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.B0_ID_Book_WEB}
-                        />
-                      </Col>
-                    </Row>
 
                     <Row className="title-header-container">
                       <h2 className="title-header">Book Language</h2>
@@ -833,40 +1030,12 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>BookLanguage</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.L_LanguageName}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>L_LanguageName</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.L_LanguageName}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
                         <Typography>L0_ID_Language</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.L0_ID_Language}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.L0_ID_Language}
+                        </Typography>
                       </Col>
                     </Row>
 
@@ -875,11 +1044,20 @@ export default class Book extends Component {
                         <Typography>L0_ID_Language_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.L0_ID_Language_WEB}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.L0_ID_Language_WEB}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>L_LanguageName</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.L_LanguageName}
+                        </Typography>
                       </Col>
                     </Row>
                   </div>
@@ -925,11 +1103,9 @@ export default class Book extends Component {
                         <Typography>B_BookImage</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.B_BookImage}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.B_BookImage}
+                        </Typography>
                       </Col>
                     </Row>
 
@@ -939,79 +1115,12 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>O_Company</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O_Company}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>O_Web</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O_Web}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>O_ContactName</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O_ContactName}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>O_ContactEmail</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O_ContactEmail}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>O_ContactTel</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O_ContactTel}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
                         <Typography>O0_ID_Owner</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O0_ID_Owner}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O0_ID_Owner}
+                        </Typography>
                       </Col>
                     </Row>
 
@@ -1020,12 +1129,81 @@ export default class Book extends Component {
                         <Typography>O0_ID_Owner_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <input
-                          readOnly
-                          className="ant-input"
-                          defaultValue={books[currentIndex]?.O0_ID_Owner_WEB}
-                        />
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O0_ID_Owner_WEB}
+                        </Typography>
                       </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>O_Company</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O_Company}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>O_Web</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O_Web}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>O_ContactName</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O_ContactName}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>O_ContactEmail</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O_ContactEmail}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginBottom: 20 }}>
+                      <Col span={10}>
+                        <Typography>O_ContactTel</Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Typography className="ant-input">
+                          {books[currentIndex]?.O_ContactTel}
+                        </Typography>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ marginTop: 10 }}>
+                      <Button
+                        style={{ marginLeft: 10 }}
+                        type="primary"
+                        onClick={() => {
+                          this.setState({
+                            isAddNew: true,
+                            isEdit: true,
+                            ...books[currentIndex],
+                          });
+                        }}
+                      >
+                        Edit
+                      </Button>
                     </Row>
                   </div>
                 </Col>
