@@ -74,7 +74,7 @@ class CustomTable extends React.Component {
 
     for (let row = 0; row < rowLength; row++) {
       obj = {};
-      for (let col = 0; col < dataArr[row].length; col++) {
+      for (let col = 0; col < Object.keys(dataSet[row])?.length - pcol; col++) {
         dataSet[row + prow][collectionKeys[col + pcol]] = dataArr[row][col];
       }
     }

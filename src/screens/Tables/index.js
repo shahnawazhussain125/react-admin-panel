@@ -46,11 +46,11 @@ class Tables extends Component {
           id: "Users",
         },
       ],
-      selectedCollection: "Languages",
+      selectedCollection: "Tales",
       collectionData: [],
       collectionKeys: [],
       visible: false,
-      noOfLine: 0,
+      noOfLine: 1,
       types: [],
       dataSet: [],
       visible: false,
@@ -198,8 +198,9 @@ class Tables extends Component {
                 <Col span={5}></Col>
                 <Col span={2}>
                   <Input
-                    placeholder="4"
+                    placeholder="1"
                     style={{ textAlign: "center", fontSize: 16 }}
+                    value={noOfLine}
                     onChange={(e) =>
                       this.setState({ noOfLine: e.target.value })
                     }
