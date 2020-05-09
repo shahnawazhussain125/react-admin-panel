@@ -18,7 +18,7 @@ export default class Authors extends Component {
       A0_ID_Author_WEB: "",
       A_AuthorName: "",
       Storage: null,
-      A_isAuthorHiden: false,
+      A_isAuthorHidden: false,
       isAddNew: false,
       isLoading: true,
       validation_error: null,
@@ -39,7 +39,7 @@ export default class Authors extends Component {
             A0_ID_Author_WEB: doc.id,
             A0_ID_Author: doc.data()?.A0_ID_Author,
             A_AuthorName: doc.data()?.A_AuthorName,
-            A_isAuthorHiden: doc.data()?.A_isAuthorHiden,
+            A_isAuthorHidden: doc.data()?.A_isAuthorHidden,
             A_AuthorImage: doc.data()?.A_AuthorImage,
             Storage: doc.data()?.Storage,
           });
@@ -101,7 +101,7 @@ export default class Authors extends Component {
       isAddNew: true,
       A0_ID_Author: "",
       A_AuthorName: "",
-      A_isAuthorHiden: false,
+      A_isAuthorHidden: false,
       isEdit: false,
       A_AuthorImage: "",
     });
@@ -112,7 +112,7 @@ export default class Authors extends Component {
       A0_ID_Author,
       A_AuthorImage,
       A_AuthorName,
-      A_isAuthorHiden,
+      A_isAuthorHidden,
       Storage,
       authors,
       file,
@@ -148,7 +148,7 @@ export default class Authors extends Component {
                     A0_ID_Author,
                     A_AuthorImage,
                     A_AuthorName,
-                    A_isAuthorHiden,
+                    A_isAuthorHidden,
                     Storage,
                   })
                   .then(() => {
@@ -162,7 +162,7 @@ export default class Authors extends Component {
                       A_AuthorImage: "",
                       A_AuthorName: "",
                       file: "",
-                      A_isAuthorHiden: false,
+                      A_isAuthorHidden: false,
                       isAddNew: false,
                       isEdit: false,
                     });
@@ -241,7 +241,7 @@ export default class Authors extends Component {
       A0_ID_Author,
       A_AuthorImage,
       A_AuthorName,
-      A_isAuthorHiden,
+      A_isAuthorHidden,
       A0_ID_Author_WEB,
       currentIndex,
       authors,
@@ -254,7 +254,7 @@ export default class Authors extends Component {
         A0_ID_Author,
         A_AuthorImage,
         A_AuthorName,
-        A_isAuthorHiden,
+        A_isAuthorHidden,
         Storage,
       })
       .then(() => {
@@ -272,7 +272,7 @@ export default class Authors extends Component {
                   A0_ID_Author,
                   A_AuthorImage,
                   A_AuthorName,
-                  A_isAuthorHiden,
+                  A_isAuthorHidden,
                   A_Storage: Storage,
                   A0_ID_Author_WEB,
                 })
@@ -291,7 +291,7 @@ export default class Authors extends Component {
                   A0_ID_Author,
                   A_AuthorImage,
                   A_AuthorName,
-                  A_isAuthorHiden,
+                  A_isAuthorHidden,
                   Storage,
                   A0_ID_Author_WEB,
                 };
@@ -300,7 +300,7 @@ export default class Authors extends Component {
                   A0_ID_Author: "",
                   A_AuthorImage: "",
                   A_AuthorName: "",
-                  A_isAuthorHiden: false,
+                  A_isAuthorHidden: false,
                   Storage: "",
                   file: "",
                   A0_ID_Author_WEB: "",
@@ -331,7 +331,7 @@ export default class Authors extends Component {
       A0_ID_Author,
       A_AuthorImage,
       A_AuthorName,
-      A_isAuthorHiden,
+      A_isAuthorHidden,
       authors,
       Storage,
       isAddNew,
@@ -436,11 +436,11 @@ export default class Authors extends Component {
                     <Checkbox
                       style={{ marginRight: 155 }}
                       key={3}
-                      checked={A_isAuthorHiden}
-                      value={A_isAuthorHiden}
+                      checked={A_isAuthorHidden}
+                      value={A_isAuthorHidden}
                       onChange={() =>
                         this.setState({
-                          A_isAuthorHiden: !A_isAuthorHiden,
+                          A_isAuthorHidden: !A_isAuthorHidden,
                         })
                       }
                     />
@@ -571,11 +571,11 @@ export default class Authors extends Component {
                   </Row>
                   <Row>
                     <Col span={10}>
-                      <p>A_isAuthorHiden</p>
+                      <p>A_isAuthorHidden</p>
                     </Col>
                     <Col span={14}>
                       <Checkbox
-                        checked={authors[currentIndex]?.A_isAuthorHiden}
+                        checked={authors[currentIndex]?.A_isAuthorHidden}
                       />
                     </Col>
                   </Row>

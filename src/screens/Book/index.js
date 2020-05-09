@@ -381,6 +381,10 @@ export default class Book extends Component {
         (value) => value !== books[currentIndex].B_BookImage
       ),
     });
+    console.log("{ is_error, validation_error }", {
+      is_error,
+      validation_error,
+    });
 
     this.setState({ is_error, validation_error }, () => {
       if (!is_error) {
@@ -406,6 +410,10 @@ export default class Book extends Component {
               notify.show(`Error! ${error.message}`, "error", 2000);
             });
         } else {
+          console.log("{ is_error, validation_error }", {
+            is_error,
+            validation_error,
+          });
           this.handleUpdateData(Storage);
         }
       }
@@ -739,7 +747,7 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>BooK Language</Typography>
+                        <Typography>L_LanguageName</Typography>
                       </Col>
                       <Col span={14}>
                         <Select
@@ -756,22 +764,6 @@ export default class Book extends Component {
                             </Option>
                           ))}
                         </Select>
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>L_LanguageName</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <ValidationInput
-                          key={5}
-                          type="text"
-                          name="L_LanguageName"
-                          value={L_LanguageName}
-                          handleOnChange={this.handleOnChange}
-                          errorMessage={validation_error?.L_LanguageName}
-                        />
                       </Col>
                     </Row>
 

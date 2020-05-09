@@ -324,7 +324,7 @@ export const talesInputValidation = (obj) => {
     A_AuthorName,
     A_Storage,
     B_BookTitle,
-    B_B_BAuthorName,
+    B_BAuthorName,
     B_Web,
     B0_ID_Book,
     B_BookImage,
@@ -347,6 +347,7 @@ export const talesInputValidation = (obj) => {
     I0_ID_Illustrator_WEB,
     I0_ID_Illustrator,
     I_IllustratorName,
+    imagesName,
   } = obj;
   validation_error = {};
   is_error = false;
@@ -394,6 +395,11 @@ export const talesInputValidation = (obj) => {
   if (isEmpty(T_TaleImage)) {
     is_error = true;
     validation_error.T_TaleImage = "Please enter T_TaleImage";
+  } else {
+    if (imagesName?.filter((value) => T_TaleImage === value).length) {
+      is_error = true;
+      validation_error.T_TaleImage = "T_TaleImage is already exit";
+    }
   }
 
   if (isEmpty(T_Storage)) {
@@ -432,9 +438,9 @@ export const talesInputValidation = (obj) => {
     validation_error.B_BookTitle = "Please enter B_BookTitle";
   }
 
-  if (isEmpty(B_B_BAuthorName)) {
+  if (isEmpty(B_BAuthorName)) {
     is_error = true;
-    validation_error.B_B_BAuthorName = "Please enter B_B_BAuthorName";
+    validation_error.B_BAuthorName = "Please enter B_BAuthorName";
   }
 
   if (isEmpty(B_Web)) {

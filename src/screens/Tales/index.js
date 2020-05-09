@@ -18,25 +18,26 @@ export default class Tales extends Component {
     this.state = {
       tales: [],
       currentIndex: 0,
-      B_BookTitle: null,
-      B_BAuthorName: null,
-      B0_ID_Book: null,
-      B_Web: null,
+      A_isAuthorHidden: false,
+      B_BookTitle: "",
+      B_BAuthorName: "",
+      B0_ID_Book: "",
+      B_Web: "",
       B_isBookFree: false,
       B_isBookHidden: false,
-      L_LanguageName: null,
-      L0_ID_Language: null,
-      L0_ID_Language_WEB: null,
-      storage: null,
-      B_BookImage: null,
-      BOOKOwner: null,
-      O_Company: null,
-      O_Web: null,
-      O_ContactName: null,
-      O_ContactEmail: null,
-      O_ContactTel: null,
-      O0_ID_Owner: null,
-      O0_ID_Owner_WEB: null,
+      L_LanguageName: "",
+      L0_ID_Language: "",
+      L0_ID_Language_WEB: "",
+      storage: "",
+      B_BookImage: "",
+      BOOKOwner: "",
+      O_Company: "",
+      O_Web: "",
+      O_ContactName: "",
+      O_ContactEmail: "",
+      O_ContactTel: "",
+      O0_ID_Owner: "",
+      O0_ID_Owner_WEB: "",
       isAddNew: false,
       isLoading: true,
       authors: [],
@@ -45,6 +46,7 @@ export default class Tales extends Component {
       books: [],
       illustrators: [],
       validation_error: null,
+      imagesName: [],
     };
   }
 
@@ -115,43 +117,7 @@ export default class Tales extends Component {
       .then((response) => {
         response.forEach((doc) => {
           tales.push({
-            A0_ID_Author: doc.data()?.A0_ID_Author,
-            A0_ID_Author_WEB: doc.data()?.A0_ID_Author_WEB,
-            A_AuthorImage: doc.data()?.A_AuthorImage,
-            A_AuthorName: doc.data()?.A_AuthorName,
-            A_isAuthorHidden: doc.data()?.A_isAuthorHidden,
-
-            A_Storage: doc.data().A_Storage,
-            B0_ID_Book: doc.data()?.B0_ID_Book,
-            B0_ID_Book_WEB: doc.data()?.B0_ID_Book_WEB,
-            B_BAuthorName: doc.data()?.B_BAuthorName,
-
-            B_BookImage: doc.data()?.B_BookImage,
-            B_BookTitle: doc.data()?.B_BookTitle,
-            B_Storage: doc.data().B_Storage,
-            B_Web: doc.data()?.B_Web,
-
-            B_isBookFree: doc.data()?.B_isBookFree,
-            B_isBookHidden: doc.data().B_isBookHidden,
-            I0_ID_Illustrator: doc.data().I0_ID_Illustrator,
-            I_IllustratorName: doc.data().I_IllustratorName,
-            II_isIllustratorHidden: doc.data().II_isIllustratorHidden,
-            I0_ID_Illustrator_WEB: doc.data().I0_ID_Illustrator_WEB,
-            L0_ID_Language: doc.data().L0_ID_Language,
-            L0_ID_Language_WEB: doc.data().L0_ID_Language_WEB,
-            L_LanguageName: doc.data().L_LanguageName,
-
-            O0_ID_Owner: doc.data().O0_ID_Owner,
-            O0_ID_Owner_WEB: doc.data()?.O0_ID_Owner_WEB,
-            O_Company: doc.data().O_Company,
-            O_ContactEmail: doc.data()?.O_ContactEmail,
-            O_ContactName: doc.data()?.O_ContactName,
-            O_ContactTel: doc.data()?.O_ContactTel,
-            O_Web: doc.data()?.O_Web,
-            T_TaleContent: doc.data().T_TaleContent,
-            T_TaleImage: doc.data().T_TaleImage,
-            T_TaleTitle: doc.data().T_TaleTitle,
-            T_Storage: doc.data().T_Storage,
+            ...doc.data(),
             T_ID_Tale: doc.id,
           });
         });
@@ -164,9 +130,30 @@ export default class Tales extends Component {
       });
   };
 
+  getAllImageFileName = () => {
+    let imagesName = [];
+
+    firebase
+      .storage()
+      .ref()
+      .child("TaleImages")
+      .listAll()
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          imagesName.push(itemRef.name);
+        });
+
+        this.state.imagesName = imagesName;
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
   componentDidMount() {
     this.getAllTales();
     this.getAllLanguageAndAuthor();
+    this.getAllImageFileName();
   }
 
   handleNext = () => {
@@ -189,12 +176,13 @@ export default class Tales extends Component {
 
   handleAddNew = () => {
     this.setState({
+      isEdit: false,
       isAddNew: true,
       A0_ID_Author: "",
       A0_ID_Author_WEB: "",
       A_AuthorImage: "",
       A_AuthorName: "",
-      A_isAuthorHiden: false,
+      A_isAuthorHidden: false,
       A_Storage: "",
       B_BookTitle: "",
       B_BAuthorName: "",
@@ -233,7 +221,7 @@ export default class Tales extends Component {
       A0_ID_Author_WEB,
       A_AuthorImage,
       A_AuthorName,
-      A_isAuthorHiden,
+      A_isAuthorHidden,
       A_Storage,
       B_BookTitle,
       B_BAuthorName,
@@ -264,6 +252,7 @@ export default class Tales extends Component {
       I_IllustratorName,
       I_isIllustratorHidden,
       file,
+      imagesName,
     } = this.state;
 
     const { is_error, validation_error } = talesInputValidation({
@@ -296,6 +285,7 @@ export default class Tales extends Component {
       I0_ID_Illustrator_WEB,
       I0_ID_Illustrator,
       I_IllustratorName,
+      imagesName,
     });
 
     this.setState({ is_error, validation_error }, () => {
@@ -303,7 +293,7 @@ export default class Tales extends Component {
         let storageRef = firebase
           .storage()
           .ref()
-          .child(`TaleImages/${Math.random().toString().substring(5)}`);
+          .child(`TaleImages/${T_TaleImage}`);
 
         storageRef
           .put(file)
@@ -319,7 +309,7 @@ export default class Tales extends Component {
                     A0_ID_Author_WEB,
                     A_AuthorImage,
                     A_AuthorName,
-                    A_isAuthorHiden,
+                    A_isAuthorHidden,
                     A_Storage,
                     B_BookTitle,
                     B_BAuthorName,
@@ -358,12 +348,11 @@ export default class Tales extends Component {
                       2000
                     );
                     this.setState({
-                      isAddNew: false,
                       A0_ID_Author: "",
                       A0_ID_Author_WEB: "",
                       A_AuthorImage: "",
                       A_AuthorName: "",
-                      A_isAuthorHiden: false,
+                      A_isAuthorHidden: false,
                       A_Storage: "",
                       B_BookTitle: "",
                       B_BAuthorName: "",
@@ -394,6 +383,8 @@ export default class Tales extends Component {
                       I_IllustratorName: "",
                       I_isIllustratorHidden: false,
                       file: null,
+                      isAddNew: false,
+                      isEdit: false,
                     });
                     this.getAllTales();
                   })
@@ -412,6 +403,274 @@ export default class Tales extends Component {
     });
   };
 
+  handleOnUpdate = () => {
+    const {
+      A0_ID_Author,
+      A0_ID_Author_WEB,
+      A_AuthorImage,
+      A_AuthorName,
+      A_Storage,
+      B_BookTitle,
+      B_BAuthorName,
+      T_TaleTitle,
+      T_TaleImage,
+      T_Storage,
+      T_TaleContent,
+      B0_ID_Book,
+      B0_ID_Book_WEB,
+      B_Web,
+      B_Storage,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      B_BookImage,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      I0_ID_Illustrator_WEB,
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      file,
+      imagesName,
+      tales,
+      currentIndex,
+    } = this.state;
+
+    const { is_error, validation_error } = talesInputValidation({
+      A0_ID_Author,
+      A0_ID_Author_WEB,
+      A_AuthorImage,
+      A_AuthorName,
+      A_Storage,
+      B_BookTitle,
+      B_BAuthorName,
+      B_Web,
+      B0_ID_Book,
+      B_BookImage,
+      B_Storage,
+      B0_ID_Book_WEB,
+      T_TaleTitle,
+      T_TaleImage,
+      T_Storage,
+      T_TaleContent,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      I0_ID_Illustrator_WEB,
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      imagesName: imagesName.filter(
+        (name) => name !== tales[currentIndex].T_TaleImage
+      ),
+    });
+
+    this.setState({ is_error, validation_error }, () => {
+      if (!is_error) {
+        if (file) {
+          let storageRef = firebase
+            .storage()
+            .ref()
+            .child(`TaleImages/${T_TaleImage}`);
+
+          storageRef
+            .put(file)
+            .then(() => {
+              storageRef
+                .getDownloadURL()
+                .then((T_Storage) => {
+                  this.handleUpdateData(T_Storage);
+                })
+                .catch((error) => {
+                  notify.show(`Error! ${error.message}`, "error", 2000);
+                });
+            })
+            .catch((error) => {
+              notify.show(`Error! ${error.message}`, "error", 2000);
+            });
+        } else {
+          this.handleUpdateData(T_Storage);
+        }
+      }
+    });
+  };
+
+  handleUpdateData = (T_Storage) => {
+    const {
+      A0_ID_Author,
+      A0_ID_Author_WEB,
+      A_AuthorImage,
+      A_AuthorName,
+      A_isAuthorHidden,
+      A_Storage,
+      B_BookTitle,
+      B_BAuthorName,
+      T_TaleTitle,
+      T_TaleImage,
+      T_isTaleHidden,
+      T_TaleContent,
+      B0_ID_Book,
+      B0_ID_Book_WEB,
+      B_Web,
+      B_isBookFree,
+      B_isBookHidden,
+      B_Storage,
+      L_LanguageName,
+      L0_ID_Language,
+      L0_ID_Language_WEB,
+      B_BookImage,
+      O_Company,
+      O_Web,
+      O_ContactName,
+      O_ContactEmail,
+      O_ContactTel,
+      O0_ID_Owner,
+      O0_ID_Owner_WEB,
+      I0_ID_Illustrator_WEB,
+      I0_ID_Illustrator,
+      I_IllustratorName,
+      I_isIllustratorHidden,
+      tales,
+      currentIndex,
+      T_ID_Tale,
+    } = this.state;
+
+    firebase
+      .firestore()
+      .collection("Tales")
+      .doc(T_ID_Tale)
+      .update({
+        A0_ID_Author,
+        A0_ID_Author_WEB,
+        A_AuthorImage,
+        A_AuthorName,
+        A_isAuthorHidden,
+        A_Storage,
+        B_BookTitle,
+        B_BAuthorName,
+        T_TaleTitle,
+        T_TaleImage,
+        T_Storage,
+        T_isTaleHidden,
+        T_TaleContent,
+        B0_ID_Book,
+        B0_ID_Book_WEB,
+        B_Web,
+        B_isBookFree,
+        B_isBookHidden,
+        B_Storage,
+        L_LanguageName,
+        L0_ID_Language,
+        L0_ID_Language_WEB,
+        B_BookImage,
+        O_Company,
+        O_Web,
+        O_ContactName,
+        O_ContactEmail,
+        O_ContactTel,
+        O0_ID_Owner,
+        O0_ID_Owner_WEB,
+        I0_ID_Illustrator_WEB,
+        I0_ID_Illustrator,
+        I_IllustratorName,
+        I_isIllustratorHidden,
+      })
+      .then(() => {
+        notify.show("Tale has been successfully updated", "success", 2000);
+        tales[currentIndex] = {
+          A0_ID_Author,
+          A0_ID_Author_WEB,
+          A_AuthorImage,
+          A_AuthorName,
+          A_isAuthorHidden,
+          A_Storage,
+          B_BookTitle,
+          B_BAuthorName,
+          T_TaleTitle,
+          T_TaleImage,
+          T_Storage,
+          T_isTaleHidden,
+          T_TaleContent,
+          B0_ID_Book,
+          B0_ID_Book_WEB,
+          B_Web,
+          B_isBookFree,
+          B_isBookHidden,
+          B_Storage,
+          L_LanguageName,
+          L0_ID_Language,
+          L0_ID_Language_WEB,
+          B_BookImage,
+          O_Company,
+          O_Web,
+          O_ContactName,
+          O_ContactEmail,
+          O_ContactTel,
+          O0_ID_Owner,
+          O0_ID_Owner_WEB,
+          I0_ID_Illustrator_WEB,
+          I0_ID_Illustrator,
+          I_IllustratorName,
+          I_isIllustratorHidden,
+          T_ID_Tale,
+        };
+
+        this.setState({
+          A0_ID_Author: "",
+          A0_ID_Author_WEB: "",
+          A_AuthorImage: "",
+          A_AuthorName: "",
+          A_isAuthorHidden: false,
+          A_Storage: "",
+          B_BookTitle: "",
+          B_BAuthorName: "",
+          T_TaleTitle: "",
+          T_TaleImage: "",
+          T_Storage: "",
+          T_isTaleHidden: false,
+          T_TaleContent: "",
+          B0_ID_Book: "",
+          B0_ID_Book_WEB: "",
+          B_Web: "",
+          B_isBookFree: false,
+          B_isBookHidden: false,
+          B_Storage: "",
+          L_LanguageName: "",
+          L0_ID_Language: "",
+          L0_ID_Language_WEB: "",
+          B_BookImage: "",
+          O_Company: "",
+          O_Web: "",
+          O_ContactName: "",
+          O_ContactEmail: "",
+          O_ContactTel: "",
+          O0_ID_Owner: "",
+          O0_ID_Owner_WEB: "",
+          I0_ID_Illustrator_WEB: "",
+          I0_ID_Illustrator: "",
+          I_IllustratorName: "",
+          I_isIllustratorHidden: false,
+          file: null,
+          isAddNew: false,
+          isEdit: false,
+          tales,
+        });
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
   handleOnChange = (name, value) => {
     this.setState({ [name]: value });
   };
@@ -422,7 +681,7 @@ export default class Tales extends Component {
       A0_ID_Author_WEB,
       A_AuthorImage,
       A_AuthorName,
-      A_isAuthorHiden,
+      A_isAuthorHidden,
       A_Storage,
       B_BookTitle,
       B_BAuthorName,
@@ -461,13 +720,21 @@ export default class Tales extends Component {
       languages,
       illustrators,
       validation_error,
+      isEdit,
     } = this.state;
 
     let noOfCharacter = T_TaleContent
       ? new DOMParser().parseFromString(T_TaleContent, "text/html").body
           .textContent?.length
       : 0;
-    // console.log("noOfCharacter", noOfCharacter);
+
+    let lengthOfContent = new DOMParser().parseFromString(
+      tales[currentIndex]?.T_TaleContent
+        ? tales[currentIndex]?.T_TaleContent
+        : "",
+      "text/html"
+    ).body.textContent?.length;
+
     return (
       <Row>
         <Notifications />
@@ -496,7 +763,7 @@ export default class Tales extends Component {
                   fontSize: 20,
                 }}
               >
-                Add New
+                {isEdit ? "Update Tale" : "Add New Tale"}
               </p>
             </Row>
           )}
@@ -739,7 +1006,7 @@ export default class Tales extends Component {
                             <input
                               className="ant-input"
                               readOnly
-                              value={noOfCharacter / 238}
+                              value={(noOfCharacter / 238).toFixed(2)}
                             />
                           </Col>
                         </Row>
@@ -1236,17 +1503,17 @@ export default class Tales extends Component {
                       >
                         <Col span={10}>
                           <Typography className="input-title">
-                            A_isAuthorHiden
+                            A_isAuthorHidden
                           </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
                             key={22}
-                            checked={A_isAuthorHiden}
-                            value={A_isAuthorHiden}
+                            checked={A_isAuthorHidden}
+                            value={A_isAuthorHidden}
                             onChange={() =>
                               this.setState({
-                                A_isAuthorHiden: !A_isAuthorHiden,
+                                A_isAuthorHidden: !A_isAuthorHidden,
                               })
                             }
                           />
@@ -1401,15 +1668,27 @@ export default class Tales extends Component {
                   >
                     Cancel
                   </Button>
-                  <Button
-                    style={{ marginLeft: 10 }}
-                    type="primary"
-                    onClick={() => {
-                      this.handleSaveData();
-                    }}
-                  >
-                    Save
-                  </Button>
+                  {isEdit ? (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleOnUpdate();
+                      }}
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{ marginLeft: 10 }}
+                      type="primary"
+                      onClick={() => {
+                        this.handleSaveData();
+                      }}
+                    >
+                      Save
+                    </Button>
+                  )}
                 </Row>
               </span>
             ) : (
@@ -1542,14 +1821,7 @@ export default class Tales extends Component {
                           </Col>
                           <Col span={14}>
                             <Typography className="ant-input">
-                              {
-                                new DOMParser().parseFromString(
-                                  tales[currentIndex]?.T_TaleContent
-                                    ? tales[currentIndex]?.T_TaleContent
-                                    : "",
-                                  "text/html"
-                                ).body.textContent.length
-                              }
+                              {lengthOfContent}
                             </Typography>
                           </Col>
                         </Row>
@@ -1561,12 +1833,7 @@ export default class Tales extends Component {
                           </Col>
                           <Col span={14}>
                             <Typography className="ant-input">
-                              {new DOMParser().parseFromString(
-                                tales[currentIndex]?.T_TaleContent
-                                  ? tales[currentIndex]?.T_TaleContent
-                                  : "",
-                                "text/html"
-                              ).body.textContent.length / 238}
+                              {(lengthOfContent / 238).toFixed(2)}
                             </Typography>
                           </Col>
                         </Row>
@@ -1905,12 +2172,12 @@ export default class Tales extends Component {
                       <Row style={{ marginBottom: 10 }}>
                         <Col span={10}>
                           <Typography className="input-title">
-                            A_isAuthorHiden
+                            A_isAuthorHidden
                           </Typography>
                         </Col>
                         <Col span={14}>
                           <Checkbox
-                            checked={tales[currentIndex]?.A_isAuthorHiden}
+                            checked={tales[currentIndex]?.A_isAuthorHidden}
                           />
                         </Col>
                       </Row>
@@ -1998,6 +2265,21 @@ export default class Tales extends Component {
                             }
                           />
                         </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Button
+                          style={{ marginLeft: 10 }}
+                          type="primary"
+                          onClick={() => {
+                            this.setState({
+                              isAddNew: true,
+                              isEdit: true,
+                              ...tales[currentIndex],
+                            });
+                          }}
+                        >
+                          Edit
+                        </Button>
                       </Row>
                     </div>
                   </Col>
