@@ -1315,7 +1315,7 @@ export default class Tales extends Component {
                     </div>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{ marginBottom: 40 }}>
                   <Button
                     style={{ marginLeft: 10 }}
                     type="primary"
