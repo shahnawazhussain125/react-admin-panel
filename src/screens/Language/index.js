@@ -355,32 +355,48 @@ export default class Language extends Component {
               >
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>L0_ID_Language</Typography>
+                    <Typography ellipsis={{ rows: 3, expandable: true }}>
+                      L0_ID_Language
+                    </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {languages[currentIndex]?.L0_ID_Language}
                     </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>L0_ID_Language_WEB</Typography>
+                    <Typography ellipsis={{ rows: 3, expandable: true }}>
+                      L0_ID_Language_WEB
+                    </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {languages[currentIndex]?.L0_ID_Language_WEB}
                     </Typography>
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography style={{ fontWeight: "bold" }}>
+                    <Typography
+                      style={{ fontWeight: "bold" }}
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       L_LanguageName
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography className="ant-input">
+                    <Typography
+                      className="ant-input"
+                      ellipsis={{ rows: 3, expandable: true }}
+                    >
                       {languages[currentIndex]?.L_LanguageName}
                     </Typography>
                   </Col>
