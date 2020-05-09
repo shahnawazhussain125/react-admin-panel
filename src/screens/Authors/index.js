@@ -348,6 +348,8 @@ export default class Authors extends Component {
         <Col className="gutter-row" span={20}>
           {!isAddNew ? (
             <Headers
+              currentIndex={currentIndex}
+              noOfDocument={authors.length}
               handleAddNew={this.handleAddNew}
               handleNext={this.handleNext}
               handlePrevious={this.handlePrevious}

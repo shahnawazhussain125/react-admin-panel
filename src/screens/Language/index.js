@@ -243,6 +243,8 @@ export default class Language extends Component {
         <Col className="gutter-row" span={20}>
           {!isAddNew ? (
             <Headers
+              currentIndex={currentIndex}
+              noOfDocument={languages.length}
               handleAddNew={this.handleAddNew}
               handleNext={this.handleNext}
               handlePrevious={this.handlePrevious}

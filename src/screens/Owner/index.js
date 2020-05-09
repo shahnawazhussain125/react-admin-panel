@@ -296,6 +296,8 @@ export default class Owner extends Component {
         <Col className="gutter-row" span={20}>
           {!isAddNew ? (
             <Headers
+              currentIndex={currentIndex}
+              noOfDocument={owners.length}
               handleAddNew={this.handleAddNew}
               handleNext={this.handleNext}
               handlePrevious={this.handlePrevious}

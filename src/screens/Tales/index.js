@@ -744,6 +744,8 @@ export default class Tales extends Component {
         <Col className="gutter-row" span={20}>
           {!isAddNew ? (
             <Headers
+              currentIndex={currentIndex}
+              noOfDocument={tales.length}
               handleAddNew={this.handleAddNew}
               handleNext={this.handleNext}
               handlePrevious={this.handlePrevious}

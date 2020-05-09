@@ -1,10 +1,4 @@
 import React, { Component } from "react";
-import {
-  CaretLeftOutlined,
-  RedoOutlined,
-  CaretRightOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
 import { Typography, Button } from "antd";
 
 export default class Headers extends Component {
@@ -87,6 +81,35 @@ export default class Headers extends Component {
             }}
           />
         </Button>
+        <div
+          style={{
+            border: "2px solid red",
+            height: 50,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginLeft: 50,
+          }}
+        >
+          <div
+            style={{
+              border: "2px solid red",
+              textAlign: "center",
+              width: 25,
+            }}
+          >
+            {Number(this.props.currentIndex) + 1}
+          </div>
+          <div
+            style={{
+              border: "2px solid red",
+              textAlign: "center",
+              width: 25,
+            }}
+          >
+            {this.props.noOfDocument}
+          </div>
+        </div>
         <Button
           style={{
             height: 50,

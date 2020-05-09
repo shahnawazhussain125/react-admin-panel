@@ -618,6 +618,8 @@ export default class Book extends Component {
         <Col className="gutter-row" span={20}>
           {!isAddNew ? (
             <Headers
+              currentIndex={currentIndex}
+              noOfDocument={books.length}
               handleAddNew={this.handleAddNew}
               handleNext={this.handleNext}
               handlePrevious={this.handlePrevious}
