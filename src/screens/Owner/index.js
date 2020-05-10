@@ -31,7 +31,7 @@ export default class Owner extends Component {
     firebase
       .firestore()
       .collection("Owners")
-      .orderBy("O0_ID_Owner", "asc")
+      .orderBy("O_Company", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {

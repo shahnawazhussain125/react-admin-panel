@@ -30,7 +30,7 @@ export default class Illustration extends Component {
     firebase
       .firestore()
       .collection("Illustrators")
-      .orderBy("I0_ID_Illustrator", "asc")
+      .orderBy("I_IllustratorName", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {

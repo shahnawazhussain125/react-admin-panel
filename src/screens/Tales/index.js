@@ -113,6 +113,7 @@ export default class Tales extends Component {
     firebase
       .firestore()
       .collection("Tales")
+      .orderBy("Title", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {

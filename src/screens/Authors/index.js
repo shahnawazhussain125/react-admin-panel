@@ -31,7 +31,7 @@ export default class Authors extends Component {
     firebase
       .firestore()
       .collection("Authors")
-      .orderBy("A0_ID_Author", "asc")
+      .orderBy("A_AuthorName", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {

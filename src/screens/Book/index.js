@@ -102,7 +102,7 @@ export default class Book extends Component {
     firebase
       .firestore()
       .collection("Books")
-      .orderBy("B0_ID_Book", "asc")
+      .orderBy("B_BookTitle", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {

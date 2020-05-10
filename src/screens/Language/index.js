@@ -30,7 +30,7 @@ export default class Language extends Component {
     firebase
       .firestore()
       .collection("Languages")
-      .orderBy("L0_ID_Language", "asc")
+      .orderBy("L_LanguageName", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
