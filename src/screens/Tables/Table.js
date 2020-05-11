@@ -20,6 +20,7 @@ import TableInput from "../../components/TableInput";
 import firebase from "../../config/firebase";
 import { notify } from "react-notify-toast";
 import swal from "sweetalert";
+import Modal from "./Modal";
 
 const styles = (theme) => ({
   table: {
@@ -28,6 +29,9 @@ const styles = (theme) => ({
   },
   tableHead: {
     backgroundColor: "#FF9500",
+  },
+  tableHeadCell: {
+    cursor: "pointer",
   },
 });
 
@@ -38,11 +42,20 @@ class CustomTable extends React.Component {
       pastDataSet: null,
       dataSet: [],
       validation_errors: [],
+      collectionData: [],
+      sortKey: null,
+      sortOrder: "asc",
+      visible: false,
+      selectedRow: {},
+      rowNo: 0,
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({ dataSet: nextProps.dataSet });
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      dataSet: nextProps.dataSet,
+      collectionData: nextProps.collectionData,
+    });
   }
 
   handleOnPast = (e, prow, pcol) => {
@@ -150,6 +163,15 @@ class CustomTable extends React.Component {
     const { dataSet } = this.state;
 
     dataSet[row][collectionKeys[col]] = value;
+  };
+
+  handleOnChangeText = (value, row, col) => {
+    const { collectionKeys } = this.props;
+    const { collectionData } = this.state;
+
+    collectionData[row][collectionKeys[col]] = value;
+    collectionData[row]["isUpdate"] = true;
+    this.setState({ collectionData });
   };
 
   validateInputFields = () => {
@@ -388,78 +410,212 @@ class CustomTable extends React.Component {
       }
     });
   };
+
   handleGetSelectedCollectionData = () => {
     this.setState({ pastDataSet: [], dataSet: [] }, () => {
       this.props.getSelectedCollectionData();
     });
   };
 
+  handleSortData = (key) => {
+    let { sortKey, collectionData, sortOrder } = this.state;
+    if (key !== sortKey || (key === sortKey && sortOrder !== "asc")) {
+      collectionData = collectionData.sort((a, b) =>
+        a[key] > b[key] ? 1 : -1
+      );
+    } else {
+      collectionData = collectionData.sort((a, b) =>
+        a[key] < b[key] ? 1 : -1
+      );
+    }
+    this.setState({
+      collectionData,
+      sortKey: key,
+      sortOrder: sortOrder === "asc" ? "desc" : "asc",
+    });
+  };
+
+  handleOnUpdate = () => {
+    const { selectedRow, collectionKeys } = this.state;
+
+    const docId = selectedRow.ID_WEB;
+
+    delete selectedRow.ID_WEB;
+
+    firebase
+      .firestore()
+      .collection(this.props.selectedCollection)
+      .doc(docId)
+      .set({
+        ...selectedRow,
+      })
+      .then((response) => {
+        notify.show("Successfully updated", "success", 2000);
+        this.props.handleModalVisible(false);
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
+  // Modal functions
+
+  handleCancelModalVisible = () => {
+    this.setState({ visible: false }, () => {
+      this.props.getSelectedCollectionData();
+    });
+  };
+
+  handleModalVisible = (visible, selectedRow = false, rowNo) => {
+    if (selectedRow) {
+      this.setState({
+        selectedRow,
+        visible,
+        rowNo,
+      });
+    } else {
+      this.setState({ visible });
+    }
+  };
+
   render() {
-    const { collectionData, collectionKeys, classes, types } = this.props;
+    const { collectionKeys, classes, types, selectedCollection } = this.props;
+    const {
+      collectionData,
+      validation_errors,
+      selectedRow,
+      visible,
+      rowNo,
+    } = this.state;
 
     return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead className={classes.tableHead}>
-            <TableRow>
-              {collectionKeys?.map((value) => {
-                return <TableCell key={value}>{value}</TableCell>;
-              })}
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              {types?.map((value, index) => {
-                return <TableCell key={index}>{value}</TableCell>;
-              })}
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-            {collectionData.map((row, i) => {
-              return (
-                <TableRow key={i}>
-                  {collectionKeys?.map((value, index) => {
-                    return (
-                      <TableCell key={index}>
-                        {row[value]?.length > 20 ? (
-                          <textarea value={row[value]}></textarea>
-                        ) : (
-                          row[value]
-                        )}
+      <span>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead className={classes.tableHead}>
+              <TableRow>
+                {collectionKeys?.map((value) => {
+                  return (
+                    <TableCell
+                      className={classes.tableHeadCell}
+                      key={value}
+                      onClick={() => this.handleSortData(value)}
+                    >
+                      {value}
+                    </TableCell>
+                  );
+                })}
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                {types?.map((value, index) => {
+                  return <TableCell key={index}>{value}</TableCell>;
+                })}
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              {collectionData?.map((data, row) => {
+                return (
+                  <TableRow key={row}>
+                    {collectionKeys?.map((value, col) => {
+                      return (
+                        <TableCell key={col}>
+                          {col === 0 ? (
+                            data[value]
+                          ) : (
+                            <TableInput
+                              type={
+                                types[col] === "number"
+                                  ? types[col]
+                                  : types[col] === "boolean"
+                                  ? "checkbox"
+                                  : "text"
+                              }
+                              name={value}
+                              defaultValue={data[value]}
+                              value={data[value]}
+                              handleOnChange={(e) =>
+                                types[col] === "boolean"
+                                  ? this.handleOnChangeText(
+                                      e.target.checked,
+                                      row,
+                                      col
+                                    )
+                                  : this.handleOnChangeText(
+                                      e.target.value,
+                                      row,
+                                      col
+                                    )
+                              }
+                              errorMessage={
+                                validation_errors[row]
+                                  ? validation_errors[row][collectionKeys[col]]
+                                  : null
+                              }
+                            />
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                    {data.isUpdate ? (
+                      <TableCell>
+                        <Button
+                          type="primary"
+                          onClick={() => this.handleOnUpdate(data)}
+                        >
+                          Update
+                        </Button>
                       </TableCell>
-                    );
-                  })}
-                  <TableCell>
-                    <Button
-                      type="primary"
-                      onClick={() => this.props.handleModalVisible(true, row)}
-                    >
-                      Edit
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      danger
-                      type="primary"
-                      onClick={() => this.handleDeleteData(row.ID_WEB)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-            {this.createNewLine()}
-          </TableBody>
-        </Table>
-        <Row style={{ display: "flex", justifyContent: "center" }}>
-          <Button className="button-save-all" onClick={this.handleSaveAllNew}>
-            Save all new
-          </Button>
-        </Row>
-      </TableContainer>
+                    ) : (
+                      <>
+                        <TableCell>
+                          <Button
+                            type="primary"
+                            onClick={() =>
+                              this.handleModalVisible(true, data, row)
+                            }
+                          >
+                            Edit
+                          </Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            danger
+                            type="primary"
+                            onClick={() => this.handleDeleteData(data.ID_WEB)}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </>
+                    )}
+                  </TableRow>
+                );
+              })}
+              {this.createNewLine()}
+            </TableBody>
+          </Table>
+          <Row style={{ display: "flex", justifyContent: "center" }}>
+            <Button className="button-save-all" onClick={this.handleSaveAllNew}>
+              Save all new
+            </Button>
+          </Row>
+        </TableContainer>
+        <Modal
+          visible={visible}
+          handleModalVisible={this.handleModalVisible}
+          selectedRow={selectedRow}
+          collectionKeys={collectionKeys}
+          selectedCollection={selectedCollection}
+          types={types}
+          collectionData={this.props.collectionData}
+          rowNo={rowNo}
+          handleCancelModalVisible={this.handleCancelModalVisible}
+        />
+      </span>
     );
   }
 }

@@ -68,6 +68,7 @@ class Tables extends Component {
           collectionData.push({
             ID_WEB: doc.id,
             ...doc.data(),
+            isUpdate: false,
           });
         });
 
@@ -92,12 +93,6 @@ class Tables extends Component {
     this.getSelectedCollectionData();
   }
 
-  // Modal functions
-
-  handleCancel = () => {
-    this.setState({ visible: false });
-  };
-
   createDataSet = () => {
     const { noOfLine, collectionKeys, types } = this.state;
 
@@ -121,17 +116,6 @@ class Tables extends Component {
     }
 
     this.setState({ dataSet });
-  };
-
-  handleModalVisible = (visible, selectedRow = false) => {
-    if (selectedRow) {
-      this.setState({
-        selectedRow,
-        visible,
-      });
-    } else {
-      this.setState({ visible });
-    }
   };
 
   render() {
@@ -168,6 +152,9 @@ class Tables extends Component {
               <Row>
                 <Col span={5}>
                   <Row>
+                    <Typography>Select Collection</Typography>
+                  </Row>
+                  <Row>
                     <Col span={16}>
                       <Select
                         style={{ width: "90%" }}
@@ -196,24 +183,31 @@ class Tables extends Component {
                 </Col>
 
                 <Col span={5}></Col>
-                <Col span={2}>
-                  <Input
-                    placeholder="1"
-                    style={{ textAlign: "center", fontSize: 16 }}
-                    value={noOfLine}
-                    onChange={(e) =>
-                      this.setState({ noOfLine: e.target.value })
-                    }
-                  />
-                </Col>
-                <Col span={3}>
-                  <Button
-                    type="primary"
-                    style={{ marginLeft: 10 }}
-                    onClick={() => this.createDataSet()}
-                  >
-                    Add Line
-                  </Button>
+                <Col span={5}>
+                  <Row>
+                    <Typography>Add New Lines</Typography>
+                  </Row>
+                  <Row>
+                    <Col span={12}>
+                      <Input
+                        placeholder="1"
+                        style={{ textAlign: "center", fontSize: 16 }}
+                        value={noOfLine}
+                        onChange={(e) =>
+                          this.setState({ noOfLine: e.target.value })
+                        }
+                      />
+                    </Col>
+                    <Col span={12}>
+                      <Button
+                        type="primary"
+                        style={{ marginLeft: 10 }}
+                        onClick={() => this.createDataSet()}
+                      >
+                        Add Line
+                      </Button>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
               <Row>
@@ -231,13 +225,6 @@ class Tables extends Component {
             </Col>
           </Row>
         </Col>
-        <Modal
-          visible={visible}
-          handleModalVisible={this.handleModalVisible}
-          selectedRow={selectedRow}
-          collectionKeys={collectionKeys}
-          selectedCollection={selectedCollection}
-        />
       </Row>
     );
   }

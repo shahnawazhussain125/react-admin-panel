@@ -104,6 +104,7 @@ export default class Tales extends Component {
         this.setState({ languages, owners, authors, books, illustrators });
       })
       .catch((error) => {
+        console.log("Error", error);
         notify.show(`Error! ${error.message}`, "error");
       });
   };
@@ -113,7 +114,7 @@ export default class Tales extends Component {
     firebase
       .firestore()
       .collection("Tales")
-      .orderBy("Title", "asc")
+      .orderBy("T_TaleTitle", "asc")
       .get()
       .then((response) => {
         response.forEach((doc) => {
@@ -127,6 +128,7 @@ export default class Tales extends Component {
         });
       })
       .catch((error) => {
+        console.log("Error", error);
         notify.show(`Error! ${error.message}`, "error");
       });
   };

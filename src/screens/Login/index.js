@@ -29,7 +29,7 @@ class Login extends Component {
     );
 
     if (test === false) {
-      alert("Please enter a volid email");
+      alert("Please enter a valid email");
     } else if (password.trim().length <= 0) {
       alert("Please enter password");
     } else {
@@ -103,11 +103,6 @@ class Login extends Component {
                   Sign in
                 </Button>
               </Row>
-            </Row>
-            <Row type="flex" className="row-signup" justify="center">
-              <h4 className="new-to-melior-text">
-                New to meliorMD? <Link to="signup">Signup</Link>
-              </h4>
             </Row>
           </Col>
           {this.props.isLoading ? (
