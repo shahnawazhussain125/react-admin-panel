@@ -415,7 +415,12 @@ export default class CustomModal extends Component {
                   onChange={(e) =>
                     types[index] === "boolean"
                       ? this.handleChange(key, e.target.checked)
-                      : this.handleChange(key, e.target.value)
+                      : this.handleChange(
+                          key,
+                          types[index] === "number"
+                            ? Number(e.target.value)
+                            : e.target.value
+                        )
                   }
                 />
               </Col>

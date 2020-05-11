@@ -485,29 +485,6 @@ class CustomTable extends React.Component {
     });
   };
 
-  // handleOnUpdate = () => {
-  //   const { selectedRow, collectionKeys } = this.state;
-
-  //   const docId = selectedRow.ID_WEB;
-
-  //   delete selectedRow.ID_WEB;
-
-  //   firebase
-  //     .firestore()
-  //     .collection(this.props.selectedCollection)
-  //     .doc(docId)
-  //     .set({
-  //       ...selectedRow,
-  //     })
-  //     .then((response) => {
-  //       notify.show("Successfully updated", "success", 2000);
-  //       this.props.handleModalVisible(false);
-  //     })
-  //     .catch((error) => {
-  //       notify.show(`Error! ${error.message}`, "error", 2000);
-  //     });
-  // };
-
   // Modal functions
 
   handleCancelModalVisible = () => {
@@ -670,14 +647,15 @@ class CustomTable extends React.Component {
               console.log(" response.size", response.size);
 
               let updateDocumentPromise = [];
+              let Storage = "";
 
               if (selectedCollection === "Authors") {
-                let Storage = selectedRow.Storage;
+                Storage = selectedRow.Storage;
                 delete selectedRow.Storage;
 
                 selectedRow.A_Storage = Storage;
               } else if (selectedCollection === "Books") {
-                let Storage = selectedRow.Storage;
+                Storage = selectedRow.Storage;
                 delete selectedRow.Storage;
 
                 selectedRow.B_Storage = Storage;
@@ -697,14 +675,19 @@ class CustomTable extends React.Component {
 
               Promise.all(updateDocumentPromise)
                 .then(() => {
-                  this.props.handleCancelModalVisible();
+                  collectionData[selectedRowIndex].ID_WEB = docId;
+                  collectionData[selectedRowIndex].isUpdate = false;
+                  collectionData[selectedRowIndex].Storage = Storage;
+                  this.setState({ collectionData });
                   notify.show("Successfully updated", "success", 2000);
                 })
                 .catch((error) => {
                   notify.show(`Error! ${error.message}`, "error", 2000);
                 });
             } else {
-              this.props.handleCancelModalVisible();
+              collectionData[selectedRowIndex].ID_WEB = docId;
+              collectionData[selectedRowIndex].isUpdate = false;
+              this.setState({ collectionData });
               notify.show("Successfully updated", "success", 2000);
             }
           })
@@ -786,7 +769,9 @@ class CustomTable extends React.Component {
 
             Promise.all(updateDocumentPromise)
               .then(() => {
-                this.props.handleCancelModalVisible();
+                collectionData[selectedRowIndex].ID_WEB = docId;
+                collectionData[selectedRowIndex].isUpdate = false;
+                this.setState({ collectionData });
                 notify.show("Successfully updated", "success", 2000);
               })
               .catch((error) => {
@@ -818,12 +803,31 @@ class CustomTable extends React.Component {
         ...selectedRow,
       })
       .then((response) => {
-        this.props.handleCancelModalVisible();
+        collectionData[selectedRowIndex].ID_WEB = docId;
+        collectionData[selectedRowIndex].isUpdate = false;
+        this.setState({ collectionData });
         notify.show("Successfully updated", "success", 2000);
       })
       .catch((error) => {
         notify.show(`Error! ${error.message}`, "error", 2000);
       });
+  };
+
+  handleOnFilter = () => {
+    const { collectionKeys } = this.props;
+
+    let collectionData = JSON.parse(
+      localStorage.getItem("prevoiusCollectionData")
+    );
+
+    collectionData = collectionData.filter((data) => {
+      return (
+        data.wineryName.toString().toLowerCase().indexOf(val.toLowerCase()) >
+          -1 ||
+        data.wineName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+        data.wineColor.toLowerCase().indexOf(val.toLowerCase()) > -1
+      );
+    });
   };
 
   render() {
@@ -867,6 +871,29 @@ class CustomTable extends React.Component {
                 <TableCell></TableCell>
                 <TableCell></TableCell>
               </TableRow>
+              <TableRow>
+                {collectionKeys?.map((value, col) => {
+                  return (
+                    <TableCell key={col}>
+                      <Input
+                        style={{
+                          width: 150,
+                        }}
+                        type={
+                          types[col] === "number"
+                            ? types[col]
+                            : types[col] === "boolean"
+                            ? "checkbox"
+                            : "text"
+                        }
+                        onChange={(e) => this.handleOnFilter(e.target.value)}
+                      />
+                    </TableCell>
+                  );
+                })}
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
               {collectionData?.map((data, row) => {
                 return (
                   <TableRow key={row}>
@@ -878,6 +905,9 @@ class CustomTable extends React.Component {
                           ) : (
                             <>
                               <Input
+                                style={{
+                                  width: 150,
+                                }}
                                 type={
                                   types[col] === "number"
                                     ? types[col]
@@ -896,7 +926,9 @@ class CustomTable extends React.Component {
                                         col
                                       )
                                     : this.handleOnChangeText(
-                                        e.target.value,
+                                        types[col] === "number"
+                                          ? Number(e.target.value)
+                                          : e.target.value,
                                         row,
                                         col
                                       )
@@ -930,6 +962,7 @@ class CustomTable extends React.Component {
                         </TableCell>
                         <TableCell>
                           <Button
+                            danger
                             type="primary"
                             onClick={() => this.handleOnCancel(row)}
                           >

@@ -892,7 +892,9 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <textarea
+                        key={Math.random()}
                         defaultValue={T_TaleContent}
+                        value={T_TaleContent}
                         rows={10}
                         cols={90}
                         onChange={(e) =>
@@ -1708,8 +1710,11 @@ export default class Tales extends Component {
                     <Row>
                       <textarea
                         className="ant-input"
+                        key={Math.random()}
+                        defaultValue={T_TaleContent}
                         defaultValue={tales[currentIndex]?.T_TaleContent}
                         rows={10}
+                        readOnly={true}
                         // cols={100}
                       ></textarea>
                     </Row>
