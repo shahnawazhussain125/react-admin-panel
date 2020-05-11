@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, Checkbox, Row } from "antd";
+import { Button, Checkbox, Row, Input } from "antd";
 import {
   languageInputValidation,
   illustrationInputValidation,
@@ -48,6 +48,8 @@ class CustomTable extends React.Component {
       visible: false,
       selectedRow: {},
       rowNo: 0,
+      validation_error: {},
+      selectedRowIndex: 0,
     };
   }
 
@@ -56,9 +58,14 @@ class CustomTable extends React.Component {
       dataSet: nextProps.dataSet,
       collectionData: nextProps.collectionData,
     });
+
+    localStorage.setItem(
+      "prevoiusCollectionData",
+      JSON.stringify([...nextProps.collectionData])
+    );
   }
 
-  handleOnPast = (e, prow, pcol) => {
+  handleOnPastNewData = (e, prow, pcol) => {
     const { collectionKeys } = this.props;
     const { dataSet } = this.state;
 
@@ -95,6 +102,47 @@ class CustomTable extends React.Component {
     console.log("dataSet", dataSet);
 
     this.setState({ dataSet });
+  };
+
+  handleOnPastEditData = (e, prow, pcol) => {
+    e.preventDefault();
+    // e.stopPropogation();
+    const { collectionKeys } = this.props;
+    const { collectionData } = this.state;
+
+    let dataArr = e.clipboardData
+      .getData("Text")
+      .split("\n")
+      .map((value) => {
+        return value.split("\t");
+      });
+
+    let obj = {};
+
+    let rowLength = 0;
+
+    if (dataArr.length < collectionData.length) {
+      rowLength = dataArr.length;
+    } else {
+      rowLength = collectionData.length;
+    }
+
+    for (let row = prow; row < rowLength; row++) {
+      obj = {};
+      for (
+        let col = pcol;
+        col < Object.keys(collectionData[row])?.length - 1;
+        col++
+      ) {
+        collectionData[row][collectionKeys[col]] =
+          dataArr[row - prow][col - pcol];
+        collectionData[row].isUpdate = true;
+      }
+    }
+
+    console.log("collectionData", collectionData);
+
+    this.setState({ collectionData });
   };
 
   createNewLine = () => {
@@ -146,7 +194,7 @@ class CustomTable extends React.Component {
                       ? validation_errors[row][collectionKeys[col]]
                       : null
                   }
-                  handleOnPast={(e) => this.handleOnPast(e, row, col)}
+                  handleOnPast={(e) => this.handleOnPastNewData(e, row, col)}
                 />
               </TableCell>
             );
@@ -167,16 +215,18 @@ class CustomTable extends React.Component {
 
   handleOnChangeText = (value, row, col) => {
     const { collectionKeys } = this.props;
-    const { collectionData } = this.state;
+    const collectionData = [...this.state.collectionData];
 
     collectionData[row][collectionKeys[col]] = value;
     collectionData[row]["isUpdate"] = true;
+
     this.setState({ collectionData });
   };
 
   validateInputFields = () => {
     const { selectedCollection, collectionData } = this.props;
     const { dataSet } = this.state;
+
     let is_error = false;
     let validation_errors = [];
 
@@ -435,28 +485,28 @@ class CustomTable extends React.Component {
     });
   };
 
-  handleOnUpdate = () => {
-    const { selectedRow, collectionKeys } = this.state;
+  // handleOnUpdate = () => {
+  //   const { selectedRow, collectionKeys } = this.state;
 
-    const docId = selectedRow.ID_WEB;
+  //   const docId = selectedRow.ID_WEB;
 
-    delete selectedRow.ID_WEB;
+  //   delete selectedRow.ID_WEB;
 
-    firebase
-      .firestore()
-      .collection(this.props.selectedCollection)
-      .doc(docId)
-      .set({
-        ...selectedRow,
-      })
-      .then((response) => {
-        notify.show("Successfully updated", "success", 2000);
-        this.props.handleModalVisible(false);
-      })
-      .catch((error) => {
-        notify.show(`Error! ${error.message}`, "error", 2000);
-      });
-  };
+  //   firebase
+  //     .firestore()
+  //     .collection(this.props.selectedCollection)
+  //     .doc(docId)
+  //     .set({
+  //       ...selectedRow,
+  //     })
+  //     .then((response) => {
+  //       notify.show("Successfully updated", "success", 2000);
+  //       this.props.handleModalVisible(false);
+  //     })
+  //     .catch((error) => {
+  //       notify.show(`Error! ${error.message}`, "error", 2000);
+  //     });
+  // };
 
   // Modal functions
 
@@ -478,14 +528,314 @@ class CustomTable extends React.Component {
     }
   };
 
+  handleOnCancel = (row) => {
+    let editCollectionData = this.state.collectionData;
+    const collectionData = JSON.parse(
+      localStorage.getItem("prevoiusCollectionData")
+    );
+    editCollectionData[row] = collectionData[row];
+
+    this.setState({ collectionData: editCollectionData });
+  };
+
+  ///Update data
+
+  handleOnUpdate = (selectedRowIndex) => {
+    const { selectedCollection } = this.props;
+    const { is_error, validation_error } = this.validateUpdateInputFields(
+      selectedRowIndex
+    );
+
+    console.log({ is_error, validation_error, selectedRowIndex });
+
+    this.setState({ is_error, validation_error, selectedRowIndex }, () => {
+      if (!is_error) {
+        if (["Languages", "Owners"].includes(selectedCollection)) {
+          this.handleUpdateDataWithBookAandTales(selectedRowIndex);
+        } else if (
+          ["Authors", "Illustrators", "Books"].includes(selectedCollection)
+        ) {
+          this.handleUpdateDataWithTales(selectedRowIndex);
+        } else {
+          this.handleUpdateTale(selectedRowIndex);
+        }
+      }
+    });
+  };
+
+  validateUpdateInputFields = (selectedRowIndex) => {
+    const { selectedCollection, collectionData } = this.props;
+
+    const selectedRow = collectionData[selectedRowIndex];
+
+    let is_error = false;
+    let validation_error = {};
+
+    if (selectedCollection === "Languages") {
+      let languages = [...collectionData];
+      languages.splice(selectedRowIndex, 1);
+
+      const inputValidation = languageInputValidation({
+        ...selectedRow,
+        languages,
+      });
+      is_error = inputValidation.is_error;
+      validation_error = inputValidation.validation_error;
+    } else if (selectedCollection === "Illustrators") {
+      let illustrators = [...collectionData];
+      illustrators.splice(selectedRowIndex, 1);
+
+      const inputValidation = illustrationInputValidation({
+        ...selectedRow,
+        illustrators,
+      });
+
+      is_error = inputValidation.is_error;
+      validation_error = inputValidation.validation_error;
+    } else if (selectedCollection === "Owners") {
+      let owners = [...collectionData];
+      owners.splice(selectedRowIndex, 1);
+
+      const inputValidation = ownerInputValidation({
+        ...selectedRow,
+        owners,
+      });
+
+      is_error = inputValidation.is_error;
+      validation_error = inputValidation.validation_error;
+    } else if (selectedCollection === "Authors") {
+      let authors = [...collectionData];
+      authors.splice(selectedRowIndex, 1);
+
+      const inputValidation = authorInputValidation({
+        ...selectedRow,
+        authors,
+      });
+
+      is_error = inputValidation.is_error;
+      validation_error = inputValidation.validation_error;
+    } else if (selectedCollection === "Books") {
+      let books = [...collectionData];
+      books.splice(selectedRowIndex, 1);
+
+      const inputValidation = bookInputValidation({
+        ...selectedRow,
+        books,
+      });
+
+      is_error = inputValidation.is_error;
+      validation_error = inputValidation.validation_error;
+    } else if (selectedCollection === "Tales") {
+      const inputValidation = talesInputValidation({
+        ...selectedRow,
+      });
+
+      is_error = inputValidation.is_error;
+      validation_error = inputValidation.validation_error;
+    }
+
+    return {
+      is_error,
+      validation_error,
+    };
+  };
+
+  handleUpdateDataWithTales = (selectedRowIndex) => {
+    const { selectedCollection, collectionKeys, collectionData } = this.props;
+    const selectedRow = collectionData[selectedRowIndex];
+    const docId = selectedRow.ID_WEB;
+
+    delete selectedRow.ID_WEB;
+    delete selectedRow.isUpdate;
+
+    firebase
+      .firestore()
+      .collection(selectedCollection)
+      .doc(docId)
+      .update(selectedRow)
+      .then(() => {
+        firebase
+          .firestore()
+          .collection("Tales")
+          .where(
+            `${
+              collectionKeys.filter((value) => value.indexOf("0_ID_") !== -1)[0]
+            }_WEB`,
+            "==",
+            docId
+          )
+          .get()
+          .then((response) => {
+            if (response.size) {
+              console.log(" response.size", response.size);
+
+              let updateDocumentPromise = [];
+
+              if (selectedCollection === "Authors") {
+                let Storage = selectedRow.Storage;
+                delete selectedRow.Storage;
+
+                selectedRow.A_Storage = Storage;
+              } else if (selectedCollection === "Books") {
+                let Storage = selectedRow.Storage;
+                delete selectedRow.Storage;
+
+                selectedRow.B_Storage = Storage;
+              }
+
+              response.forEach((doc) => {
+                updateDocumentPromise.push(
+                  firebase
+                    .firestore()
+                    .collection("Tales")
+                    .doc(doc.id)
+                    .update({
+                      ...selectedRow,
+                    })
+                );
+              });
+
+              Promise.all(updateDocumentPromise)
+                .then(() => {
+                  this.props.handleCancelModalVisible();
+                  notify.show("Successfully updated", "success", 2000);
+                })
+                .catch((error) => {
+                  notify.show(`Error! ${error.message}`, "error", 2000);
+                });
+            } else {
+              this.props.handleCancelModalVisible();
+              notify.show("Successfully updated", "success", 2000);
+            }
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
+  handleUpdateDataWithBookAandTales = (selectedRowIndex) => {
+    const { selectedCollection, collectionKeys, collectionData } = this.props;
+    const selectedRow = collectionData[selectedRowIndex];
+    const docId = selectedRow.ID_WEB;
+
+    delete selectedRow.ID_WEB;
+    delete selectedRow.isUpdate;
+
+    firebase
+      .firestore()
+      .collection(selectedCollection)
+      .doc(docId)
+      .update(selectedRow)
+      .then(() => {
+        let collectionPromise = [];
+
+        collectionPromise.push(
+          firebase
+            .firestore()
+            .collection("Books")
+            .where(
+              `${
+                collectionKeys.filter(
+                  (value) => value.indexOf("0_ID_") !== -1
+                )[0]
+              }_WEB`,
+              "==",
+              docId
+            )
+            .get()
+        );
+
+        collectionPromise.push(
+          firebase
+            .firestore()
+            .collection("Tales")
+            .where(
+              `${
+                collectionKeys.filter(
+                  (value) => value.indexOf("0_ID_") !== -1
+                )[0]
+              }_WEB`,
+              "==",
+              docId
+            )
+            .get()
+        );
+
+        Promise.all(collectionPromise)
+          .then((responses) => {
+            let collections = ["Books", "Tales"];
+            let updateDocumentPromise = [];
+
+            for (let index = 0; index < responses.length; index++) {
+              responses[index].forEach((doc) => {
+                updateDocumentPromise.push(
+                  firebase
+                    .firestore()
+                    .collection(collections[index])
+                    .doc(doc.id)
+                    .update({
+                      ...selectedRow,
+                    })
+                );
+              });
+            }
+
+            Promise.all(updateDocumentPromise)
+              .then(() => {
+                this.props.handleCancelModalVisible();
+                notify.show("Successfully updated", "success", 2000);
+              })
+              .catch((error) => {
+                notify.show(`Error! ${error.message}`, "error", 2000);
+              });
+          })
+          .catch((error) => {
+            notify.show(`Error! ${error.message}`, "error", 2000);
+          });
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
+  handleUpdateTale = (selectedRowIndex) => {
+    const { collectionData } = this.state;
+    const selectedRow = collectionData[selectedRowIndex];
+    const docId = selectedRow.ID_WEB;
+
+    delete selectedRow.ID_WEB;
+    delete selectedRow.isUpdate;
+
+    firebase
+      .firestore()
+      .collection(this.props.selectedCollection)
+      .doc(docId)
+      .set({
+        ...selectedRow,
+      })
+      .then((response) => {
+        this.props.handleCancelModalVisible();
+        notify.show("Successfully updated", "success", 2000);
+      })
+      .catch((error) => {
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
+
   render() {
     const { collectionKeys, classes, types, selectedCollection } = this.props;
     const {
       collectionData,
       validation_errors,
+      validation_error,
       selectedRow,
       visible,
       rowNo,
+      selectedRowIndex,
     } = this.state;
 
     return (
@@ -526,49 +876,67 @@ class CustomTable extends React.Component {
                           {col === 0 ? (
                             data[value]
                           ) : (
-                            <TableInput
-                              type={
-                                types[col] === "number"
-                                  ? types[col]
-                                  : types[col] === "boolean"
-                                  ? "checkbox"
-                                  : "text"
-                              }
-                              name={value}
-                              defaultValue={data[value]}
-                              value={data[value]}
-                              handleOnChange={(e) =>
-                                types[col] === "boolean"
-                                  ? this.handleOnChangeText(
-                                      e.target.checked,
-                                      row,
-                                      col
-                                    )
-                                  : this.handleOnChangeText(
-                                      e.target.value,
-                                      row,
-                                      col
-                                    )
-                              }
-                              errorMessage={
-                                validation_errors[row]
-                                  ? validation_errors[row][collectionKeys[col]]
-                                  : null
-                              }
-                            />
+                            <>
+                              <Input
+                                type={
+                                  types[col] === "number"
+                                    ? types[col]
+                                    : types[col] === "boolean"
+                                    ? "checkbox"
+                                    : "text"
+                                }
+                                name={value}
+                                defaultValue={data[value]}
+                                value={data[value]}
+                                onChange={(e) =>
+                                  types[col] === "boolean"
+                                    ? this.handleOnChangeText(
+                                        e.target.checked,
+                                        row,
+                                        col
+                                      )
+                                    : this.handleOnChangeText(
+                                        e.target.value,
+                                        row,
+                                        col
+                                      )
+                                }
+                                onPaste={(e) =>
+                                  this.handleOnPastEditData(e, row, col)
+                                }
+                              />
+                              <p style={{ color: "red", fontSize: 10 }}>
+                                {selectedRowIndex === row
+                                  ? validation_error &&
+                                    validation_error[collectionKeys[col]]
+                                    ? validation_error[collectionKeys[col]]
+                                    : null
+                                  : null}
+                              </p>
+                            </>
                           )}
                         </TableCell>
                       );
                     })}
                     {data.isUpdate ? (
-                      <TableCell>
-                        <Button
-                          type="primary"
-                          onClick={() => this.handleOnUpdate(data)}
-                        >
-                          Update
-                        </Button>
-                      </TableCell>
+                      <>
+                        <TableCell>
+                          <Button
+                            type="primary"
+                            onClick={() => this.handleOnUpdate(row)}
+                          >
+                            Update
+                          </Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            type="primary"
+                            onClick={() => this.handleOnCancel(row)}
+                          >
+                            Cancel
+                          </Button>
+                        </TableCell>
+                      </>
                     ) : (
                       <>
                         <TableCell>

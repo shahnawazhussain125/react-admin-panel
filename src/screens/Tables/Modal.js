@@ -30,6 +30,37 @@ export default class CustomModal extends Component {
     this.setState({ selectedRow, collectionKeys });
   }
 
+  // handleOnUpdate = () => {
+  //   const { selectedRow } = this.state;
+
+  //   const docId = selectedRow.ID_WEB;
+
+  //   delete selectedRow.ID_WEB;
+  //   delete selectedRow.isUpdate;
+
+  //   const { selectedCollection } = this.props;
+  //   if (["Languages", "Illustrators", "Owners"].includes(selectedCollection)) {
+  //     this.handleUpdateData();
+  //   } else {
+  //     this.saveImageAndData();
+  //   }
+
+  //   firebase
+  //     .firestore()
+  //     .collection(this.props.selectedCollection)
+  //     .doc(docId)
+  //     .set({
+  //       ...selectedRow,
+  //     })
+  //     .then((response) => {
+  //       this.props.handleCancelModalVisible();
+  //       notify.show("Successfully updated", "success", 2000);
+  //     })
+  //     .catch((error) => {
+  //       notify.show(`Error! ${error.message}`, "error", 2000);
+  //     });
+  // };
+
   showModal = () => {
     this.setState({
       visible: true,
@@ -57,37 +88,6 @@ export default class CustomModal extends Component {
 
     delete selectedRow.ID_WEB;
     delete selectedRow.isUpdate;
-
-    firebase
-      .firestore()
-      .collection(this.props.selectedCollection)
-      .doc(docId)
-      .set({
-        ...selectedRow,
-      })
-      .then((response) => {
-        this.props.handleCancelModalVisible();
-        notify.show("Successfully updated", "success", 2000);
-      })
-      .catch((error) => {
-        notify.show(`Error! ${error.message}`, "error", 2000);
-      });
-  };
-
-  handleOnUpdate = () => {
-    const { selectedRow } = this.state;
-
-    const docId = selectedRow.ID_WEB;
-
-    delete selectedRow.ID_WEB;
-    delete selectedRow.isUpdate;
-
-    const { selectedCollection } = this.props;
-    if (["Languages", "Illustrators", "Owners"].includes(selectedCollection)) {
-      this.handleUpdateData();
-    } else {
-      this.saveImageAndData();
-    }
 
     firebase
       .firestore()
@@ -410,10 +410,13 @@ export default class CustomModal extends Component {
                       ? "checkbox"
                       : "text"
                   }
-                  placeholder="Enter document"
                   style={{ fontSize: 16 }}
                   value={selectedRow ? selectedRow[key] : ""}
-                  onChange={(e) => this.handleChange(key, e.target.value)}
+                  onChange={(e) =>
+                    types[index] === "boolean"
+                      ? this.handleChange(key, e.target.checked)
+                      : this.handleChange(key, e.target.value)
+                  }
                 />
               </Col>
             </Row>
