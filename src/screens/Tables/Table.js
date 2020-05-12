@@ -813,7 +813,7 @@ class CustomTable extends React.Component {
       });
   };
 
-  handleOnFilter = () => {
+  handleOnFilter = (value, key) => {
     const { collectionKeys } = this.props;
 
     let collectionData = JSON.parse(
@@ -822,12 +822,10 @@ class CustomTable extends React.Component {
 
     collectionData = collectionData.filter((data) => {
       return (
-        data.wineryName.toString().toLowerCase().indexOf(val.toLowerCase()) >
-          -1 ||
-        data.wineName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-        data.wineColor.toLowerCase().indexOf(val.toLowerCase()) > -1
+        data[key]?.toString().toLowerCase()?.indexOf(value.toLowerCase()) > -1
       );
     });
+    this.setState({ collectionData });
   };
 
   render() {
@@ -872,21 +870,16 @@ class CustomTable extends React.Component {
                 <TableCell></TableCell>
               </TableRow>
               <TableRow>
-                {collectionKeys?.map((value, col) => {
+                {collectionKeys?.map((key, col) => {
                   return (
                     <TableCell key={col}>
                       <Input
                         style={{
                           width: 150,
                         }}
-                        type={
-                          types[col] === "number"
-                            ? types[col]
-                            : types[col] === "boolean"
-                            ? "checkbox"
-                            : "text"
+                        onChange={(e) =>
+                          this.handleOnFilter(e.target.value, key)
                         }
-                        onChange={(e) => this.handleOnFilter(e.target.value)}
                       />
                     </TableCell>
                   );
@@ -904,47 +897,57 @@ class CustomTable extends React.Component {
                             data[value]
                           ) : (
                             <>
-                              <Input
-                                style={{
-                                  width: 150,
-                                }}
-                                type={
-                                  types[col] === "number"
-                                    ? types[col]
-                                    : types[col] === "boolean"
-                                    ? "checkbox"
-                                    : "text"
-                                }
-                                name={value}
-                                defaultValue={data[value]}
-                                value={data[value]}
-                                onChange={(e) =>
-                                  types[col] === "boolean"
-                                    ? this.handleOnChangeText(
-                                        e.target.checked,
-                                        row,
-                                        col
-                                      )
-                                    : this.handleOnChangeText(
+                              {types[col] === "boolean" ? (
+                                <Input
+                                  style={{
+                                    width: 150,
+                                  }}
+                                  type={"checkbox"}
+                                  defaultChecked={data[value]}
+                                  onChange={(e) =>
+                                    this.handleOnChangeText(
+                                      e.target.checked,
+                                      row,
+                                      col
+                                    )
+                                  }
+                                />
+                              ) : (
+                                <>
+                                  <Input
+                                    style={{
+                                      width: 150,
+                                    }}
+                                    type={
+                                      types[col] === "number"
+                                        ? types[col]
+                                        : "text"
+                                    }
+                                    defaultValue={data[value]}
+                                    value={data[value]}
+                                    onChange={(e) =>
+                                      this.handleOnChangeText(
                                         types[col] === "number"
                                           ? Number(e.target.value)
                                           : e.target.value,
                                         row,
                                         col
                                       )
-                                }
-                                onPaste={(e) =>
-                                  this.handleOnPastEditData(e, row, col)
-                                }
-                              />
-                              <p style={{ color: "red", fontSize: 10 }}>
-                                {selectedRowIndex === row
-                                  ? validation_error &&
-                                    validation_error[collectionKeys[col]]
-                                    ? validation_error[collectionKeys[col]]
-                                    : null
-                                  : null}
-                              </p>
+                                    }
+                                    onPaste={(e) =>
+                                      this.handleOnPastEditData(e, row, col)
+                                    }
+                                  />
+                                  <p style={{ color: "red", fontSize: 10 }}>
+                                    {selectedRowIndex === row
+                                      ? validation_error &&
+                                        validation_error[collectionKeys[col]]
+                                        ? validation_error[collectionKeys[col]]
+                                        : null
+                                      : null}
+                                  </p>
+                                </>
+                              )}
                             </>
                           )}
                         </TableCell>
