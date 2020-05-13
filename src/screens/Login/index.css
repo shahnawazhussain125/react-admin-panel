@@ -1,9 +1,11 @@
 .login-div {
+  height: 100vh;
   justify-content: center;
   align-items: center;
+  background-color: #efefff;
 }
 .login-container {
-  background-image: url("../../assets/images/background-image.webp");
+  /* background-image: url("../../assets/images/background-image.webp"); */
   background-size: cover;
 }
 .row-login-box {
@@ -32,9 +34,7 @@
 .input-password {
   margin-top: 25px;
 }
-.check-box {
-  margin-top: 25px;
-}
+
 .span2-text {
   color: gray;
 }

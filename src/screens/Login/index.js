@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Input, Icon, Checkbox, Spin } from "antd";
-import { Link } from "react-router-dom";
+import { Row, Col, Button, Input, Spin } from "antd";
+import firebase from "../../config/firebase";
 import "antd/dist/antd.css";
 import "./index.css";
-import logo from "../../assets/images/Group24.svg";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as authActionCreater from "../../Redux/Actions/authAction";
+import Notification, { notify } from "react-notify-toast";
 
 class Login extends Component {
   constructor(props) {
@@ -17,10 +14,13 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {}
-
   handleSubmit = (e) => {
     e.preventDefault();
+
+    let history = this.props.history;
+    let location = this.props.history?.location;
+
+    let { from } = location?.state || { from: { pathname: "/tables" } };
 
     const { email, password } = this.state;
 
@@ -33,10 +33,24 @@ class Login extends Component {
     } else if (password.trim().length <= 0) {
       alert("Please enter password");
     } else {
-      this.props.authActionCreater.signIn(
-        { email, password },
-        this.props.history
-      );
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((response) => {
+          if (response.user.email === "admin@admin.com") {
+            localStorage.setItem("admin", JSON.stringify(response.user));
+            history.replace(from);
+          } else {
+            notify.show(
+              "You do not have permission. Only admin can use it",
+              "warning",
+              2000
+            );
+          }
+        })
+        .catch((error) => {
+          notify.show("Error!" + error.message, "error", 2000);
+        });
     }
   };
 
@@ -47,6 +61,7 @@ class Login extends Component {
   render() {
     return (
       <div className="login-div">
+        <Notification />
         <Row
           type="flex"
           justify="center"
@@ -55,21 +70,12 @@ class Login extends Component {
         >
           <Col xxl={5} xl={6} lg={7} md={9} sm={14} xs={22}>
             <Row className="row-login-box">
-              <Row type="flex" justify="center">
-                <img className="login-logo" src={logo} alt="logo" />
-              </Row>
-              <Row type="flex" justify="center">
-                <h4 style={{ textAlign: "center" }}>
-                  Welcome back! Please login to continue.
-                </h4>
-              </Row>
               <Row className="input-email" type="flex" justify="center">
                 <Input
-                  placeholder="Username or Email"
+                  placeholder="Email"
                   name="email"
                   onChange={this.handeTextChange}
                   value={this.state.email}
-                  prefix={<Icon className="username-icon" type="mail" />}
                 />
               </Row>
               <Row className="input-password" type="flex" justify="center">
@@ -79,33 +85,15 @@ class Login extends Component {
                   value={this.state.password}
                   name="password"
                   onChange={this.handeTextChange}
-                  prefix={<Icon className="username-icon" type="lock" />}
                 />
               </Row>
-              <Row
-                className="row-remember-forgot-pass"
-                type="flex"
-                justify="center"
-              >
-                <Col span={14}>
-                  <Checkbox className="check-box">
-                    <span className="span2-text">Remember Me</span>
-                  </Checkbox>
-                </Col>
-                <Col span={10}>
-                  <Link className="forgot-pass-span">
-                    <h5 className="h5-forgot-password">Forgot Password ?</h5>
-                  </Link>
-                </Col>
-              </Row>
+
               <Row className="row-signin-button" type="flex" justify="center">
-                <Button onClick={this.handleSubmit} className="signin-button">
-                  Sign in
-                </Button>
+                <Button onClick={this.handleSubmit}>Sign in</Button>
               </Row>
             </Row>
           </Col>
-          {this.props.isLoading ? (
+          {false ? (
             <Spin
               tip="Loading..."
               size="large"
@@ -115,7 +103,7 @@ class Login extends Component {
                 height: "100%",
                 position: "absolute",
                 zIndex: 10,
-                backgroundColor: "rgba(0, 0, 0, 0.9)",
+                // backgroundColor: "rgba(0, 0, 0, 0.5)",
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
@@ -128,15 +116,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.authReducer.isLoading,
-    user: state.authReducer.user,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  authActionCreater: bindActionCreators(authActionCreater, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

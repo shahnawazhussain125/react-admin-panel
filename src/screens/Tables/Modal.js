@@ -9,7 +9,7 @@ import {
   authorInputValidation,
   bookInputValidation,
   talesInputValidation,
-} from "../../utilities/validation";
+} from "../../utils/validation";
 
 export default class CustomModal extends Component {
   constructor() {

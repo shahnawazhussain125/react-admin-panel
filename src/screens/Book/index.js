@@ -6,7 +6,7 @@ import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
 import ValidationInput from "../../components/ValidationInput";
 import "./index.css";
-import { bookInputValidation } from "../../utilities/validation";
+import { bookInputValidation } from "../../utils/validation";
 import SideMenu from "../../components/sideMenu";
 
 const db = firebase.firestore();

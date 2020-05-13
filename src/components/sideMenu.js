@@ -1,9 +1,29 @@
 import React from "react";
-import { Row, Col, Typography, Button } from "antd";
-import { UserOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { Row, Col } from "antd";
+import {
+  UserOutlined,
+  MenuFoldOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import firebase from "../config/firebase";
+import Notification, { notify } from "react-notify-toast";
 
-export default function SideMenu() {
+export default function SideMenu(props) {
+  const handleLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        localStorage.clear();
+        notify.show("Successfully logout", "success", 2000);
+        window.location.assign("/");
+      })
+      .catch((error) => {
+        notify.show("Error!" + error.message, "error", 2000);
+      });
+  };
+
   return (
     <span>
       <Row
@@ -105,7 +125,24 @@ export default function SideMenu() {
           </li>
         </ul>
       </Row>
-      <Row style={{ height: 200, backgroundColor: "#EFEFFF" }}></Row>
+      <Row style={{ height: 200, backgroundColor: "#EFEFFF" }}>
+        <Row
+          style={{ backgroundColor: "#EFEFFF", padding: 10, cursor: "pointer" }}
+          onClick={() => handleLogout()}
+        >
+          <LogoutOutlined
+            style={{
+              fontSize: 20,
+              color: "rgba(34, 34, 34, 0.4)",
+              marginLeft: 10,
+              marginTop: 2,
+            }}
+          />
+          <h3 style={{ marginLeft: 15, color: "rgba(34, 34, 34, 0.7)" }}>
+            Logout
+          </h3>
+        </Row>
+      </Row>
     </span>
   );
 }

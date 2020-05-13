@@ -5,7 +5,7 @@ import { Typography, Button, Row, Col } from "antd";
 import "./index.css";
 import Headers from "../../components/header";
 import { Checkbox } from "antd";
-import { illustrationInputValidation } from "../../utilities/validation";
+import { illustrationInputValidation } from "../../utils/validation";
 import ValidationInput from "../../components/ValidationInput";
 import SideMenu from "../../components/sideMenu";
 

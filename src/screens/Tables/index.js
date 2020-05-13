@@ -5,9 +5,8 @@ import Notifications, { notify } from "react-notify-toast";
 import "antd/dist/antd.css";
 import "./index.css";
 import SimpleTable from "./Table";
-import Modal from "./Modal";
 import SideMenu from "../../components/sideMenu";
-import { getKeysFromCollection } from "../../utilities/constants";
+import { getKeysFromCollection } from "../../utils/constants";
 
 const { Option } = Select;
 const db = firebase.firestore();
@@ -58,6 +57,11 @@ class Tables extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getSelectedCollectionData();
+    // this.getAllImageFileName();
+  }
+
   getSelectedCollectionData = () => {
     const { selectedCollection } = this.state;
     let collectionData = [];
@@ -89,9 +93,32 @@ class Tables extends Component {
       });
   };
 
-  componentDidMount() {
-    this.getSelectedCollectionData();
-  }
+  getAllImageFileName = () => {
+    let imagesName = [];
+    let imagePromises = [];
+
+    imagePromises.push(
+      firebase.storage().ref().child("AuthorImages").listAll()
+    );
+    imagePromises.push(firebase.storage().ref().child("BookImages").listAll());
+    imagePromises.push(firebase.storage().ref().child("TaleImages").listAll());
+
+    Promise.all(imagePromises)
+      .then((response) => {
+        response.forEach((resp) => {
+          resp.items.forEach((itemRef) => {
+            imagesName.push(itemRef.name);
+          });
+        });
+
+        // this.state.imagesName = imagesName;
+        console.log("imagesNameimagesName", imagesName);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        notify.show(`Error! ${error.message}`, "error", 2000);
+      });
+  };
 
   createDataSet = () => {
     const { noOfLine, collectionKeys, types } = this.state;

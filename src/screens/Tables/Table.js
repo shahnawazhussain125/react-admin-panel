@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, Checkbox, Row, Input } from "antd";
+import { Button, Row, Input, Col } from "antd";
 import {
   languageInputValidation,
   illustrationInputValidation,
@@ -15,7 +15,7 @@ import {
   authorInputValidation,
   bookInputValidation,
   talesInputValidation,
-} from "../../utilities/validation";
+} from "../../utils/validation";
 import TableInput from "../../components/TableInput";
 import firebase from "../../config/firebase";
 import { notify } from "react-notify-toast";
@@ -53,7 +53,7 @@ class CustomTable extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       dataSet: nextProps.dataSet,
       collectionData: nextProps.collectionData,
@@ -86,12 +86,6 @@ class CustomTable extends React.Component {
       rowLength = dataArr.length;
     }
 
-    console.log(
-      "dataArr[row][col];",
-
-      { e, prow, pcol }
-    );
-
     for (let row = 0; row < rowLength; row++) {
       obj = {};
       for (let col = 0; col < Object.keys(dataSet[row])?.length - pcol; col++) {
@@ -106,7 +100,7 @@ class CustomTable extends React.Component {
 
   handleOnPastEditData = (e, prow, pcol) => {
     e.preventDefault();
-    // e.stopPropogation();
+
     const { collectionKeys } = this.props;
     const { collectionData } = this.state;
 
@@ -140,8 +134,6 @@ class CustomTable extends React.Component {
       }
     }
 
-    console.log("collectionData", collectionData);
-
     this.setState({ collectionData });
   };
 
@@ -156,7 +148,25 @@ class CustomTable extends React.Component {
         <TableRow key={"r" + Math.random()}>
           {types.map((value, col) => {
             if (col === 0) {
-              return <TableCell key={Math.random()}>{row + 1}</TableCell>;
+              return (
+                <TableCell key={Math.random()}>
+                  <Row>
+                    <Col span={6}>
+                      <span>{row + 1}</span>
+                    </Col>
+                    {/* <Col span={18}>
+                      <Input
+                        type={"checkbox"}
+                        name={collectionKeys[col]}
+                        defaultValue={dataSet[row][collectionKeys[col]]}
+                        onChange={(e) =>
+                          this.handleOnChange(e.target.checked, row, col)
+                        }
+                      />
+                    </Col> */}
+                  </Row>
+                </TableCell>
+              );
             }
             if (
               collectionKeys[col] === "Storage" ||
@@ -351,12 +361,12 @@ class CustomTable extends React.Component {
     });
   };
 
-  saveImage = (folderName, file) => {
+  saveImage = (folderName, file, imageName) => {
     return new Promise((resole, reject) => {
       let storageRef = firebase
         .storage()
         .ref()
-        .child(`${folderName}/${Math.random().toString().substring(5)}`);
+        .child(`${folderName}/imageName`);
 
       storageRef
         .put(file)
@@ -383,11 +393,17 @@ class CustomTable extends React.Component {
 
         dataSet.forEach((data) => {
           if (selectedCollection === "Tales") {
-            imagePromise.push(this.saveImage("TaleImages", data.T_Storage));
+            imagePromise.push(
+              this.saveImage("TaleImages", data.T_Storage, data.T_TaleImage)
+            );
           } else if (selectedCollection === "Authors") {
-            imagePromise.push(this.saveImage("AuthorImages", data.Storage));
+            imagePromise.push(
+              this.saveImage("AuthorImages", data.Storage, data.A_AuthorImage)
+            );
           } else {
-            imagePromise.push(this.saveImage("BookImages", data.Storage));
+            imagePromise.push(
+              this.saveImage("BookImages", data.Storage, data.B_BookImage)
+            );
           }
         });
 
@@ -814,11 +830,7 @@ class CustomTable extends React.Component {
   };
 
   handleOnFilter = (value, key) => {
-    const { collectionKeys } = this.props;
-
-    let collectionData = JSON.parse(
-      localStorage.getItem("prevoiusCollectionData")
-    );
+    let { collectionKeys, collectionData } = this.props;
 
     collectionData = collectionData.filter((data) => {
       return (
@@ -897,57 +909,50 @@ class CustomTable extends React.Component {
                             data[value]
                           ) : (
                             <>
-                              {types[col] === "boolean" ? (
-                                <Input
-                                  style={{
-                                    width: 150,
-                                  }}
-                                  type={"checkbox"}
-                                  defaultChecked={data[value]}
-                                  onChange={(e) =>
-                                    this.handleOnChangeText(
-                                      e.target.checked,
-                                      row,
-                                      col
-                                    )
-                                  }
-                                />
-                              ) : (
-                                <>
-                                  <Input
-                                    style={{
-                                      width: 150,
-                                    }}
-                                    type={
-                                      types[col] === "number"
-                                        ? types[col]
-                                        : "text"
-                                    }
-                                    defaultValue={data[value]}
-                                    value={data[value]}
-                                    onChange={(e) =>
-                                      this.handleOnChangeText(
-                                        types[col] === "number"
-                                          ? Number(e.target.value)
-                                          : e.target.value,
-                                        row,
-                                        col
-                                      )
-                                    }
-                                    onPaste={(e) =>
-                                      this.handleOnPastEditData(e, row, col)
-                                    }
-                                  />
-                                  <p style={{ color: "red", fontSize: 10 }}>
-                                    {selectedRowIndex === row
-                                      ? validation_error &&
-                                        validation_error[collectionKeys[col]]
-                                        ? validation_error[collectionKeys[col]]
-                                        : null
-                                      : null}
-                                  </p>
-                                </>
-                              )}
+                              <Input
+                                style={{
+                                  width: 150,
+                                }}
+                                type={
+                                  types[col] === "number" ? types[col] : "text"
+                                }
+                                defaultChecked={data[value]}
+                                defaultValue={data[value]}
+                                value={data[value]}
+                                onBlur={(e) =>
+                                  this.handleOnChangeText(
+                                    types[col] === "boolean"
+                                      ? e.target.value === "true"
+                                        ? true
+                                        : false
+                                      : types[col] === "number"
+                                      ? Number(e.target.value)
+                                      : e.target.value,
+                                    row,
+                                    col
+                                  )
+                                }
+                                onChange={(e) =>
+                                  this.handleOnChangeText(
+                                    types[col] === "number"
+                                      ? Number(e.target.value)
+                                      : e.target.value,
+                                    row,
+                                    col
+                                  )
+                                }
+                                onPaste={(e) =>
+                                  this.handleOnPastEditData(e, row, col)
+                                }
+                              />
+                              <p style={{ color: "red", fontSize: 10 }}>
+                                {selectedRowIndex === row
+                                  ? validation_error &&
+                                    validation_error[collectionKeys[col]]
+                                    ? validation_error[collectionKeys[col]]
+                                    : null
+                                  : null}
+                              </p>
                             </>
                           )}
                         </TableCell>

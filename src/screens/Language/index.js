@@ -4,7 +4,7 @@ import { Typography, Button, Row, Col } from "antd";
 import Notifications, { notify } from "react-notify-toast";
 import Headers from "../../components/header";
 import ValidationInput from "../../components/ValidationInput";
-import { languageInputValidation } from "../../utilities/validation";
+import { languageInputValidation } from "../../utils/validation";
 import SideMenu from "../../components/sideMenu";
 import "./index.css";
 

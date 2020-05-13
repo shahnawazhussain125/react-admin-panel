@@ -5,7 +5,7 @@ import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
 import ValidationInput from "../../components/ValidationInput";
 import "./index.css";
-import { talesInputValidation } from "../../utilities/validation";
+import { talesInputValidation } from "../../utils/validation";
 import HTMLReactParser from "html-react-parser";
 import SideMenu from "../../components/sideMenu";
 

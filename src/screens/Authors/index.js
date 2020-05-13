@@ -5,7 +5,7 @@ import "./index.css";
 import Headers from "../../components/header";
 import { Checkbox, Row, Col, Button, Typography } from "antd";
 import ValidationInput from "../../components/ValidationInput";
-import { authorInputValidation } from "../../utilities/validation";
+import { authorInputValidation } from "../../utils/validation";
 import SideMenu from "../../components/sideMenu";
 
 export default class Authors extends Component {

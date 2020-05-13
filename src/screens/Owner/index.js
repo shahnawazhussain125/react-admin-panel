@@ -5,7 +5,7 @@ import { Typography, Button, Row, Col } from "antd";
 import "./index.css";
 import Headers from "../../components/header";
 import ValidationInput from "../../components/ValidationInput";
-import { ownerInputValidation } from "../../utilities/validation";
+import { ownerInputValidation } from "../../utils/validation";
 import SideMenu from "../../components/sideMenu";
 
 export default class Owner extends Component {
