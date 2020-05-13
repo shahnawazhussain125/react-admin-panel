@@ -36,9 +36,7 @@ export default class Illustration extends Component {
         response.forEach((doc) => {
           illustrators.push({
             I0_ID_Illustrator_WEB: doc.id,
-            I0_ID_Illustrator: doc.data()?.I0_ID_Illustrator,
-            I_IllustratorName: doc.data()?.I_IllustratorName,
-            I_isIllustratorHidden: doc.data()?.I_isIllustratorHidden,
+            ...doc.data(),
           });
         });
         this.setState({
@@ -296,7 +294,7 @@ export default class Illustration extends Component {
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
                   <Col span={10}>
-                    <Typography>L0_ID_Language</Typography>
+                    <Typography>I0_ID_Illustrator</Typography>
                   </Col>
                   <Col span={14}>
                     <ValidationInput

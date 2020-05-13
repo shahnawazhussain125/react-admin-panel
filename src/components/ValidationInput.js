@@ -20,7 +20,10 @@ export default function ValidationInput(props) {
         onChange={(e) =>
           type === "image" || type === "file"
             ? handleOnChange(e)
-            : handleOnChange(name, e.target.value)
+            : handleOnChange(
+                name,
+                type === "number" ? Number(e.target.value) : e.target.value
+              )
         }
       />
       {errorMessage && (

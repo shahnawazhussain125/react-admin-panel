@@ -892,7 +892,7 @@ export default class Tales extends Component {
 
                     <Row style={{ marginBottom: 10 }}>
                       <textarea
-                        key={Math.random()}
+                        key={150}
                         defaultValue={T_TaleContent}
                         value={T_TaleContent}
                         rows={10}
