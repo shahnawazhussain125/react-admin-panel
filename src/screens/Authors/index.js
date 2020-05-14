@@ -3,7 +3,7 @@ import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
 import "./index.css";
 import Headers from "../../components/header";
-import { Checkbox, Row, Col, Button, Typography } from "antd";
+import { Checkbox, Row, Col, Button, Typography, Input } from "antd";
 import ValidationInput from "../../components/ValidationInput";
 import { authorInputValidation } from "../../utils/validation";
 import SideMenu from "../../components/sideMenu";
@@ -454,6 +454,7 @@ export default class Authors extends Component {
                   <Col span={10}></Col>
                   <Col span={14}>
                     <img
+                      key={Math.random()}
                       style={{
                         width: 120,
                         height: 120,
@@ -537,12 +538,12 @@ export default class Authors extends Component {
                       </p>
                     </Col>
                     <Col span={14}>
-                      <Typography
+                      <Input
+                        key={Math.random()}
+                        readOnly
                         className="ant-input"
-                        ellipsis={{ rows: 3, expandable: true }}
-                      >
-                        {authors[currentIndex]?.A_AuthorName}
-                      </Typography>
+                        defaultValue={authors[currentIndex]?.A_AuthorName}
+                      />
                     </Col>
                   </Row>
                   <Row>
@@ -550,12 +551,12 @@ export default class Authors extends Component {
                       <p>A_AuthorImage</p>
                     </Col>
                     <Col span={14}>
-                      <Typography
+                      <Input
+                        key={Math.random()}
+                        readOnly
                         className="ant-input"
-                        ellipsis={{ rows: 3, expandable: true }}
-                      >
-                        {authors[currentIndex]?.A_AuthorImage}
-                      </Typography>
+                        defaultValue={authors[currentIndex]?.A_AuthorImage}
+                      />
                     </Col>
                   </Row>
                   <Row>
@@ -563,12 +564,12 @@ export default class Authors extends Component {
                       <p>A0_ID_Author</p>
                     </Col>
                     <Col span={14}>
-                      <Typography
+                      <Input
+                        key={Math.random()}
+                        readOnly
                         className="ant-input"
-                        ellipsis={{ rows: 3, expandable: true }}
-                      >
-                        {authors[currentIndex]?.A0_ID_Author}
-                      </Typography>
+                        defaultValue={authors[currentIndex]?.A0_ID_Author}
+                      />
                     </Col>
                   </Row>
 
@@ -577,12 +578,12 @@ export default class Authors extends Component {
                       <p>A0_ID_Author_WEB</p>
                     </Col>
                     <Col span={14}>
-                      <Typography
+                      <Input
+                        key={Math.random()}
+                        readOnly
                         className="ant-input"
-                        ellipsis={{ rows: 3, expandable: true }}
-                      >
-                        {authors[currentIndex]?.A0_ID_Author_WEB}
-                      </Typography>
+                        defaultValue={authors[currentIndex]?.A0_ID_Author_WEB}
+                      />
                     </Col>
                   </Row>
                   <Row>
@@ -599,6 +600,7 @@ export default class Authors extends Component {
                     <Col span={10}></Col>
                     <Col span={14}>
                       <img
+                        key={Math.random()}
                         style={{
                           width: 120,
                           height: 120,
@@ -617,8 +619,9 @@ export default class Authors extends Component {
                       <p>Storage</p>
                     </Col>
                     <Col span={14}>
-                      <input
+                      <Input
                         readOnly
+                        key={Math.random()}
                         className="ant-input"
                         defaultValue={authors[currentIndex]?.Storage}
                       />

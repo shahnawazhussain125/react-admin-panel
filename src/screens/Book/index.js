@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Checkbox, Select, Typography } from "antd";
+import { Checkbox, Select, Typography, Input } from "antd";
 import { Row, Col, Button } from "antd";
 import firebase from "../../config/firebase";
 import Headers from "../../components/header";
@@ -1025,12 +1025,12 @@ export default class Book extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.B_BookTitle}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.B_BookTitle}
+                        />
                       </Col>
                     </Row>
 
@@ -1039,12 +1039,12 @@ export default class Book extends Component {
                         <Typography>B_BAuthorName</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.B_BAuthorName}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.B_BAuthorName}
+                        />
                       </Col>
                     </Row>
 
@@ -1053,12 +1053,12 @@ export default class Book extends Component {
                         <Typography>B_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.B_Web}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.B_Web}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 20 }}>
@@ -1066,12 +1066,12 @@ export default class Book extends Component {
                         <Typography>B0_ID_Book</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.B0_ID_Book}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.B0_ID_Book}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 20 }}>
@@ -1079,12 +1079,12 @@ export default class Book extends Component {
                         <Typography>B0_ID_Book_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.B0_ID_Book_WEB}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.B0_ID_Book_WEB}
+                        />
                       </Col>
                     </Row>
 
@@ -1117,12 +1117,12 @@ export default class Book extends Component {
                         <Typography>L_LanguageName</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.L_LanguageName}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.L_LanguageName}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 20 }}>
@@ -1130,12 +1130,12 @@ export default class Book extends Component {
                         <Typography>L0_ID_Language</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.L0_ID_Language}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.L0_ID_Language}
+                        />
                       </Col>
                     </Row>
 
@@ -1144,12 +1144,12 @@ export default class Book extends Component {
                         <Typography>L0_ID_Language_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.L0_ID_Language_WEB}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.L0_ID_Language_WEB}
+                        />
                       </Col>
                     </Row>
                   </div>
@@ -1189,12 +1189,12 @@ export default class Book extends Component {
                         <Typography>B_BookImage</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.B_BookImage}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.B_BookImage}
+                        />
                       </Col>
                     </Row>
 
@@ -1207,12 +1207,12 @@ export default class Book extends Component {
                         <Typography>O_Company</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O_Company}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O_Company}
+                        />
                       </Col>
                     </Row>
 
@@ -1221,12 +1221,12 @@ export default class Book extends Component {
                         <Typography>O_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O_Web}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O_Web}
+                        />
                       </Col>
                     </Row>
 
@@ -1235,12 +1235,12 @@ export default class Book extends Component {
                         <Typography>O_ContactName</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O_ContactName}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O_ContactName}
+                        />
                       </Col>
                     </Row>
 
@@ -1249,12 +1249,12 @@ export default class Book extends Component {
                         <Typography>O_ContactEmail</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O_ContactEmail}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O_ContactEmail}
+                        />
                       </Col>
                     </Row>
 
@@ -1263,12 +1263,12 @@ export default class Book extends Component {
                         <Typography>O_ContactTel</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O_ContactTel}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O_ContactTel}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 20 }}>
@@ -1276,12 +1276,12 @@ export default class Book extends Component {
                         <Typography>O0_ID_Owner</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O0_ID_Owner}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O0_ID_Owner}
+                        />
                       </Col>
                     </Row>
 
@@ -1290,12 +1290,12 @@ export default class Book extends Component {
                         <Typography>O0_ID_Owner_WEB</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {books[currentIndex]?.O0_ID_Owner_WEB}
-                        </Typography>
+                          defaultValue={books[currentIndex]?.O0_ID_Owner_WEB}
+                        />
                       </Col>
                     </Row>
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
-import { Typography, Button, Row, Col } from "antd";
+import { Typography, Button, Row, Col, Input } from "antd";
 import "./index.css";
 import Headers from "../../components/header";
 import ValidationInput from "../../components/ValidationInput";
@@ -475,12 +475,12 @@ export default class Owner extends Component {
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O_Company}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O_Company}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -488,12 +488,12 @@ export default class Owner extends Component {
                     <Typography>O_Web</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O_Web}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O_Web}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -501,12 +501,12 @@ export default class Owner extends Component {
                     <Typography>O_ContactName</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O_ContactName}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O_ContactName}
+                    />
                   </Col>
                 </Row>
 
@@ -515,12 +515,12 @@ export default class Owner extends Component {
                     <Typography>O_ContactEmail</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O_ContactEmail}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O_ContactEmail}
+                    />
                   </Col>
                 </Row>
 
@@ -529,12 +529,12 @@ export default class Owner extends Component {
                     <Typography>O_ContactTel</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O_ContactTel}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O_ContactTel}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -542,12 +542,12 @@ export default class Owner extends Component {
                     <Typography>O0_ID_Owner</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O0_ID_Owner}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O0_ID_Owner}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -555,12 +555,12 @@ export default class Owner extends Component {
                     <Typography>O0_ID_Owner_WEB</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {owners[currentIndex]?.O0_ID_Owner_WEB}
-                    </Typography>
+                      defaultValue={owners[currentIndex]?.O0_ID_Owner_WEB}
+                    />
                   </Col>
                 </Row>
 

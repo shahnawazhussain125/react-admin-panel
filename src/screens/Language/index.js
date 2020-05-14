@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../../config/firebase";
-import { Typography, Button, Row, Col } from "antd";
+import { Typography, Button, Row, Col, Input } from "antd";
 import Notifications, { notify } from "react-notify-toast";
 import Headers from "../../components/header";
 import ValidationInput from "../../components/ValidationInput";
@@ -362,12 +362,12 @@ export default class Language extends Component {
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {languages[currentIndex]?.L_LanguageName}
-                    </Typography>
+                      defaultValue={languages[currentIndex]?.L_LanguageName}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -377,12 +377,12 @@ export default class Language extends Component {
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {languages[currentIndex]?.L0_ID_Language}
-                    </Typography>
+                      defaultValue={languages[currentIndex]?.L0_ID_Language}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -392,12 +392,12 @@ export default class Language extends Component {
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {languages[currentIndex]?.L0_ID_Language_WEB}
-                    </Typography>
+                      defaultValue={languages[currentIndex]?.L0_ID_Language_WEB}
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginTop: 10 }}>

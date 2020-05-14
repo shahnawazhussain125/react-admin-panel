@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Checkbox, Select, Row, Col, Button, Typography } from "antd";
+import { Checkbox, Select, Row, Col, Button, Typography, Input } from "antd";
 import firebase from "../../config/firebase";
 import Headers from "../../components/header";
 import Notifications, { notify } from "react-notify-toast";
@@ -931,6 +931,7 @@ export default class Tales extends Component {
                           }}
                         >
                           <img
+                            key={Math.random()}
                             style={{
                               width: 150,
                               height: 150,
@@ -1652,12 +1653,12 @@ export default class Tales extends Component {
                         <Typography className="input-title">Book</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.B_BookTitle}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.B_BookTitle}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1665,12 +1666,12 @@ export default class Tales extends Component {
                         <Typography className="input-title">Author</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.A_AuthorName}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.A_AuthorName}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1680,12 +1681,12 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.I_IllustratorName}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.I_IllustratorName}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1698,12 +1699,12 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.T_TaleTitle}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.T_TaleTitle}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1731,6 +1732,7 @@ export default class Tales extends Component {
                       <Col span={12}>
                         <Row style={{ marginBottom: 10 }}>
                           <img
+                            key={Math.random()}
                             style={{
                               width: 150,
                               height: 150,
@@ -1749,12 +1751,12 @@ export default class Tales extends Component {
                             </Typography>
                           </Col>
                           <Col span={14}>
-                            <Typography
+                            <Input
+                              key={Math.random()}
+                              readOnly
                               className="ant-input"
-                              ellipsis={{ rows: 3, expandable: true }}
-                            >
-                              {tales[currentIndex]?.T_TaleImage}
-                            </Typography>
+                              defaultValue={tales[currentIndex]?.T_TaleImage}
+                            />
                           </Col>
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
@@ -1844,12 +1846,12 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.B_BAuthorName}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.B_BAuthorName}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1857,12 +1859,12 @@ export default class Tales extends Component {
                         <Typography className="input-title">B_Web</Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.B_Web}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.B_Web}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1907,12 +1909,12 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.B_BookImage}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.B_BookImage}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1935,12 +1937,12 @@ export default class Tales extends Component {
                         </Typography>
                       </Col>
                       <Col span={14}>
-                        <Typography
+                        <Input
+                          key={Math.random()}
+                          readOnly
                           className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                        >
-                          {tales[currentIndex]?.B0_ID_Book}
-                        </Typography>
+                          defaultValue={tales[currentIndex]?.B0_ID_Book}
+                        />
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
@@ -1972,12 +1974,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.L_LanguageName}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.L_LanguageName}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -1987,12 +1989,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.L0_ID_Language}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.L0_ID_Language}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2028,12 +2030,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.O_Company}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.O_Company}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2041,12 +2043,12 @@ export default class Tales extends Component {
                           <Typography className="input-title">O_Web</Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.O_Web}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.O_Web}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2059,12 +2061,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.O_ContactName}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.O_ContactName}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2074,12 +2076,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.O_ContactEmail}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.O_ContactEmail}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2089,12 +2091,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.O_ContactTel}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.O_ContactTel}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2104,12 +2106,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.O0_ID_Owner}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.O0_ID_Owner}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2140,12 +2142,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.A_AuthorName}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.A_AuthorName}
+                          />
                         </Col>
                       </Row>
 
@@ -2156,12 +2158,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.A_AuthorImage}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.A_AuthorImage}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2171,12 +2173,12 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.A0_ID_Author}
-                          </Typography>
+                            defaultValue={tales[currentIndex]?.A0_ID_Author}
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2246,12 +2248,14 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.I_IllustratorName}
-                          </Typography>
+                            defaultValue={
+                              tales[currentIndex]?.I_IllustratorName
+                            }
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>
@@ -2273,12 +2277,14 @@ export default class Tales extends Component {
                           </Typography>
                         </Col>
                         <Col span={14}>
-                          <Typography
+                          <Input
+                            key={Math.random()}
+                            readOnly
                             className="ant-input"
-                            ellipsis={{ rows: 3, expandable: true }}
-                          >
-                            {tales[currentIndex]?.I0_ID_Illustrator}
-                          </Typography>
+                            defaultValue={
+                              tales[currentIndex]?.I0_ID_Illustrator
+                            }
+                          />
                         </Col>
                       </Row>
                       <Row style={{ marginBottom: 10 }}>

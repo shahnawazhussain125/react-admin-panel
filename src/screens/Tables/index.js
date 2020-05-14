@@ -135,7 +135,7 @@ class Tables extends Component {
         } else if (types[col] === "boolean") {
           obj[collectionKeys[col]] = false;
         } else {
-          obj[collectionKeys[col]] = null;
+          obj[collectionKeys[col]] = "";
         }
       }
 

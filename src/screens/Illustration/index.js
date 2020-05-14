@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../config/firebase";
 import Notifications, { notify } from "react-notify-toast";
-import { Typography, Button, Row, Col } from "antd";
+import { Typography, Button, Row, Col, Input } from "antd";
 import "./index.css";
 import Headers from "../../components/header";
 import { Checkbox } from "antd";
@@ -374,12 +374,14 @@ export default class Illustration extends Component {
                     </Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {illustrators[currentIndex]?.I_IllustratorName}
-                    </Typography>
+                      defaultValue={
+                        illustrators[currentIndex]?.I_IllustratorName
+                      }
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -387,12 +389,14 @@ export default class Illustration extends Component {
                     <Typography>I0_ID_Illustrator</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {illustrators[currentIndex]?.I0_ID_Illustrator}
-                    </Typography>
+                      defaultValue={
+                        illustrators[currentIndex]?.I0_ID_Illustrator
+                      }
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
@@ -400,12 +404,14 @@ export default class Illustration extends Component {
                     <Typography>I0_ID_Illustrator_WEB</Typography>
                   </Col>
                   <Col span={14}>
-                    <Typography
+                    <Input
+                      key={Math.random()}
+                      readOnly
                       className="ant-input"
-                      ellipsis={{ rows: 3, expandable: true }}
-                    >
-                      {illustrators[currentIndex]?.I0_ID_Illustrator_WEB}
-                    </Typography>
+                      defaultValue={
+                        illustrators[currentIndex]?.I0_ID_Illustrator_WEB
+                      }
+                    />
                   </Col>
                 </Row>
                 <Row style={{ marginBottom: 10 }}>
