@@ -779,14 +779,19 @@ export default class Tales extends Component {
           )}
           <Row>
             {isAddNew ? (
-              <span>
+              <span
+                style={{
+                  backgroundColor: "#EBEAFF",
+                  padding: 20,
+                  margin: 20,
+                }}
+              >
                 <Row>
                   <Col
-                    span={11}
+                    span={12}
                     style={{
                       backgroundColor: "#EBEAFF",
                       padding: 20,
-                      margin: 20,
                     }}
                   >
                     <Row style={{ marginBottom: 10 }}>
@@ -909,15 +914,14 @@ export default class Tales extends Component {
                     </Row>
                   </Col>
                   <Col
-                    span={11}
+                    span={12}
                     style={{
                       backgroundColor: "#EBEAFF",
                       padding: 20,
-                      margin: 20,
                     }}
                   >
                     <Row>
-                      <Col span={12}>
+                      <Col span={14}>
                         <Row
                           style={{
                             display: "flex",
@@ -999,7 +1003,7 @@ export default class Tales extends Component {
                           </Col>
                         </Row>
                       </Col>
-                      <Col span={12}>
+                      <Col span={10}>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
                             <Typography className="input-title">Len</Typography>
@@ -1034,7 +1038,7 @@ export default class Tales extends Component {
                         className="ant-input"
                         style={{
                           backgroundColor: "#fff",
-                          width: 400,
+                          width: "100%",
                           height: 300,
                         }}
                       >
@@ -1599,7 +1603,7 @@ export default class Tales extends Component {
                     </div>
                   </Col>
                 </Row>
-                <Row style={{ marginBottom: 40 }}>
+                <Row style={{ marginBottom: 20 }}>
                   <Button
                     style={{ marginLeft: 10 }}
                     type="primary"
@@ -1716,11 +1720,9 @@ export default class Tales extends Component {
                       <textarea
                         className="ant-input"
                         key={Math.random()}
-                        defaultValue={T_TaleContent}
                         defaultValue={tales[currentIndex]?.T_TaleContent}
                         rows={10}
                         readOnly={true}
-                        // cols={100}
                       ></textarea>
                     </Row>
                   </Col>
@@ -1813,22 +1815,20 @@ export default class Tales extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={14}>
-                        <Typography
-                          className="ant-input"
-                          ellipsis={{ rows: 3, expandable: true }}
-                          style={{
-                            width: 400,
-                            height: 300,
-                          }}
-                        >
-                          {HTMLReactParser(
-                            tales[currentIndex]?.T_TaleContent
-                              ? tales[currentIndex]?.T_TaleContent
-                              : ""
-                          )}
-                        </Typography>
-                      </Col>
+                      <Typography
+                        className="ant-input"
+                        ellipsis={{ rows: 3, expandable: true }}
+                        style={{
+                          width: "100%",
+                          height: 300,
+                        }}
+                      >
+                        {HTMLReactParser(
+                          tales[currentIndex]?.T_TaleContent
+                            ? tales[currentIndex]?.T_TaleContent
+                            : ""
+                        )}
+                      </Typography>
                     </Row>
                   </Col>
                 </Row>

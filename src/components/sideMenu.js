@@ -88,7 +88,7 @@ export default function SideMenu(props) {
       </Row>
       <Row style={{ backgroundColor: "#EFEFFF", padding: 10 }}>
         <ul className="link-list">
-          <li>
+          <li style={{ marginBottom: 30 }}>
             <Link className="link" to="tables">
               <h4 style={{ color: "#2298FF" }}>Tables</h4>
             </Link>
