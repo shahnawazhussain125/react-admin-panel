@@ -37,7 +37,7 @@ export default class Owner extends Component {
         response.forEach((doc) => {
           owners.push({
             O0_ID_Owner_WEB: doc.id,
-            O0_ID_Owner: doc.data()?.O0_ID_Owner,
+            O0_ID_Owner: Number(doc.data()?.O0_ID_Owner),
             O_Company: doc.data()?.O_Company,
             O_Web: doc.data()?.O_Web,
             O_ContactName: doc.data()?.O_ContactName,

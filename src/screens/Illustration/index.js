@@ -37,6 +37,7 @@ export default class Illustration extends Component {
           illustrators.push({
             I0_ID_Illustrator_WEB: doc.id,
             ...doc.data(),
+            I0_ID_Illustrator: Number(doc.data().I0_ID_Illustrator),
           });
         });
         this.setState({

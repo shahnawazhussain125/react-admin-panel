@@ -121,6 +121,11 @@ export default class Tales extends Component {
           tales.push({
             ...doc.data(),
             T_ID_Tale: doc.id,
+            A0_ID_Author: Number(doc.data().A0_ID_Author),
+            B0_ID_Book: Number(doc.data().B0_ID_Book),
+            I0_ID_Illustrator: Number(doc.data().I0_ID_Illustrator),
+            L0_ID_Language: Number(doc.data().L0_ID_Language),
+            O0_ID_Owner: Number(doc.data().O0_ID_Owner),
           });
         });
         this.setState({

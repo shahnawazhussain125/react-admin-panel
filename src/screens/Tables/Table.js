@@ -114,6 +114,7 @@ class CustomTable extends React.Component {
     let obj = {};
 
     let rowLength = 0;
+    let colLength = Object.keys(collectionData[0])?.length - 1;
 
     if (dataArr.length < collectionData.length) {
       rowLength = dataArr.length;
@@ -121,18 +122,22 @@ class CustomTable extends React.Component {
       rowLength = collectionData.length;
     }
 
+    if (dataArr[0]?.length + pcol < colLength) {
+      colLength = dataArr[0]?.length + pcol;
+    }
+
     for (let row = prow; row < rowLength; row++) {
       obj = {};
-      for (
-        let col = pcol;
-        col < Object.keys(collectionData[row])?.length - 1;
-        col++
-      ) {
+      for (let col = pcol; col < colLength; col++) {
         collectionData[row][collectionKeys[col]] =
           dataArr[row - prow][col - pcol];
         collectionData[row].isUpdate = true;
       }
     }
+
+    console.log("collectionData", collectionData);
+
+    debugger;
 
     this.setState({ collectionData });
   };
@@ -881,7 +886,11 @@ class CustomTable extends React.Component {
                 <TableCell></TableCell>
                 <TableCell></TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow
+                style={{
+                  backgroundColor: "#A9A9A9",
+                }}
+              >
                 {collectionKeys?.map((key, col) => {
                   return (
                     <TableCell key={col}>

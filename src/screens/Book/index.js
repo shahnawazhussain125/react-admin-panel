@@ -26,7 +26,6 @@ export default class Book extends Component {
       L0_ID_Language: "",
       L0_ID_Language_WEB: "",
       B_BookImage: "",
-      BOOKOwner: "",
       O_Company: "",
       O_Web: "",
       O_ContactName: "",
@@ -110,23 +109,22 @@ export default class Book extends Component {
             B0_ID_Book_WEB: doc.id,
             B_BookTitle: doc.data()?.B_BookTitle,
             B_BAuthorName: doc.data()?.B_BAuthorName,
-            B0_ID_Book: doc.data()?.B0_ID_Book,
+            B0_ID_Book: Number(doc.data()?.B0_ID_Book),
             B_Web: doc.data()?.B_Web,
             A_AuthorImage: doc.data().A_AuthorImage,
             B_isBookFree: doc.data()?.B_isBookFree,
             B_isBookHidden: doc.data()?.B_isBookHidden,
             L_LanguageName: doc.data()?.L_LanguageName,
-            L0_ID_Language: doc.data()?.L0_ID_Language,
+            L0_ID_Language: Number(doc.data()?.L0_ID_Language),
             L0_ID_Language_WEB: doc.data()?.L0_ID_Language_WEB,
             Storage: doc.data()?.Storage,
             B_BookImage: doc.data()?.B_BookImage,
-            BOOKOwner: doc.data()?.BOOKOwner,
             O_Company: doc.data()?.O_Company,
             O_Web: doc.data()?.O_Web,
             O_ContactName: doc.data()?.O_ContactName,
             O_ContactEmail: doc.data()?.O_ContactEmail,
             O_ContactTel: doc.data()?.O_ContactTel,
-            O0_ID_Owner: doc.data()?.O0_ID_Owner,
+            O0_ID_Owner: Number(doc.data()?.O0_ID_Owner),
             O0_ID_Owner_WEB: doc.data()?.O0_ID_Owner_WEB,
           });
         });
@@ -189,7 +187,6 @@ export default class Book extends Component {
       L0_ID_Language: "",
       L0_ID_Language_WEB: "",
       B_BookImage: "",
-      BOOKOwner: "",
       O_Company: "",
       O_Web: "",
       O_ContactName: "",
@@ -217,7 +214,6 @@ export default class Book extends Component {
       L0_ID_Language,
       L0_ID_Language_WEB,
       B_BookImage,
-      BOOKOwner,
       O_Company,
       O_Web,
       O_ContactName,
@@ -277,7 +273,6 @@ export default class Book extends Component {
                     L0_ID_Language,
                     L0_ID_Language_WEB,
                     B_BookImage,
-                    BOOKOwner,
                     O_Company,
                     O_Web,
                     O_ContactName,
@@ -304,7 +299,6 @@ export default class Book extends Component {
                       L0_ID_Language: "",
                       L0_ID_Language_WEB: "",
                       B_BookImage: "",
-                      BOOKOwner: "",
                       O_Company: "",
                       O_Web: "",
                       O_ContactName: "",
@@ -381,10 +375,6 @@ export default class Book extends Component {
         (value) => value !== books[currentIndex].B_BookImage
       ),
     });
-    console.log("{ is_error, validation_error }", {
-      is_error,
-      validation_error,
-    });
 
     this.setState({ is_error, validation_error }, () => {
       if (!is_error) {
@@ -410,10 +400,6 @@ export default class Book extends Component {
               notify.show(`Error! ${error.message}`, "error", 2000);
             });
         } else {
-          console.log("{ is_error, validation_error }", {
-            is_error,
-            validation_error,
-          });
           this.handleUpdateData(Storage);
         }
       }
@@ -440,7 +426,6 @@ export default class Book extends Component {
       B0_ID_Book_WEB,
       B_isBookFree,
       B_isBookHidden,
-      BOOKOwner,
       books,
       currentIndex,
     } = this.state;
@@ -460,7 +445,6 @@ export default class Book extends Component {
         L0_ID_Language,
         L0_ID_Language_WEB,
         B_BookImage,
-        BOOKOwner,
         O_Company,
         O_Web,
         O_ContactName,
@@ -492,7 +476,6 @@ export default class Book extends Component {
                   L0_ID_Language,
                   L0_ID_Language_WEB,
                   B_BookImage,
-                  BOOKOwner,
                   O_Company,
                   O_Web,
                   O_ContactName,
@@ -524,7 +507,6 @@ export default class Book extends Component {
                   L0_ID_Language,
                   L0_ID_Language_WEB,
                   B_BookImage,
-                  BOOKOwner,
                   O_Company,
                   O_Web,
                   O_ContactName,
@@ -547,7 +529,6 @@ export default class Book extends Component {
                   L0_ID_Language: "",
                   L0_ID_Language_WEB: "",
                   B_BookImage: "",
-                  BOOKOwner: "",
                   O_Company: "",
                   O_Web: "",
                   O_ContactName: "",
@@ -868,14 +849,16 @@ export default class Book extends Component {
 
                     <Row style={{ marginBottom: 20 }}>
                       <Col span={10}>
-                        <Typography>BOOKOwner</Typography>
+                        <Typography>O_ContactName</Typography>
                       </Col>
                       <Col span={14}>
                         <Select
                           style={{ width: "100%" }}
                           placeholder="Select Owner"
                           onChange={(value) =>
-                            this.setState({ ...owners[value] })
+                            this.setState({
+                              ...owners[value],
+                            })
                           }
                           defaultValue={O_ContactName}
                         >
@@ -916,22 +899,6 @@ export default class Book extends Component {
                           value={O_Web}
                           handleOnChange={this.handleOnChange}
                           errorMessage={validation_error?.O_Web}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row style={{ marginBottom: 20 }}>
-                      <Col span={10}>
-                        <Typography>O_ContactName</Typography>
-                      </Col>
-                      <Col span={14}>
-                        <ValidationInput
-                          key={14}
-                          type="text"
-                          name="O_ContactName"
-                          value={O_ContactName}
-                          handleOnChange={this.handleOnChange}
-                          errorMessage={validation_error?.O_ContactName}
                         />
                       </Col>
                     </Row>
