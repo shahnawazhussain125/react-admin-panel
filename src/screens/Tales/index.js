@@ -120,7 +120,8 @@ export default class Tales extends Component {
         response.forEach((doc) => {
           tales.push({
             ...doc.data(),
-            T_ID_Tale: doc.id,
+            T0_ID_Tale_WEB: doc.id,
+            T0_ID_Tale: Number(doc.data().T0_ID_Tale),
             A0_ID_Author: Number(doc.data().A0_ID_Author),
             B0_ID_Book: Number(doc.data().B0_ID_Book),
             I0_ID_Illustrator: Number(doc.data().I0_ID_Illustrator),
@@ -225,6 +226,7 @@ export default class Tales extends Component {
 
   handleSaveData = () => {
     const {
+      T0_ID_Tale,
       A0_ID_Author,
       A0_ID_Author_WEB,
       A_AuthorImage,
@@ -261,6 +263,7 @@ export default class Tales extends Component {
       I_isIllustratorHidden,
       file,
       imagesName,
+      tales,
     } = this.state;
 
     const { is_error, validation_error } = talesInputValidation({
@@ -294,6 +297,8 @@ export default class Tales extends Component {
       I0_ID_Illustrator,
       I_IllustratorName,
       imagesName,
+      T0_ID_Tale,
+      tales,
     });
 
     this.setState({ is_error, validation_error }, () => {
@@ -321,6 +326,7 @@ export default class Tales extends Component {
                     A_Storage,
                     B_BookTitle,
                     B_BAuthorName,
+                    T0_ID_Tale,
                     T_TaleTitle,
                     T_TaleImage,
                     T_Storage,
@@ -356,6 +362,7 @@ export default class Tales extends Component {
                       2000
                     );
                     this.setState({
+                      T0_ID_Tale: "",
                       A0_ID_Author: "",
                       A0_ID_Author_WEB: "",
                       A_AuthorImage: "",
@@ -446,6 +453,7 @@ export default class Tales extends Component {
       imagesName,
       tales,
       currentIndex,
+      T0_ID_Tale,
     } = this.state;
 
     const { is_error, validation_error } = talesInputValidation({
@@ -481,6 +489,8 @@ export default class Tales extends Component {
       imagesName: imagesName.filter(
         (name) => name !== tales[currentIndex].T_TaleImage
       ),
+      T0_ID_Tale,
+      tales: tales.filter((value, index) => index !== currentIndex),
     });
 
     this.setState({ is_error, validation_error }, () => {
@@ -550,14 +560,16 @@ export default class Tales extends Component {
       I_isIllustratorHidden,
       tales,
       currentIndex,
-      T_ID_Tale,
+      T0_ID_Tale_WEB,
+      T0_ID_Tale,
     } = this.state;
 
     firebase
       .firestore()
       .collection("Tales")
-      .doc(T_ID_Tale)
+      .doc(T0_ID_Tale_WEB)
       .update({
+        T0_ID_Tale,
         A0_ID_Author,
         A0_ID_Author_WEB,
         A_AuthorImage,
@@ -596,6 +608,7 @@ export default class Tales extends Component {
       .then(() => {
         notify.show("Tale has been successfully updated", "success", 2000);
         tales[currentIndex] = {
+          T0_ID_Tale,
           A0_ID_Author,
           A0_ID_Author_WEB,
           A_AuthorImage,
@@ -630,10 +643,11 @@ export default class Tales extends Component {
           I0_ID_Illustrator,
           I_IllustratorName,
           I_isIllustratorHidden,
-          T_ID_Tale,
+          T0_ID_Tale_WEB,
         };
 
         this.setState({
+          T0_ID_Tale: "",
           A0_ID_Author: "",
           A0_ID_Author_WEB: "",
           A_AuthorImage: "",
@@ -693,6 +707,8 @@ export default class Tales extends Component {
       A_Storage,
       B_BookTitle,
       B_BAuthorName,
+      T0_ID_Tale,
+      T0_ID_Tale_WEB,
       T_TaleTitle,
       T_TaleImage,
       T_Storage,
@@ -911,6 +927,23 @@ export default class Tales extends Component {
                           this.setState({ T_TaleContent: e.target.value })
                         }
                       ></textarea>
+                    </Row>
+                    <Row style={{ marginBottom: 10, marginTop: 10 }}>
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          T0_ID_Tale
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <ValidationInput
+                          type="number"
+                          key={1}
+                          name="T0_ID_Tale"
+                          value={T0_ID_Tale}
+                          handleOnChange={this.handleOnChange}
+                          errorMessage={validation_error?.T0_ID_Tale}
+                        />
+                      </Col>
                     </Row>
                   </Col>
                   <Col
@@ -1725,6 +1758,36 @@ export default class Tales extends Component {
                         rows={10}
                         readOnly={true}
                       ></textarea>
+                    </Row>
+                    <Row style={{ marginBottom: 10, marginTop: 10 }}>
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          T0_ID_Tale
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Input
+                          key={Math.random()}
+                          readOnly
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.T0_ID_Tale}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                      <Col span={10}>
+                        <Typography className="input-title">
+                          T0_ID_Tale_WEB
+                        </Typography>
+                      </Col>
+                      <Col span={14}>
+                        <Input
+                          key={Math.random()}
+                          readOnly
+                          className="ant-input"
+                          defaultValue={tales[currentIndex]?.T0_ID_Tale_WEB}
+                        />
+                      </Col>
                     </Row>
                   </Col>
                   <Col span={10} offset={1}>

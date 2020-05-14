@@ -348,9 +348,21 @@ export const talesInputValidation = (obj) => {
     I0_ID_Illustrator,
     I_IllustratorName,
     imagesName,
+    T0_ID_Tale,
+    tales,
   } = obj;
   validation_error = {};
   is_error = false;
+
+  if (isEmpty(T0_ID_Tale)) {
+    is_error = true;
+    validation_error.T0_ID_Tale = "Please enter T0_ID_Tale";
+  } else {
+    if (tales?.filter((value) => T0_ID_Tale == value.T0_ID_Tale).length) {
+      is_error = true;
+      validation_error.T0_ID_Tale = "T0_ID_Tale is already exit";
+    }
+  }
 
   if (isEmpty(A0_ID_Author)) {
     is_error = true;
