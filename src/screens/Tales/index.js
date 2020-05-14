@@ -697,6 +697,38 @@ export default class Tales extends Component {
     this.setState({ [name]: value });
   };
 
+  handleTextToTag = (tag) => {
+    let { T_TaleContent } = this.state;
+
+    console.log("window.getSelection()", window.getSelection());
+    let selectedText = window.getSelection().toString();
+
+    if (selectedText?.trim()?.length !== 0) {
+      if (tag === "bold") {
+        this.setState({
+          T_TaleContent: T_TaleContent.replace(
+            selectedText,
+            `<b>${selectedText}</b>`
+          ),
+        });
+      } else if (tag === "italic") {
+        this.setState({
+          T_TaleContent: T_TaleContent.replace(
+            selectedText,
+            `<i>${selectedText}</i>`
+          ),
+        });
+      } else {
+        this.setState({
+          T_TaleContent: T_TaleContent.replace(
+            selectedText,
+            `<u>${selectedText}</u>`
+          ),
+        });
+      }
+    }
+  };
+
   render() {
     const {
       A0_ID_Author,
@@ -811,12 +843,12 @@ export default class Tales extends Component {
                     }}
                   >
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">Book</Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Select
-                          style={{ width: 250 }}
+                          style={{ width: "100%" }}
                           placeholder="Select Book"
                           value={B_BookTitle}
                           onChange={(value) =>
@@ -836,12 +868,12 @@ export default class Tales extends Component {
                     </Row>
 
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">Author</Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Select
-                          style={{ width: 250 }}
+                          style={{ width: "100%" }}
                           placeholder="Select Author"
                           value={B_BAuthorName}
                           onChange={(value) =>
@@ -862,14 +894,14 @@ export default class Tales extends Component {
                     </Row>
 
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">
                           Illustrator
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Select
-                          style={{ width: 250 }}
+                          style={{ width: "100%" }}
                           placeholder="Select Illustrator"
                           value={I_IllustratorName}
                           onChange={(value) =>
@@ -888,7 +920,7 @@ export default class Tales extends Component {
                     </Row>
 
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography
                           style={{ fontWeight: "bold", fontSize: 15 }}
                           className="input-title"
@@ -896,7 +928,7 @@ export default class Tales extends Component {
                           Title
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <ValidationInput
                           type="text"
                           key={1}
@@ -909,7 +941,7 @@ export default class Tales extends Component {
                     </Row>
 
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">
                           T_TaleContent
                         </Typography>
@@ -929,12 +961,12 @@ export default class Tales extends Component {
                       ></textarea>
                     </Row>
                     <Row style={{ marginBottom: 10, marginTop: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">
                           T0_ID_Tale
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <ValidationInput
                           type="number"
                           key={1}
@@ -1065,6 +1097,29 @@ export default class Tales extends Component {
                             />
                           </Col>
                         </Row>
+                        <Row style={{ marginTop: 50 }}>
+                          <Col span={5} offset={2}>
+                            <Button
+                              onClick={() => this.handleTextToTag("bold")}
+                            >
+                              Bold
+                            </Button>
+                          </Col>
+                          <Col span={5} offset={2}>
+                            <Button
+                              onClick={() => this.handleTextToTag("italic")}
+                            >
+                              Italic
+                            </Button>
+                          </Col>
+                          <Col span={5} offset={2}>
+                            <Button
+                              onClick={() => this.handleTextToTag("underline")}
+                            >
+                              Uderline
+                            </Button>
+                          </Col>
+                        </Row>
                       </Col>
                     </Row>
                     <Row>
@@ -1074,6 +1129,7 @@ export default class Tales extends Component {
                           backgroundColor: "#fff",
                           width: "100%",
                           height: 300,
+                          overflow: "scroll",
                         }}
                       >
                         {HTMLReactParser(T_TaleContent ? T_TaleContent : "")}
@@ -1682,10 +1738,10 @@ export default class Tales extends Component {
                 <Row>
                   <Col span={10} offset={1}>
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">Book</Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Input
                           key={Math.random()}
                           readOnly
@@ -1695,10 +1751,10 @@ export default class Tales extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">Author</Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Input
                           key={Math.random()}
                           readOnly
@@ -1708,12 +1764,12 @@ export default class Tales extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">
                           Illustrator
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Input
                           key={Math.random()}
                           readOnly
@@ -1723,7 +1779,7 @@ export default class Tales extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography
                           style={{ fontSize: 15, fontWeight: "bold" }}
                           className="input-title"
@@ -1731,7 +1787,7 @@ export default class Tales extends Component {
                           Title
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Input
                           key={Math.random()}
                           readOnly
@@ -1760,12 +1816,12 @@ export default class Tales extends Component {
                       ></textarea>
                     </Row>
                     <Row style={{ marginBottom: 10, marginTop: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">
                           T0_ID_Tale
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Input
                           key={Math.random()}
                           readOnly
@@ -1775,12 +1831,12 @@ export default class Tales extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 10 }}>
-                      <Col span={10}>
+                      <Col span={6}>
                         <Typography className="input-title">
                           T0_ID_Tale_WEB
                         </Typography>
                       </Col>
-                      <Col span={14}>
+                      <Col span={18}>
                         <Input
                           key={Math.random()}
                           readOnly
@@ -1886,6 +1942,7 @@ export default class Tales extends Component {
                         style={{
                           width: "100%",
                           height: 300,
+                          overflow: "scroll",
                         }}
                       >
                         {HTMLReactParser(

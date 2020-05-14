@@ -317,9 +317,12 @@ class CustomTable extends React.Component {
         books.push(data);
       });
     } else if (selectedCollection === "Tales") {
+      let tales = [...collectionData];
+
       dataSet.forEach((data) => {
         const inputValidation = talesInputValidation({
           ...data,
+          tales,
         });
 
         is_error = is_error || inputValidation.is_error;
@@ -620,8 +623,12 @@ class CustomTable extends React.Component {
       is_error = inputValidation.is_error;
       validation_error = inputValidation.validation_error;
     } else if (selectedCollection === "Tales") {
+      let tales = [...collectionData];
+      tales.splice(selectedRowIndex, 1);
+
       const inputValidation = talesInputValidation({
         ...selectedRow,
+        tales,
       });
 
       is_error = inputValidation.is_error;

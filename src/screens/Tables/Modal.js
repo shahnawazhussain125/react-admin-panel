@@ -108,7 +108,7 @@ export default class CustomModal extends Component {
   handleOnUpdate = () => {
     const { selectedCollection } = this.props;
     const { is_error, validation_error } = this.validateInputFields();
-    console.log({ is_error, validation_error });
+
     this.setState({ is_error, validation_error }, () => {
       if (!is_error) {
         if (["Languages", "Owners"].includes(selectedCollection)) {
@@ -190,8 +190,12 @@ export default class CustomModal extends Component {
       is_error = inputValidation.is_error;
       validation_error = inputValidation.validation_error;
     } else if (selectedCollection === "Tales") {
+      let tales = [...collectionData];
+      tales.splice(rowNo, 1);
+
       const inputValidation = talesInputValidation({
         ...selectedRow,
+        tales,
       });
 
       is_error = inputValidation.is_error;
