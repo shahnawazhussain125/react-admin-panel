@@ -135,10 +135,6 @@ class CustomTable extends React.Component {
       }
     }
 
-    console.log("collectionData", collectionData);
-
-    debugger;
-
     this.setState({ collectionData });
   };
 
