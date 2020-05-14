@@ -36,7 +36,7 @@ export default class Language extends Component {
         response.forEach((doc) => {
           languages.push({
             L0_ID_Language_WEB: doc.id,
-            L0_ID_Language: Number(doc.data()?.L0_ID_Language),
+            L0_ID_Language: doc.data()?.L0_ID_Language,
             L_LanguageName: doc.data()?.L_LanguageName,
           });
         });
@@ -301,7 +301,7 @@ export default class Language extends Component {
                   </Col>
                   <Col span={14}>
                     <ValidationInput
-                      type="number"
+                      type="text"
                       key={0}
                       name="L0_ID_Language"
                       value={L0_ID_Language}

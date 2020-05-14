@@ -37,7 +37,7 @@ export default class Owner extends Component {
         response.forEach((doc) => {
           owners.push({
             O0_ID_Owner_WEB: doc.id,
-            O0_ID_Owner: Number(doc.data()?.O0_ID_Owner),
+            O0_ID_Owner: doc.data()?.O0_ID_Owner,
             O_Company: doc.data()?.O_Company,
             O_Web: doc.data()?.O_Web,
             O_ContactName: doc.data()?.O_ContactName,
@@ -416,7 +416,7 @@ export default class Owner extends Component {
                   </Col>
                   <Col span={14}>
                     <ValidationInput
-                      type="number"
+                      type="text"
                       key={0}
                       name="O0_ID_Owner"
                       value={O0_ID_Owner}

@@ -37,7 +37,6 @@ export default class Illustration extends Component {
           illustrators.push({
             I0_ID_Illustrator_WEB: doc.id,
             ...doc.data(),
-            I0_ID_Illustrator: Number(doc.data().I0_ID_Illustrator),
           });
         });
         this.setState({
@@ -299,7 +298,7 @@ export default class Illustration extends Component {
                   </Col>
                   <Col span={14}>
                     <ValidationInput
-                      type="number"
+                      type="text"
                       key={0}
                       name="I0_ID_Illustrator"
                       value={I0_ID_Illustrator}

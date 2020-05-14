@@ -407,24 +407,13 @@ export default class CustomModal extends Component {
               <Col span={15}>
                 <Input
                   readOnly={key === "ID_WEB" ? true : false}
-                  type={
-                    types[index] === "number"
-                      ? types[index]
-                      : types[index] === "boolean"
-                      ? "checkbox"
-                      : "text"
-                  }
+                  type={types[index] === "boolean" ? "checkbox" : "text"}
                   style={{ fontSize: 16 }}
                   value={selectedRow ? selectedRow[key] : ""}
                   onChange={(e) =>
                     types[index] === "boolean"
                       ? this.handleChange(key, e.target.checked)
-                      : this.handleChange(
-                          key,
-                          types[index] === "number"
-                            ? Number(e.target.value)
-                            : e.target.value
-                        )
+                      : this.handleChange(key, e.target.value)
                   }
                 />
               </Col>

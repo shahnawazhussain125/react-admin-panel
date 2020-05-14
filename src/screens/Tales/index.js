@@ -121,12 +121,12 @@ export default class Tales extends Component {
           tales.push({
             ...doc.data(),
             T0_ID_Tale_WEB: doc.id,
-            T0_ID_Tale: Number(doc.data().T0_ID_Tale),
-            A0_ID_Author: Number(doc.data().A0_ID_Author),
-            B0_ID_Book: Number(doc.data().B0_ID_Book),
-            I0_ID_Illustrator: Number(doc.data().I0_ID_Illustrator),
-            L0_ID_Language: Number(doc.data().L0_ID_Language),
-            O0_ID_Owner: Number(doc.data().O0_ID_Owner),
+            T0_ID_Tale: doc.data().T0_ID_Tale,
+            A0_ID_Author: doc.data().A0_ID_Author,
+            B0_ID_Book: doc.data().B0_ID_Book,
+            I0_ID_Illustrator: doc.data().I0_ID_Illustrator,
+            L0_ID_Language: doc.data().L0_ID_Language,
+            O0_ID_Owner: doc.data().O0_ID_Owner,
           });
         });
         this.setState({
@@ -968,7 +968,7 @@ export default class Tales extends Component {
                       </Col>
                       <Col span={18}>
                         <ValidationInput
-                          type="number"
+                          type="text"
                           key={1}
                           name="T0_ID_Tale"
                           value={T0_ID_Tale}
@@ -1275,7 +1275,7 @@ export default class Tales extends Component {
                       </Col>
                       <Col span={14}>
                         <ValidationInput
-                          type="number"
+                          type="text"
                           key={5}
                           name="B0_ID_Book"
                           value={B0_ID_Book}
@@ -1340,7 +1340,7 @@ export default class Tales extends Component {
                         </Col>
                         <Col span={14}>
                           <ValidationInput
-                            type="number"
+                            type="text"
                             key={11}
                             name="L0_ID_Language"
                             value={L0_ID_Language}
@@ -1469,7 +1469,7 @@ export default class Tales extends Component {
                         </Col>
                         <Col span={14}>
                           <ValidationInput
-                            type="number"
+                            type="text"
                             key={13}
                             name="O0_ID_Owner"
                             value={O0_ID_Owner}
@@ -1579,7 +1579,7 @@ export default class Tales extends Component {
                         </Col>
                         <Col span={14}>
                           <ValidationInput
-                            type="number"
+                            type="text"
                             key={18}
                             name="A0_ID_Author"
                             value={A0_ID_Author}
@@ -1662,7 +1662,7 @@ export default class Tales extends Component {
                         </Col>
                         <Col span={14}>
                           <ValidationInput
-                            type="number"
+                            type="text"
                             key={23}
                             name="I0_ID_Illustrator"
                             value={I0_ID_Illustrator}

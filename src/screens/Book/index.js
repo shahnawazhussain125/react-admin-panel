@@ -109,13 +109,13 @@ export default class Book extends Component {
             B0_ID_Book_WEB: doc.id,
             B_BookTitle: doc.data()?.B_BookTitle,
             B_BAuthorName: doc.data()?.B_BAuthorName,
-            B0_ID_Book: Number(doc.data()?.B0_ID_Book),
+            B0_ID_Book: doc.data()?.B0_ID_Book,
             B_Web: doc.data()?.B_Web,
             A_AuthorImage: doc.data().A_AuthorImage,
             B_isBookFree: doc.data()?.B_isBookFree,
             B_isBookHidden: doc.data()?.B_isBookHidden,
             L_LanguageName: doc.data()?.L_LanguageName,
-            L0_ID_Language: Number(doc.data()?.L0_ID_Language),
+            L0_ID_Language: doc.data()?.L0_ID_Language,
             L0_ID_Language_WEB: doc.data()?.L0_ID_Language_WEB,
             Storage: doc.data()?.Storage,
             B_BookImage: doc.data()?.B_BookImage,
@@ -124,7 +124,7 @@ export default class Book extends Component {
             O_ContactName: doc.data()?.O_ContactName,
             O_ContactEmail: doc.data()?.O_ContactEmail,
             O_ContactTel: doc.data()?.O_ContactTel,
-            O0_ID_Owner: Number(doc.data()?.O0_ID_Owner),
+            O0_ID_Owner: doc.data()?.O0_ID_Owner,
             O0_ID_Owner_WEB: doc.data()?.O0_ID_Owner_WEB,
           });
         });
@@ -719,7 +719,7 @@ export default class Book extends Component {
                       <Col span={14}>
                         <ValidationInput
                           key={2}
-                          type="number"
+                          type="text"
                           name="B0_ID_Book"
                           value={B0_ID_Book}
                           handleOnChange={this.handleOnChange}
@@ -761,7 +761,7 @@ export default class Book extends Component {
                       <Col span={14}>
                         <ValidationInput
                           key={6}
-                          type="number"
+                          type="text"
                           name="L0_ID_Language"
                           value={L0_ID_Language}
                           handleOnChange={this.handleOnChange}
@@ -942,7 +942,7 @@ export default class Book extends Component {
                       <Col span={14}>
                         <ValidationInput
                           key={17}
-                          type="number"
+                          type="text"
                           name="O0_ID_Owner"
                           value={O0_ID_Owner}
                           handleOnChange={this.handleOnChange}

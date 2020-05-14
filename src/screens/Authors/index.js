@@ -37,7 +37,7 @@ export default class Authors extends Component {
         response.forEach((doc) => {
           authors.push({
             A0_ID_Author_WEB: doc.id,
-            A0_ID_Author: Number(doc.data()?.A0_ID_Author),
+            A0_ID_Author: doc.data()?.A0_ID_Author,
             A_AuthorName: doc.data()?.A_AuthorName,
             A_isAuthorHidden: doc.data()?.A_isAuthorHidden,
             A_AuthorImage: doc.data()?.A_AuthorImage,
@@ -422,7 +422,7 @@ export default class Authors extends Component {
                   <Col span={14}>
                     <ValidationInput
                       key={0}
-                      type="number"
+                      type="text"
                       name="A0_ID_Author"
                       value={A0_ID_Author}
                       handleOnChange={this.handleOnChange}

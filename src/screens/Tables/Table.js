@@ -194,7 +194,7 @@ class CustomTable extends React.Component {
             return (
               <TableCell key={Math.random()}>
                 <TableInput
-                  type={value === "number" ? value : "text"}
+                  type="text"
                   name={collectionKeys[col]}
                   defaultValue={dataSet[row][collectionKeys[col]]}
                   handleOnChange={(e) =>
@@ -925,9 +925,7 @@ class CustomTable extends React.Component {
                                 style={{
                                   width: 150,
                                 }}
-                                type={
-                                  types[col] === "number" ? types[col] : "text"
-                                }
+                                type="text"
                                 defaultChecked={data[value]}
                                 defaultValue={data[value]}
                                 value={data[value]}
@@ -937,8 +935,6 @@ class CustomTable extends React.Component {
                                       ? e.target.value === "true"
                                         ? true
                                         : false
-                                      : types[col] === "number"
-                                      ? Number(e.target.value)
                                       : e.target.value,
                                     row,
                                     col
@@ -946,9 +942,7 @@ class CustomTable extends React.Component {
                                 }
                                 onChange={(e) =>
                                   this.handleOnChangeText(
-                                    types[col] === "number"
-                                      ? Number(e.target.value)
-                                      : e.target.value,
+                                    e.target.value,
                                     row,
                                     col
                                   )
