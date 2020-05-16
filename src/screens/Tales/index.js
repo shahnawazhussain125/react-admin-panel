@@ -1132,7 +1132,11 @@ export default class Tales extends Component {
                           overflow: "scroll",
                         }}
                       >
-                        {HTMLReactParser(T_TaleContent ? T_TaleContent : "")}
+                        {HTMLReactParser(
+                          T_TaleContent
+                            ? T_TaleContent.split("\n").join("<br/>")
+                            : ""
+                        )}
                       </Typography>
                     </Row>
                   </Col>
@@ -1947,7 +1951,9 @@ export default class Tales extends Component {
                       >
                         {HTMLReactParser(
                           tales[currentIndex]?.T_TaleContent
-                            ? tales[currentIndex]?.T_TaleContent
+                            ? tales[currentIndex]?.T_TaleContent.split(
+                                "\n"
+                              ).join("<br/>")
                             : ""
                         )}
                       </Typography>

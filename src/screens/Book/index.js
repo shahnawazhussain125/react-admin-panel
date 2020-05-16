@@ -251,7 +251,7 @@ export default class Book extends Component {
         let storageRef = firebase
           .storage()
           .ref()
-          .child(`BookImages/${Math.random().toString().substring(5)}`);
+          .child(`BookImages/${B_BookImage}`);
 
         storageRef
           .put(file)
