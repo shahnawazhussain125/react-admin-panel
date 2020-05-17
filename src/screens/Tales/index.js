@@ -951,7 +951,6 @@ export default class Tales extends Component {
                     <Row style={{ marginBottom: 10 }}>
                       <textarea
                         key={150}
-                        defaultValue={T_TaleContent}
                         value={T_TaleContent}
                         rows={10}
                         cols={90}
@@ -969,7 +968,7 @@ export default class Tales extends Component {
                       <Col span={18}>
                         <ValidationInput
                           type="text"
-                          key={1}
+                          key={2}
                           name="T0_ID_Tale"
                           value={T0_ID_Tale}
                           handleOnChange={this.handleOnChange}
@@ -1012,9 +1011,9 @@ export default class Tales extends Component {
                           </Col>
                           <Col span={14}>
                             <ValidationInput
+                              key={3}
                               type="file"
                               accept="image/*"
-                              key={3}
                               name="T_TaleImage"
                               // value={Storage}
                               handleOnChange={(e) => {
@@ -1040,7 +1039,7 @@ export default class Tales extends Component {
                           <Col span={14}>
                             <ValidationInput
                               type="text"
-                              key={121}
+                              key={4}
                               name="T_TaleImage"
                               value={T_TaleImage}
                               handleOnChange={this.handleOnChange}
@@ -1166,8 +1165,8 @@ export default class Tales extends Component {
                       </Col>
                       <Col span={14}>
                         <ValidationInput
+                          key={5}
                           type="text"
-                          key={6}
                           name="B0_ID_Book_WEB"
                           value={B0_ID_Book_WEB}
                           handleOnChange={this.handleOnChange}
@@ -1181,8 +1180,8 @@ export default class Tales extends Component {
                       </Col>
                       <Col span={14}>
                         <ValidationInput
+                          key={6}
                           type="url"
-                          key={8}
                           name="B_Web"
                           value={B_Web}
                           handleOnChange={this.handleOnChange}
@@ -1246,7 +1245,7 @@ export default class Tales extends Component {
                       <Col span={14}>
                         <ValidationInput
                           type="text"
-                          key={8}
+                          key={7}
                           name="B_BookImage"
                           value={B_BookImage}
                           handleOnChange={this.handleOnChange}
@@ -1280,7 +1279,7 @@ export default class Tales extends Component {
                       <Col span={14}>
                         <ValidationInput
                           type="text"
-                          key={5}
+                          key={9}
                           name="B0_ID_Book"
                           value={B0_ID_Book}
                           handleOnChange={this.handleOnChange}
@@ -1297,7 +1296,7 @@ export default class Tales extends Component {
                       <Col span={14}>
                         <ValidationInput
                           type="text"
-                          key={7}
+                          key={10}
                           name="B0_ID_Book_WEB"
                           value={B0_ID_Book_WEB}
                           handleOnChange={this.handleOnChange}
@@ -1327,7 +1326,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={10}
+                            key={11}
                             name="L_LanguageName"
                             value={L_LanguageName}
                             handleOnChange={this.handleOnChange}
@@ -1345,7 +1344,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={11}
+                            key={12}
                             name="L0_ID_Language"
                             value={L0_ID_Language}
                             handleOnChange={this.handleOnChange}
@@ -1363,7 +1362,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={12}
+                            key={13}
                             name="L0_ID_Language_WEB"
                             value={L0_ID_Language_WEB}
                             handleOnChange={this.handleOnChange}
@@ -1387,7 +1386,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={15}
+                            key={14}
                             name="O_Company"
                             value={O_Company}
                             handleOnChange={this.handleOnChange}
@@ -1403,7 +1402,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="url"
-                            key={16}
+                            key={15}
                             name="O_Web"
                             value={O_Web}
                             handleOnChange={this.handleOnChange}
@@ -1421,7 +1420,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={17}
+                            key={16}
                             name="O_ContactName"
                             value={O_ContactName}
                             handleOnChange={this.handleOnChange}
@@ -1439,7 +1438,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="email"
-                            key={18}
+                            key={17}
                             name="O_ContactEmail"
                             value={O_ContactEmail}
                             handleOnChange={this.handleOnChange}
@@ -1457,7 +1456,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="tel"
-                            key={19}
+                            key={18}
                             name="O_ContactTel"
                             value={O_ContactTel}
                             handleOnChange={this.handleOnChange}
@@ -1474,7 +1473,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={13}
+                            key={19}
                             name="O0_ID_Owner"
                             value={O0_ID_Owner}
                             handleOnChange={this.handleOnChange}
@@ -1491,7 +1490,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={14}
+                            key={20}
                             name="O0_ID_Owner_WEB"
                             value={O0_ID_Owner_WEB}
                             handleOnChange={this.handleOnChange}
@@ -1522,7 +1521,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={20}
+                            key={21}
                             name="A_AuthorImage"
                             value={A_AuthorImage}
                             handleOnChange={this.handleOnChange}
@@ -1539,7 +1538,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={21}
+                            key={22}
                             name="A_AuthorName"
                             value={A_AuthorName}
                             handleOnChange={this.handleOnChange}
@@ -1584,7 +1583,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={18}
+                            key={23}
                             name="A0_ID_Author"
                             value={A0_ID_Author}
                             handleOnChange={this.handleOnChange}
@@ -1601,7 +1600,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={19}
+                            key={24}
                             name="A0_ID_Author_WEB"
                             value={A0_ID_Author_WEB}
                             handleOnChange={this.handleOnChange}
@@ -1624,7 +1623,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={24}
+                            key={25}
                             name="I_IllustratorName"
                             value={I_IllustratorName}
                             handleOnChange={this.handleOnChange}
@@ -1667,7 +1666,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={23}
+                            key={26}
                             name="I0_ID_Illustrator"
                             value={I0_ID_Illustrator}
                             handleOnChange={this.handleOnChange}
@@ -1684,7 +1683,7 @@ export default class Tales extends Component {
                         <Col span={14}>
                           <ValidationInput
                             type="text"
-                            key={23}
+                            key={27}
                             name="I0_ID_Illustrator_WEB"
                             value={I0_ID_Illustrator_WEB}
                             handleOnChange={this.handleOnChange}

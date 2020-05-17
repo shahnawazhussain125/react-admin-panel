@@ -26,6 +26,7 @@ export default function SideMenu(props) {
 
   return (
     <span>
+      <Notification />
       <Row
         style={{
           display: "flex",

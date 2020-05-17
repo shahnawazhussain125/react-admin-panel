@@ -66,30 +66,39 @@ class CustomTable extends React.Component {
   }
 
   handleOnPastNewData = (e, prow, pcol) => {
-    const { collectionKeys } = this.props;
+    const { collectionKeys, types } = this.props;
     const { dataSet } = this.state;
 
-    let dataArr = e.clipboardData
+    let pastDataSet = e.clipboardData
       .getData("Text")
       .split("\n")
       .map((value) => {
         return value.split("\t");
       });
 
-    let obj = {};
+    let rowLength = dataSet.length;
+    let colLength = Object.keys(dataSet[0])?.length;
 
-    let rowLength = 0;
-
-    if (dataSet.length - prow < dataArr.length) {
-      rowLength = dataSet.length - prow;
-    } else {
-      rowLength = dataArr.length;
+    if (pastDataSet.length + prow < rowLength) {
+      rowLength = pastDataSet.length + prow;
     }
 
-    for (let row = 0; row < rowLength; row++) {
-      obj = {};
-      for (let col = 0; col < Object.keys(dataSet[row])?.length - pcol; col++) {
-        dataSet[row + prow][collectionKeys[col + pcol]] = dataArr[row][col];
+    if (pastDataSet[0]?.length + pcol < colLength) {
+      colLength = pastDataSet[0]?.length + pcol;
+    }
+
+    for (let row = prow; row < rowLength; row++) {
+      for (let col = pcol; col < colLength; col++) {
+        if (types[col] === "boolean") {
+          dataSet[row][collectionKeys[col]] = "true".indexOf(
+            pastDataSet[row - prow][col - pcol].toLowerCase()
+          )
+            ? true
+            : false;
+        } else {
+          dataSet[row][collectionKeys[col]] =
+            pastDataSet[row - prow][col - pcol];
+        }
       }
     }
 
@@ -101,36 +110,39 @@ class CustomTable extends React.Component {
   handleOnPastEditData = (e, prow, pcol) => {
     e.preventDefault();
 
-    const { collectionKeys } = this.props;
+    const { collectionKeys, types } = this.props;
     const { collectionData } = this.state;
 
-    let dataArr = e.clipboardData
+    let pastDataSet = e.clipboardData
       .getData("Text")
       .split("\n")
       .map((value) => {
         return value.split("\t");
       });
 
-    let obj = {};
-
-    let rowLength = 0;
+    let rowLength = collectionData.length;
     let colLength = Object.keys(collectionData[0])?.length - 1;
 
-    if (dataArr.length < collectionData.length) {
-      rowLength = dataArr.length;
-    } else {
-      rowLength = collectionData.length;
+    if (pastDataSet.length + prow < rowLength) {
+      rowLength = pastDataSet.length + prow;
     }
 
-    if (dataArr[0]?.length + pcol < colLength) {
-      colLength = dataArr[0]?.length + pcol;
+    if (pastDataSet[0]?.length + pcol < colLength) {
+      colLength = pastDataSet[0]?.length + pcol;
     }
 
     for (let row = prow; row < rowLength; row++) {
-      obj = {};
       for (let col = pcol; col < colLength; col++) {
-        collectionData[row][collectionKeys[col]] =
-          dataArr[row - prow][col - pcol];
+        if (types[col] === "boolean") {
+          collectionData[row][collectionKeys[col]] = "true".indexOf(
+            pastDataSet[row - prow][col - pcol].toLowerCase()
+          )
+            ? true
+            : false;
+        } else {
+          collectionData[row][collectionKeys[col]] =
+            pastDataSet[row - prow][col - pcol];
+        }
         collectionData[row].isUpdate = true;
       }
     }
@@ -147,7 +159,7 @@ class CustomTable extends React.Component {
     for (let row = 0; row < dataSet.length; row++) {
       newLine.push(
         <TableRow key={"r" + Math.random()}>
-          {types.map((value, col) => {
+          {types.map((type, col) => {
             if (col === 0) {
               return (
                 <TableCell key={Math.random()}>
@@ -155,16 +167,6 @@ class CustomTable extends React.Component {
                     <Col span={6}>
                       <span>{row + 1}</span>
                     </Col>
-                    {/* <Col span={18}>
-                      <Input
-                        type={"checkbox"}
-                        name={collectionKeys[col]}
-                        defaultValue={dataSet[row][collectionKeys[col]]}
-                        onChange={(e) =>
-                          this.handleOnChange(e.target.checked, row, col)
-                        }
-                      />
-                    </Col> */}
                   </Row>
                 </TableCell>
               );
@@ -180,6 +182,9 @@ class CustomTable extends React.Component {
                     accept="image/*"
                     name="Storage"
                     handleOnChange={(e) =>
+                      this.handleOnChange(e.target.files[0], row, col)
+                    }
+                    handleOnBlur={(e) =>
                       this.handleOnChange(e.target.files[0], row, col)
                     }
                     errorMessage={
@@ -199,6 +204,18 @@ class CustomTable extends React.Component {
                   defaultValue={dataSet[row][collectionKeys[col]]}
                   handleOnChange={(e) =>
                     this.handleOnChange(e.target.value, row, col)
+                  }
+                  handleOnBlur={(e) =>
+                    this.handleOnChange(
+                      types[col] === "boolean"
+                        ? "true".indexOf(e.target.value.toLocaleLowerCase()) !==
+                          -1
+                          ? true
+                          : false
+                        : e.target.value,
+                      row,
+                      col
+                    )
                   }
                   errorMessage={
                     validation_errors[row]
@@ -367,21 +384,25 @@ class CustomTable extends React.Component {
 
   saveImage = (folderName, file, imageName) => {
     return new Promise((resole, reject) => {
-      let storageRef = firebase
-        .storage()
-        .ref()
-        .child(`${folderName}/imageName`);
+      if (typeof file === "string") {
+        resole(file);
+      } else {
+        let storageRef = firebase
+          .storage()
+          .ref()
+          .child(`${folderName}/${imageName}`);
 
-      storageRef
-        .put(file)
-        .then(() => {
-          storageRef.getDownloadURL().then((Storage) => {
-            resole(Storage);
+        storageRef
+          .put(file)
+          .then(() => {
+            storageRef.getDownloadURL().then((Storage) => {
+              resole(Storage);
+            });
+          })
+          .catch((error) => {
+            reject(error);
           });
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      }
     });
   };
 
@@ -926,13 +947,14 @@ class CustomTable extends React.Component {
                                   width: 150,
                                 }}
                                 type="text"
-                                defaultChecked={data[value]}
                                 defaultValue={data[value]}
                                 value={data[value]}
                                 onBlur={(e) =>
                                   this.handleOnChangeText(
                                     types[col] === "boolean"
-                                      ? e.target.value === "true"
+                                      ? "true".indexOf(
+                                          e.target.value.toLocaleLowerCase()
+                                        ) !== -1
                                         ? true
                                         : false
                                       : e.target.value,

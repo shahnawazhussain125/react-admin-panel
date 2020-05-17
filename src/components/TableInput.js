@@ -7,6 +7,7 @@ export default function TableInput(props) {
     accept,
     defaultValue,
     handleOnChange,
+    handleOnBlur,
     name,
     errorMessage,
     handleOnPast,
@@ -19,6 +20,7 @@ export default function TableInput(props) {
         defaultValue={defaultValue}
         // value={value}
         accept={accept}
+        onBlur={(e) => handleOnBlur(e)}
         onChange={(e) => handleOnChange(e)}
         onPaste={handleOnPast}
       />
