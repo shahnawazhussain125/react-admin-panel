@@ -54,12 +54,13 @@ class Tables extends Component {
       dataSet: [],
       visible: false,
       selectedRow: null,
+      allImages: null,
     };
   }
 
   componentDidMount() {
     this.getSelectedCollectionData();
-    // this.getAllImageFileName();
+    this.getAllImageFileName();
   }
 
   getSelectedCollectionData = () => {
@@ -95,7 +96,9 @@ class Tables extends Component {
 
   getAllImageFileName = () => {
     let imagesName = [];
+    let allImages = {};
     let imagePromises = [];
+    let imageCollectionName = ["AuthorImages", "BookImages", "TaleImages"];
 
     imagePromises.push(
       firebase.storage().ref().child("AuthorImages").listAll()
@@ -105,14 +108,18 @@ class Tables extends Component {
 
     Promise.all(imagePromises)
       .then((response) => {
+        let index = 0;
         response.forEach((resp) => {
+          imagesName = [];
           resp.items.forEach((itemRef) => {
             imagesName.push(itemRef.name);
           });
+
+          allImages[imageCollectionName[index]] = imagesName;
+          index++;
         });
 
-        // this.state.imagesName = imagesName;
-        console.log("imagesNameimagesName", imagesName);
+        this.setState({ allImages: allImages });
       })
       .catch((error) => {
         console.log("error", error);
@@ -247,6 +254,7 @@ class Tables extends Component {
                   selectedCollection={selectedCollection}
                   handleModalVisible={this.handleModalVisible}
                   getSelectedCollectionData={this.getSelectedCollectionData}
+                  allImages={this.state.allImages}
                 />
               </Row>
             </Col>

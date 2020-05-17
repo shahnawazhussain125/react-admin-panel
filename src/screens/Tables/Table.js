@@ -57,6 +57,7 @@ class CustomTable extends React.Component {
     this.setState({
       dataSet: nextProps.dataSet,
       collectionData: nextProps.collectionData,
+      validation_errors: [],
     });
 
     localStorage.setItem(
@@ -252,7 +253,7 @@ class CustomTable extends React.Component {
   };
 
   validateInputFields = () => {
-    const { selectedCollection, collectionData } = this.props;
+    const { selectedCollection, collectionData, allImages } = this.props;
     const { dataSet } = this.state;
 
     let is_error = false;
@@ -306,46 +307,58 @@ class CustomTable extends React.Component {
     } else if (selectedCollection === "Authors") {
       let authors = [...collectionData];
 
+      let imagesName = [...allImages.AuthorImages];
+
       dataSet.forEach((data) => {
         const inputValidation = authorInputValidation({
           ...data,
           authors,
+          imagesName,
         });
 
         is_error = is_error || inputValidation.is_error;
         validation_errors.push({
           ...inputValidation.validation_error,
         });
+        imagesName.push(data.A_AuthorImage);
         authors.push(data);
       });
     } else if (selectedCollection === "Books") {
       let books = [...collectionData];
+      let imagesName = [...allImages.BookImages];
 
       dataSet.forEach((data) => {
         const inputValidation = bookInputValidation({
           ...data,
           books,
+          imagesName,
         });
 
         is_error = is_error || inputValidation.is_error;
         validation_errors.push({
           ...inputValidation.validation_error,
         });
+
+        imagesName.push(data.B_BookImage);
         books.push(data);
       });
     } else if (selectedCollection === "Tales") {
       let tales = [...collectionData];
+      let imagesName = [...allImages.TaleImages];
 
       dataSet.forEach((data) => {
         const inputValidation = talesInputValidation({
           ...data,
           tales,
+          imagesName,
         });
 
         is_error = is_error || inputValidation.is_error;
         validation_errors.push({
           ...inputValidation.validation_error,
         });
+        imagesName.push(data.T_TaleImage);
+        tales.push(data);
       });
     }
 
