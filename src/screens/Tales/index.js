@@ -1814,7 +1814,7 @@ export default class Tales extends Component {
                         className="ant-input"
                         key={Math.random()}
                         defaultValue={tales[currentIndex]?.T_TaleContent}
-                        rows={16}
+                        rows={15}
                         readOnly={true}
                       ></textarea>
                     </Row>
@@ -1842,25 +1842,12 @@ export default class Tales extends Component {
                               T_TaleImage
                             </Typography>
                           </Col>
-                          <Col span={14}>
+                          <Col span={14} style={{ paddingRight: 10 }}>
                             <Input
                               key={Math.random()}
                               readOnly
                               className="ant-input"
                               defaultValue={tales[currentIndex]?.T_TaleImage}
-                            />
-                          </Col>
-                        </Row>
-                        <Row style={{ marginBottom: 10 }}>
-                          <Col span={10}>
-                            <Typography className="input-title">
-                              T_Storage
-                            </Typography>
-                          </Col>
-                          <Col span={14}>
-                            <input
-                              className="ant-input"
-                              defaultValue={tales[currentIndex]?.T_Storage}
                             />
                           </Col>
                         </Row>
@@ -1878,7 +1865,35 @@ export default class Tales extends Component {
                         </Row>
                       </Col>
                       <Col span={12}>
-                        <Row style={{ marginBottom: 10, marginTop: 10 }}>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography className="input-title">Len</Typography>
+                          </Col>
+                          <Col span={14}>
+                            <Typography
+                              className="ant-input"
+                              ellipsis={{ rows: 3, expandable: true }}
+                            >
+                              {lengthOfContent.toFixed(2)}
+                            </Typography>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography className="input-title">
+                              Time
+                            </Typography>
+                          </Col>
+                          <Col span={14}>
+                            <Typography
+                              className="ant-input"
+                              ellipsis={{ rows: 3, expandable: true }}
+                            >
+                              {(lengthOfContent / 238).toFixed(2)}
+                            </Typography>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
                             <Typography className="input-title">
                               T0_ID_Tale
@@ -1910,30 +1925,15 @@ export default class Tales extends Component {
                         </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
-                            <Typography className="input-title">Len</Typography>
-                          </Col>
-                          <Col span={14}>
-                            <Typography
-                              className="ant-input"
-                              ellipsis={{ rows: 3, expandable: true }}
-                            >
-                              {lengthOfContent.toFixed(2)}
-                            </Typography>
-                          </Col>
-                        </Row>
-                        <Row style={{ marginBottom: 10 }}>
-                          <Col span={10}>
                             <Typography className="input-title">
-                              Time
+                              T_Storage
                             </Typography>
                           </Col>
                           <Col span={14}>
-                            <Typography
+                            <input
                               className="ant-input"
-                              ellipsis={{ rows: 3, expandable: true }}
-                            >
-                              {(lengthOfContent / 238).toFixed(2)}
-                            </Typography>
+                              defaultValue={tales[currentIndex]?.T_Storage}
+                            />
                           </Col>
                         </Row>
                       </Col>
