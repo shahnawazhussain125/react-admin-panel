@@ -66,16 +66,13 @@ class CustomTable extends React.Component {
     );
   }
 
-  handleOnPastNewData = (e, prow, pcol) => {
+  handleOnPasteNewData = (e, prow, pcol) => {
     const { collectionKeys, types } = this.props;
     const { dataSet } = this.state;
 
-    let pastDataSet = e.clipboardData
-      .getData("Text")
-      .split("\n")
-      .map((value) => {
-        return value.split("\t");
-      });
+    let pastDataSet = this.handleSplitPasteData(
+      e.clipboardData.getData("Text")
+    );
 
     let rowLength = dataSet.length;
     let colLength = Object.keys(dataSet[0])?.length;
@@ -108,18 +105,15 @@ class CustomTable extends React.Component {
     this.setState({ dataSet });
   };
 
-  handleOnPastEditData = (e, prow, pcol) => {
+  handleOnPasteEditData = (e, prow, pcol) => {
     e.preventDefault();
 
     const { collectionKeys, types } = this.props;
     const { collectionData } = this.state;
 
-    let pastDataSet = e.clipboardData
-      .getData("Text")
-      .split("\n")
-      .map((value) => {
-        return value.split("\t");
-      });
+    let pastDataSet = this.handleSplitPasteData(
+      e.clipboardData.getData("text/plain")
+    );
 
     let rowLength = collectionData.length;
     let colLength = Object.keys(collectionData[0])?.length - 1;
@@ -149,6 +143,20 @@ class CustomTable extends React.Component {
     }
 
     this.setState({ collectionData });
+  };
+
+  handleSplitPasteData = (pastDataSet) => {
+    return pastDataSet
+      .replace(/"((?:[^"]*(?:\r\n|\n\r|\n|\r))+[^"]+)"/gm, function (
+        match,
+        p1
+      ) {
+        return p1.replace(/""/g, '"').replace(/\r\n|\n\r|\n|\r/g, " ");
+      })
+      .split(/\r\n|\n\r|\n|\r/g)
+      .map((value) => {
+        return value.split("\t");
+      });
   };
 
   createNewLine = () => {
@@ -223,7 +231,7 @@ class CustomTable extends React.Component {
                       ? validation_errors[row][collectionKeys[col]]
                       : null
                   }
-                  handleOnPast={(e) => this.handleOnPastNewData(e, row, col)}
+                  handleOnPaste={(e) => this.handleOnPasteNewData(e, row, col)}
                 />
               </TableCell>
             );
@@ -983,7 +991,7 @@ class CustomTable extends React.Component {
                                   )
                                 }
                                 onPaste={(e) =>
-                                  this.handleOnPastEditData(e, row, col)
+                                  this.handleOnPasteEditData(e, row, col)
                                 }
                               />
                               <p style={{ color: "red", fontSize: 10 }}>
