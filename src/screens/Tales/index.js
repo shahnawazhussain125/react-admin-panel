@@ -1814,39 +1814,9 @@ export default class Tales extends Component {
                         className="ant-input"
                         key={Math.random()}
                         defaultValue={tales[currentIndex]?.T_TaleContent}
-                        rows={10}
+                        rows={16}
                         readOnly={true}
                       ></textarea>
-                    </Row>
-                    <Row style={{ marginBottom: 10, marginTop: 10 }}>
-                      <Col span={6}>
-                        <Typography className="input-title">
-                          T0_ID_Tale
-                        </Typography>
-                      </Col>
-                      <Col span={18}>
-                        <Input
-                          key={Math.random()}
-                          readOnly
-                          className="ant-input"
-                          defaultValue={tales[currentIndex]?.T0_ID_Tale}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 10 }}>
-                      <Col span={6}>
-                        <Typography className="input-title">
-                          T0_ID_Tale_WEB
-                        </Typography>
-                      </Col>
-                      <Col span={18}>
-                        <Input
-                          key={Math.random()}
-                          readOnly
-                          className="ant-input"
-                          defaultValue={tales[currentIndex]?.T0_ID_Tale_WEB}
-                        />
-                      </Col>
                     </Row>
                   </Col>
                   <Col span={10} offset={1}>
@@ -1908,6 +1878,36 @@ export default class Tales extends Component {
                         </Row>
                       </Col>
                       <Col span={12}>
+                        <Row style={{ marginBottom: 10, marginTop: 10 }}>
+                          <Col span={10}>
+                            <Typography className="input-title">
+                              T0_ID_Tale
+                            </Typography>
+                          </Col>
+                          <Col span={14}>
+                            <Input
+                              key={Math.random()}
+                              readOnly
+                              className="ant-input"
+                              defaultValue={tales[currentIndex]?.T0_ID_Tale}
+                            />
+                          </Col>
+                        </Row>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col span={10}>
+                            <Typography className="input-title">
+                              T0_ID_Tale_WEB
+                            </Typography>
+                          </Col>
+                          <Col span={14}>
+                            <Input
+                              key={Math.random()}
+                              readOnly
+                              className="ant-input"
+                              defaultValue={tales[currentIndex]?.T0_ID_Tale_WEB}
+                            />
+                          </Col>
+                        </Row>
                         <Row style={{ marginBottom: 10 }}>
                           <Col span={10}>
                             <Typography className="input-title">Len</Typography>
