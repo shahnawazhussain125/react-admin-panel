@@ -1819,7 +1819,7 @@ export default class Tales extends Component {
                       ></textarea>
                     </Row>
                   </Col>
-                  <Col span={10} offset={1}>
+                  <Col span={11} offset={1}>
                     <Row>
                       <Col span={12}>
                         <Row style={{ marginBottom: 10 }}>
