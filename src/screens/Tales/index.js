@@ -952,7 +952,7 @@ export default class Tales extends Component {
                       <textarea
                         key={150}
                         value={T_TaleContent}
-                        rows={10}
+                        rows={16}
                         cols={90}
                         onChange={(e) =>
                           this.setState({ T_TaleContent: e.target.value })
@@ -1142,10 +1142,10 @@ export default class Tales extends Component {
                 </Row>
                 <Row gutter={24}>
                   <Col
-                    span={7}
+                    span={8}
                     style={{
-                      margin: 20,
-                      padding: 20,
+                      // margin: 20,
+                      padding: 25,
                       backgroundColor: "#EBEAFF",
                     }}
                   >
@@ -1306,10 +1306,10 @@ export default class Tales extends Component {
                     </Row>
                   </Col>
                   <Col
-                    span={7}
+                    span={8}
                     style={{
-                      padding: 20,
-                      margin: 20,
+                      padding: 25,
+                      // margin: 20,
                       backgroundColor: "#EBEAFF",
                     }}
                   >
@@ -1501,10 +1501,10 @@ export default class Tales extends Component {
                     </div>
                   </Col>
                   <Col
-                    span={7}
+                    span={8}
                     style={{
-                      margin: 20,
-                      padding: 20,
+                      // margin: 20,
+                      padding: 25,
                       backgroundColor: "#EBEAFF",
                     }}
                   >
