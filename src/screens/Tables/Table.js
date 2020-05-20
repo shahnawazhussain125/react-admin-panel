@@ -394,7 +394,7 @@ class CustomTable extends React.Component {
         Promise.all(firebasePromises)
           .then(() => {
             notify.show("All data has been successfully added", "success");
-            this.handleGetSelectedCollectionData();
+            this.props.handleClearFields();
           })
           .catch((error) => {
             notify.show("Error! " + error.message, "error");
@@ -473,7 +473,7 @@ class CustomTable extends React.Component {
             Promise.all(firebasePromises)
               .then(() => {
                 notify.show("All data has been successfully added", "success");
-                this.handleGetSelectedCollectionData();
+                this.props.handleClearFields();
               })
               .catch((error) => {
                 notify.show("Error! " + error.message, "error");

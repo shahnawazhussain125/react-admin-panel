@@ -152,6 +152,13 @@ class Tables extends Component {
     this.setState({ dataSet });
   };
 
+  handleClearFields = () => {
+    this.setState({ noOfLine: 0 }, () => {
+      this.createDataSet();
+      this.getSelectedCollectionData();
+    });
+  };
+
   render() {
     const {
       collectionNames,
@@ -253,8 +260,9 @@ class Tables extends Component {
                   types={types}
                   selectedCollection={selectedCollection}
                   handleModalVisible={this.handleModalVisible}
-                  getSelectedCollectionData={this.getSelectedCollectionData}
                   allImages={this.state.allImages}
+                  getSelectedCollectionData={this.getSelectedCollectionData}
+                  handleClearFields={this.handleClearFields}
                 />
               </Row>
             </Col>
