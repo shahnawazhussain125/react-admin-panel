@@ -532,13 +532,21 @@ class CustomTable extends React.Component {
   handleSortData = (key) => {
     let { sortKey, collectionData, sortOrder } = this.state;
     if (key !== sortKey || (key === sortKey && sortOrder !== "asc")) {
-      collectionData = collectionData.sort((a, b) =>
-        a[key] > b[key] ? 1 : -1
-      );
+      collectionData = collectionData.sort((a, b) => {
+        if (!isNaN(a[key])) {
+          return a[key] - b[key];
+        } else {
+          return a[key] > b[key] ? 1 : -1;
+        }
+      });
     } else {
-      collectionData = collectionData.sort((a, b) =>
-        a[key] < b[key] ? 1 : -1
-      );
+      collectionData = collectionData.sort((a, b) => {
+        if (!isNaN(a[key])) {
+          return b[key] - a[key];
+        } else {
+          return a[key] < b[key] ? 1 : -1;
+        }
+      });
     }
     this.setState({
       collectionData,
