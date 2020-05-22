@@ -146,7 +146,7 @@ class CustomTable extends React.Component {
   };
 
   handleSplitPasteData = (pastDataSet) => {
-    return pastDataSet
+    let splitData = pastDataSet
       .replace(/"((?:[^"]*(?:\r\n|\n\r|\n|\r))+[^"]+)"/gm, function (
         match,
         p1
@@ -157,6 +157,15 @@ class CustomTable extends React.Component {
       .map((value) => {
         return value.split("\t");
       });
+
+    if (
+      splitData[splitData.length - 1].length === 1 &&
+      splitData[splitData.length - 1][0] === ""
+    ) {
+      splitData.pop();
+    }
+
+    return splitData;
   };
 
   createNewLine = () => {
